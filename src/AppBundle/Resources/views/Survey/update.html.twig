@@ -1,0 +1,108 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% form_theme formSurvey _self %}
+
+{% block breadcrumb %}
+    <li>
+        <a href="{{ path('app_survey') }}">Liste des sondages</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>Modification du sondage</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Modification du sondage</h3>
+{% endblock %}
+
+
+
+{% block maincontent %}
+    {{ form_start(formSurvey) }}
+    {{ form_errors(formSurvey) }}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Informations générales</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_label(formSurvey.description, "Contexte du sondage", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(formSurvey.description, {'attr': {'class': 'form-control description'}}) }}
+                        {{ form_errors(formSurvey.description) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formSurvey.image, "Image du sondage", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(formSurvey.image) }}
+                        {{ form_errors(formSurvey.image) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formSurvey.enabled, "Etat", {'label_attr': {'class': 'control-label show'}}) }}
+                        {{ form_widget(formSurvey.enabled, {'attr': {'class': 'form-control make-switch'}}) }}
+                        {{ form_errors(formSurvey.enabled) }}
+                    </div>
+                </div>
+            </div>
+            {{ form_widget(formSurvey.questions, {'attr': {'class': 'questions'}}) }}
+            <hr />
+
+            {% if entity is null or entity is not null and not entity.questions|length %}
+                <div id="add-question" class="actions">
+                    <button type="button" class="add-question btn btn-success"><i class="fa fa-plus"></i> Ajouter une question</button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-group align-center">
+        {{ form_widget(formSurvey.save, {'attr': {'class': 'btn btn-success btn-lg'}, 'label': 'Valider'}) }}
+    </div>
+    {{ form_rest(formSurvey) }}
+    {{ form_end(formSurvey) }}
+{% endblock %}
+
+{% block _appbundle_survey_questions_entry_widget %}
+    <hr />
+    <div class="row question">
+        <div class="col-sm-12">
+            <div class="form-group">
+                {{ form_label(form.title, "Intitulé de la question", {'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.title) }}
+            </div>
+        </div>
+        <div class="col-sm-12">
+            {{ form_widget(form.choices, {'attr': {'class': 'choices'}}) }}
+            <div class="actions">
+                <button type="button" class="add-choice btn btn-info btn-sm"><i class="fa fa-plus"></i> Ajouter un choix</button>
+                {#<button type="button" class="delete-question btn btn-danger btn-sm pull-right"><i class="fa fa-trash"></i> Supprimer cette question</button>#}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block _appbundle_survey_questions_entry_choices_entry_row %}
+
+    <div class="row choice">
+        <div class="col-md-1 text-right" style="margin-top: 7px;">
+            {{ form_label(form.title, "Choix __choice__") }}
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="form-group">
+                {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.title) }}
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-7">
+            <button type="button" class="delete-choice btn btn-danger btn-sm"><i class="fa fa-trash"></i> Supprimer ce choix</button>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/app/js/survey.js') }}"></script>
+{% endblock %}

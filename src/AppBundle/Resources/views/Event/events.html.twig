@@ -1,0 +1,270 @@
+{% for event in events %}
+    <div class="col-lg-12 col-xs-12 col-sm-12">
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title" style="padding-bottom: 0px; margin-bottom: 0px; padding-top: 0px;">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase">
+                </div>
+                <div class="tools">
+                    <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+                </div>
+            </div>
+            <div class="portlet-body" style="padding: 0px;">
+                <div class="mt-widget-2 padding-bot-20" data-target="#event{{event.id}}">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <img src="{%if event.image and event.image.file%}{{ app.request.basePath }}{{ vich_uploader_asset(event.image, 'file')}}{%else%}{{ asset('bundles/app/images/empty-image.png') }}{%endif%}" class="eventImg img-responsive" style="max-height: 150px;"/> 
+                            <div class="padding-left-10">
+                                {%if event.type == 'association'%}
+                                    {%if event.association%}
+                                        <a href="{{ path('app_association_update', {id: event.association.id}) }}" >{{event.association.name}}</a>
+                                    {%endif%}
+                                {%elseif event.type == 'merchant'%}
+                                    {%if event.merchant%}
+                                        <a href="{{ path('app_merchant_update', {id: event.merchant.id}) }}">{{event.merchant.name}}</a>
+                                    {%endif%}
+                                {%endif%}
+                                <br>
+                                {%if event.type == 'association'%}
+                                    {%if event.association%}
+                                        <span><b>Association :</b>{{event.association.name}}</span><br>
+                                    {%else%}
+                                    {%endif%}
+                                {%elseif event.type == 'merchant'%}
+                                    {%if event.merchant%}
+                                        <span><b>Commerçant :</b>{{event.merchant.name}}</span><br>
+                                    {%else%}
+                                    {%endif%}
+                                {%elseif event.type == 'cityhall'%}
+                                {%endif%}
+                                <span><b>Date de début :</b> {{event.startAt|date("d/m/Y H:i")}} </span><br>
+                                <span><b>Date de fin :</b> {{event.endAt|date("d/m/Y H:i")}} </span><br>
+                               {# <span><b>Lieu :</b> {{event.place}} </span><br>#}
+                                <span><b>Nombre de participants :</b> {{event.participants|length}} </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 cursor-pointer ajax" href="{{ path('app_event_view', {id: event.id}) }}"  data-target="#event{{event.id}}">
+                            <h3>{{event.title}}</h3>
+                            <p style="max-height: 100px; overflow-y: hidden">{{event.description|truncate(200)}}</p>
+                        </div>
+                        <div class="col-sm-3 text-right pull-right">
+                            {% if not community or (community and event.community == community) %}
+                            <div class="col-sm-12 margin-top-10">
+                                <span>
+
+                                    <b>Modération Communauté Principale :
+
+                                        {% if event.moderate == 'accepted' %}
+                                            Accepté
+                                        {% elseif event.moderate == 'refuse' %}
+                                            Refusé
+                                        {% else %}
+                                            En attente
+                                        {% endif %}
+
+                                    </b>
+                                </span>
+                            </div>
+
+                            {% if event.moderate == 'wait' %}
+                                {% if (app.user.isCommunityAdmin(community) and app.user.hasRight('event_aprove',community)) or app.user.isCommunitySuAdmin(community) or is_granted('ROLE_ADMIN')%}
+                                <div class="col-sm-12 margin-top-10">
+                                    <a href="{{ path('app_event_moderate', {id: event.id}) }}" class="btn btn-success btn-sm updateModerateEvent" type="button" data-type="accepted">Accepter</a>
+                                    <a href="{{ path('app_event_moderate', {id: event.id}) }}" class="btn btn-danger btn-sm updateModerateEvent" type="button" data-type="refuse">Refuser</a>
+                                </div>
+                                {% endif %}
+                            {% endif %}
+                            {% endif %}
+
+                            {% if event.secondaryCommunity %}
+                                {% if not community or (community and event.getSecondaryCommunity() and event.getSecondaryCommunity() == community)  %}
+
+                                    <div class="col-sm-12 margin-top-10">
+                                        <span>
+
+                                            <b>Modération Communauté Secondaire :
+
+                                                {% if event.moderateSecondaryCommunity == 'accepted' %}
+                                                    Accepté
+                                                {% elseif event.moderateSecondaryCommunity == 'refuse' %}
+                                                    Refusé
+                                                {% else %}
+                                                    En attente
+                                                {% endif %}
+
+                                            </b>
+                                        </span>
+                                    </div>
+                                    {% if event.moderateSecondaryCommunity == 'wait' %}
+                                        {% if (app.user.isCommunityAdmin(community) and app.user.hasRight('event_aprove',community)) or app.user.isCommunitySuAdmin(community) or is_granted('ROLE_ADMIN')%}
+                                            <div class="col-sm-12 margin-top-10">
+                                                <a href="{{ path('app_event_moderate_secondary', {id: event.id}) }}" class="btn btn-success btn-sm updateModerateEventSecondary" type="button" data-type="accepted">Accepter</a>
+                                                <a href="{{ path('app_event_moderate_secondary', {id: event.id}) }}" class="btn btn-danger btn-sm updateModerateEventSecondary" type="button" data-type="refuse">Refuser</a>
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+
+                            <div class="clearfix"></div>
+                            <div class="col-sm-12 margin-top-10">
+                                {% if not community or (community and event.community == community) %}
+
+                                    <a class="btn btn-success btn-sm updateEvent margin-top-10" href="{{ path('app_event_update', {id: event.id}) }}" title="Modifier l'évènement">
+                                        <i class=" fa fa-pencil-square"> Modifier</i>
+                                    </a>
+                                    <br />
+                                    {%if event.enabled%}
+                                        <a href="{{ path('app_event_activate', {id: event.id}) }}" class="btn btn-success btn-sm activateEvent margin-top-10" title="Désactiver signfie que l'événement ne sera plus publié sur l'application. Vous pourrez le réactiver si besoin"><i class=" fa fa-lock"></i> Désactiver</a>
+                                    {%else%}
+                                        <a href="{{ path('app_event_activate', {id: event.id}) }}" class="btn btn-success btn-sm activateEvent margin-top-10" title="Activer signifie que l'événement sera plus publié sur l'application"><i class=" fa fa-lock"></i> Activer</a>
+                                    {%endif%}
+                                {%endif%}
+                                <br />
+                                <a href="mailto:{%if event.createBy%}{{event.createBy.email}}{%endif%}" class="btn btn-success btn-sm mailtoEvent margin-top-10" title="Contacter l'auteur">
+                                    <i class=" fa fa-envelope-o"> Contacter l'auteur</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet box green margin-bot-0">
+                    <div class="portlet-title">
+                        <div class="caption">Commentaires ({{event.comments|length}})</div>
+                        <div class="tools">
+                            <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body" style="display: none;">
+                        <ul class="media-list">
+                            {% for comment in event.comments %}
+                                {%if comment.parent == null%}
+                                    <li class="media separator-comment">
+                                        <a class="pull-left" href="javascript:;">
+                                            {%if comment.user and comment.user.image and comment.user.image.file%}
+                                                <img alt="" class="todo-userpic img-circle" src="{{ app.request.basePath }}{{ vich_uploader_asset(comment.user.image, 'file')}}" style="max-width: 27px; max-height: 27px;"/>
+                                            {%else%}
+                                                <img class="todo-userpic img-circle" src="{{ asset('bundles/app/images/empty-user.png') }}" style="max-width: 27px; max-height: 27px;">
+                                            {%endif%}
+                                        </a>
+                                        <div class="media-body todo-comment">
+                                            <div class="comment">
+                                                <p class="todo-comment-head">
+                                                    <span class="todo-comment-username bold">{%if comment.user%}{{comment.user.lastname}} {{comment.user.firstname}}{%endif%}</span>
+                                                    <span class="todo-comment-date">le {{comment.createAt|date("d/m/Y H:i")}}</span>
+                                                </p>
+                                                <p class="todo-text-color">{{comment.content}}</p>
+                                            </div>
+                                            {% for commentChild in comment.comments %}
+                                                <div class="media separator-comment-child">
+                                                    <a class="pull-left" href="javascript:;">
+                                                        {%if commentChild.user and commentChild.user.image and commentChild.user.image.file%}
+                                                            <img alt="" class="todo-userpic img-circle" src="{{ app.request.basePath }}{{ vich_uploader_asset(commentChild.user.image, 'file')}}" style="max-width: 27px; max-height: 27px;"/>
+                                                        {%else%}
+                                                            <img class="todo-userpic img-circle" src="{{ asset('bundles/app/images/empty-user.png') }}" style="max-width: 27px; max-height: 27px;">
+                                                        {%endif%}
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <div class="comment">
+                                                            <p class="todo-comment-head">
+                                                                <span class="todo-comment-username bold">{%if commentChild.user%}{{commentChild.user.lastname}} {{commentChild.user.firstname}}{%endif%}</span>
+                                                                <span class="todo-comment-date">le {{commentChild.createAt|date("d/m/Y H:i")}}</span>
+                                                            </p>
+                                                            <p class="todo-text-color">{{commentChild.content}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </li>
+                                {%endif%}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="portlet box green margin-bot-0">
+                    <div class="portlet-title">
+                        <div class="caption">Détails</div>
+                        <div class="tools">
+                            <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body" style="display: none;">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <span><b>Adresse</b> : {{event.place}}</span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <span><b>Réservation</b> : 
+                                        {% for reservation in event.reservations %}
+                                            {{reservation.name}},
+                                        {% endfor %}
+                                    </span><br>
+                                   <div class="col-sm-3">
+                                        <span><b>Lien</b> : {{event.reservationUrl}}</span>
+                                   </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <span><b>Prix</b> : {{event.price}}</span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <br>
+
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <span><b>Notification</b> : {%if event.pushEnabled%}On{%else%}Off{%endif%}</span><br>
+                                    {%if event.pushEnabled and event.push%}
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span><b>Date</b> : {{event.push.sendAt|date("d/m/Y H:i")}}</span>
+                                            </div>
+                                        </div>
+                                    {%endif%}
+                                    {%if event.pushEnabled and event.push%}
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span><b>Message</b> : {{event.push.content}}</span>
+                                            </div>
+                                        </div>
+                                    {%endif%}
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <span><b>Article lié</b> : {%if event.toCity%}On{%else%}Off{%endif%}</span><br>
+                                    {%if event.toCity and event.article%}
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <span><b>Article</b> : {{event.article.title}}</span>
+                                            </div>
+                                        </div>
+                                    {%endif%}
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <span><b>Nombre de participants</b> : {{event.participants|length}}</span><br>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="separator row"></div>
+{% endfor %}

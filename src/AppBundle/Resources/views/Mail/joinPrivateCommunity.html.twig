@@ -1,0 +1,9 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour,</h2>
+    <p> {{ user.firstname}} {{ user.lastname}} , email {{ user.email }} et téléphone {{ user.phone }}, souhaite rejoindre votre communauté {{ community.name }}.<br>
+        <br>
+        Rendez-vous dans votre Back-office > Comptes > Utilisateurs et acceptez sa demande en cliquant sur le bouton avec la clé.<br>
+        Alternativement, vous pouvez lui envoyer le mot de passe par email ou le lui communiquer par téléphone.<br>
+    </p>
+{% endblock %}

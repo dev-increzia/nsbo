@@ -1,0 +1,5 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour,</h2>
+    <p>Votre évènement a été {%if entity.enabled%}activé{%else%}désactivé{%endif%}, veuillez contacter par mail <a alt="Envoyer un e-mail à l'auteur" title="Envoyer un e-mail à l'auteur" href="mailto:{{sender.email}}">{{sender.email}}</a> la personne qui a effectué cette action pour plus d’informations.</p>
+{% endblock %}

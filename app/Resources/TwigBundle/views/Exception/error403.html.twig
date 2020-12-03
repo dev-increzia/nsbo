@@ -1,0 +1,6 @@
+{% extends "TwigBundle:Exception:error.html.twig" %}
+{% block error %}
+    <h1>403</h1>
+    <h2>Interdit: Vous n'avez pas la permission d'accéder à cette partie</h2>
+    <p><a href="{{ path('app_homepage') }}" class="btn green btn-outline"> Retour à l'accueil </a></p>
+{% endblock %}

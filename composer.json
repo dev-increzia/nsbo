@@ -1,0 +1,96 @@
+{
+    "name": "dreadlokeur/nousensemble",
+    "license": "proprietary",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        },
+        "classmap": [
+            "app/AppKernel.php",
+            "app/AppCache.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
+        "files": [
+            "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"
+        ]
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.5.9",
+        "cr/hashcli": "dev-master",
+        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/doctrine-cache-bundle": "^1.2",
+        "doctrine/doctrine-migrations-bundle": "^1.0",
+        "doctrine/orm": "^2.5",
+        "dreadlokeur/google-geolocation-bundle": "dev-master",
+        "friendsofsymfony/jsrouting-bundle": "^1.6",
+        "friendsofsymfony/rest-bundle": "^2.1",
+        "friendsofsymfony/user-bundle": "dev-master",
+        "gesdinet/jwt-refresh-token-bundle": "^0.1.8",
+        "google/apiclient": "^2.0",
+        "incenteev/composer-parameter-handler": "^2.0",
+        "jms/serializer-bundle": "^1.1",
+        "jp/firebase-notification-Bundle": "^2.0.0",
+        "knplabs/knp-paginator-bundle": "^2.6",
+        "league/csv": "8.x-dev",
+        "lexik/jwt-authentication-bundle": "^2.0",
+        "nahid/jsonq": "dev-master",
+        "nelmio/api-doc-bundle": "^2.13",
+        "nelmio/cors-bundle": "^1.5@dev",
+        "redjanym/php-firebase-cloud-messaging": "dev-master",
+        "richsage/rms-push-notifications-bundle": "^0.2.2",
+        "sensio/distribution-bundle": "^5.0",
+        "sensio/framework-extra-bundle": "^3.0.2",
+        "stof/doctrine-extensions-bundle": "^1.2",
+        "symfony/monolog-bundle": "^3.0.2",
+        "symfony/polyfill-apcu": "^1.0",
+        "symfony/swiftmailer-bundle": "^2.3.10",
+        "symfony/symfony": "3.2.*",
+        "twig/extensions": "^1.5",
+        "twig/twig": "^1.0||^2.0",
+        "vich/uploader-bundle": "^1.3",
+        "welp/mailchimp-bundle": "1.1.1"
+    },
+    "require-dev": {
+        "sensio/generator-bundle": "^3.0",
+        "symfony/phpunit-bridge": "^3.0"
+    },
+    "scripts": {
+        "symfony-scripts": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ],
+        "post-install-cmd": [
+            "@symfony-scripts"
+        ],
+        "post-update-cmd": [
+            "@symfony-scripts"
+        ]
+    },
+    "config": {
+        "platform": {
+            "php": "5.6"
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-bin-dir": "bin",
+        "symfony-var-dir": "var",
+        "symfony-web-dir": "web",
+        "symfony-tests-dir": "tests",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        }
+    }
+}

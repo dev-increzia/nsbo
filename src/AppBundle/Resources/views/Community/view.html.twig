@@ -1,0 +1,71 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <span>Ma communauté</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Ma communauté</h3>
+{% endblock %}
+
+
+
+{% block maincontent %}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Information sur ma Communauté</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <span><b>Nom de la communauté</b> : {{entity.name}}</span>
+                    </div>
+                    <div class="form-group">
+                        <span><b>Ville d'appartenance</b> : {{entity.city.name}}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <span><b>Email de contact</b> : {{entity.email}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Information sur le super admin</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    {% block cityhalladmin %}
+                        {%if entity.suAdmin%}
+                            <div class="form-group">
+                                {{entity.suAdmin.getCivilityText()}}
+                            </div>
+                            <div class="form-group">
+                                <span><b>Nom</b> : {{entity.suAdmin.lastname}}</span>
+                            </div>
+                            <div class="form-group">
+                                <span><b>Prénom</b> : {{entity.suAdmin.firstname}}</span>
+                            </div>
+                            <div class="form-group">
+                                <span><b>Email</b> : {{entity.suAdmin.email}}</a></span>
+                            </div>
+                            <div class="form-group">
+                                <span><b>Téléphone</b> : {{entity.suAdmin.phone}}</span>
+                            </div>
+                        {%endif%}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,5 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour,</h2>
+    <p>Votre compte commerce / partenaire a été {%if entity.moderate == 'accepted'%}accepté{%else%}refusé{%endif%}, veuillez contacter par mail <a alt="Envoyer un e-mail à l'auteur" title="Envoyer un e-mail à l'auteur" href="mailto:contact@nous-ensemble.com">contact@nous-ensemble.com</a> la personne qui a effectué cette action pour plus d’informations.</p>
+{% endblock %}

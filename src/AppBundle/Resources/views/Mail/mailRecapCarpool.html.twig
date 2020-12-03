@@ -1,0 +1,11 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour {{ user.getCivilityText }} {{ user.getFirstname() }} {{ user.getLastname() }},</h2>
+    <p> Vous recevez cet email suite à votre proposition du covoiturage pour l'évènement {{ carpool.getEvent().getTitle() }}. Vous trouvez ci-dessous le récapitulatif de votre proposition.<br>
+        Point de ralliement: {{ carpool.getRelayPoint() }}<br>
+        Heure de rendez-vous: {{ carpool.getMeetingTime() | date("H:i")}}<br>
+        Nombre de places disponibles: {{ carpool.getNbPlaces() }}<br>
+        Votre numéro de téléphone: {{ carpool.getPhoneNumber() }}<br>
+
+    </p>
+{% endblock %}

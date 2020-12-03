@@ -1,0 +1,10 @@
+<li class="" style="padding-top: 5px;">
+    <select id="cityhallSelect" class="bs-select selectpicker show-tick" data-live-search="true" data-width="auto">
+        {% if is_granted('ROLE_ADMIN') %}
+        <option value="">Toutes les Communautés</option>
+        {% endif %}
+        {% for c in coumunities %}
+            <option value="{{c.id}}" {%if community and  community.id == c.id%}selected{%endif%}>{{c.name}} {%if app.user.community and (c.id == app.user.community.id)%} (par default){%endif%}</option>
+        {% endfor %}
+    </select>
+</li>

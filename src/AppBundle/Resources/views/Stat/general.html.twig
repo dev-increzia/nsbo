@@ -1,0 +1,485 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block  js %}
+    {{parent()}}
+    <script src="{{ asset('bundles/app/js/charts.js') }}" type="text/javascript"></script>
+{% endblock %}
+{% block breadcrumb %}
+    <li>
+        <span>Liste des indicateurs</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Liste des indicateurs</h3>
+{% endblock %}
+{% block maincontent %}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Vos critères de recherche</div>
+            <div class="tools">
+                <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: none;">
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ form_start(form, {'attr': {'id': 'stats_filter'}}) }}
+                    {{ form_errors(form) }}
+                    <div class="form-group">
+                        <div class="col-sm-6 padding-none margin-none">
+                            <div class="form-group">
+                                {{ form_label(form.dateBefore, "Date (>=)", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.dateBefore, {'attr': {'class': 'form-control datepicker'}}) }}
+                                {{ form_errors(form.dateBefore) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_label(form.dateAfter, "et (<=)", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.dateAfter, {'attr': {'class': 'form-control datepicker'}}) }}
+                                {{ form_errors(form.dateAfter) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success'}, 'label': 'Valider'}) }}
+                    </div>
+                </div>
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Provenance des utilisateurs</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="general_chart1" class="chart" style="height: 525px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Création de comptes (citoyen) au cours du temps</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="general_chart2" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="generalChart2">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Les connexions</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="general_chart3" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="generalChart3">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Temps moyen des sessions</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="general_chart4" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="generalChart4">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Temps moyen passé par page</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="general_chart5" class="chart" style="height: 525px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Nombre de clics sur détail</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="general_chart6" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="generalChart6">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                            <label class="control-label">Evènements</label>
+                            <select name="event" class="form-control event" data-func="generalChart6">
+                                <option value="" selected="selected">Tous</option>
+                                {% for event in events %}
+                                    <option value="{{event.id}}">{{event.title}}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="form-group">
+                                <label class="control-label">Role</label>
+                                <select name="type" class="form-control type" data-func="generalChart6">
+                                    <option value="" selected="selected">Tous</option>
+                                    <option value="association">Association</option>
+                                    <option value="merchant">Commerçant</option>
+                                    <option value="cityhall">Communauté</option>
+                                </select>
+                            </div>
+                            <div class="form-group hide association">
+                                <label class="control-label">Associations</label>
+                                <select name="association" class="form-control association" data-func="generalChart6">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for association in associations %}
+                                        <option value="{{association.id}}">{{association.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group hide merchant">
+                                <label class="control-label">Commerçants</label>
+                                <select name="merchant" class="form-control merchant" data-func="generalChart6">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for merchant in merchants %}
+                                        <option value="{{merchant.id}}">{{merchant.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Nombre de comptes utilisateur/nombre d'utilisateurs actif</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="general_chart7" class="chart" style="height: 525px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Nombre de rôles par utilisateur</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="general_chart8" class="chart" style="height: 525px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Quel device les utilisateurs utilisent-ils?</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="general_chart9" class="chart" style="height: 525px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Nombre de sessions ouvertes par utilisateur</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="general_chart10" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="generalChart10">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Les groupes/associations</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="general_chart11" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="generalChart11">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Catégories</label>
+                                <ul class="list-unstyled">
+                                    {% for category in categories %}
+                                        <li>
+                                            <input  name="generalChart[categories][]" value="{{category.id}}" type="checkbox" data-func="generalChart11" class="categories"> {{category.name}}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Les commerçants</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="general_chart12" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="generalChart12">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Catégories</label>
+                                <ul class="list-unstyled">
+                                    {% for category in categories %}
+                                        <li>
+                                            <input  name="generalChart[categories][]" value="{{category.id}}" type="checkbox" data-func="generalChart12" class="categories"> {{category.name}}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> L'abandon</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="general_chart13" class="chart" style="height: 525px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Taux d'aboutissement de création d'événements</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="general_chart14">Nb de clic sur "creer un événement/Nb d'évenemnt crées : <span id="eventCreated">0</span>%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

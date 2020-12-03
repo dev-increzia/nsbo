@@ -1,0 +1,182 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block  js %}
+    {{parent()}}
+    <script src="{{ asset('bundles/app/js/charts.js') }}" type="text/javascript"></script>
+{% endblock %}
+{% block breadcrumb %}
+    <li>
+        <span>Indicateurs utilisateurs</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Indicateurs utilisateurs</h3>
+{% endblock %}
+{% block maincontent %}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Vos critères de recherche</div>
+            <div class="tools">
+                <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: none;">
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ form_start(form, {'attr': {'id': 'stats_filter'}}) }}
+                    {{ form_errors(form) }}
+                    <div class="form-group">
+                        <div class="col-sm-6 padding-none margin-none">
+                            <div class="form-group">
+                                {{ form_label(form.dateBefore, "Date (>=)", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.dateBefore, {'attr': {'class': 'form-control datepicker'}}) }}
+                                {{ form_errors(form.dateBefore) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_label(form.dateAfter, "et (<=)", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.dateAfter, {'attr': {'class': 'form-control datepicker'}}) }}
+                                {{ form_errors(form.dateAfter) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success'}, 'label': 'Valider'}) }}
+                    </div>
+                </div>
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Nombre d'utilisateur disponibles pour des activités (par ville principales)</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="user_chart1" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Avec les centres d'intérêt ON</label>
+                                <ul class="list-unstyled">
+                                    {% for category in categories %}
+                                        <li>
+                                            <input  name="userChart[categories][]" value="{{category.id}}" type="checkbox" data-func="userChart1" class="categories"> {{category.name}}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Nombre d'utilisateurs par centre d'intérêt</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="user_chart2" class="chart" style="height: 525px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Nombre de participations à des événements</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="user_chart3" class="chart" style="height: 525px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Nombre de changement de ville principale</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="user_chart4" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="userChart4">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Nombre de villes secondaires</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div id="user_chart5" class="chart" style="height: 525px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour,</h2>
+    <p> {{ user.firstname}} {{ user.lastname}} souhaite rejoindre votre {% if merchantOrAssociation == 'merchant' %}Commerce / Partenaire{% else %}Groupe / Association{% endif %} {{ merchant.name }}.<br>
+        Téléphone : {% if phone != '' %}{{ phone }}{% else %}{{ user.phone }}{% endif %}<br>
+        Email : {{ user.email }}
+    </p><br/>
+    <p>
+        Pour accepter son adhésion, allez sur Mon Espace, cliquez sur le nom de votre {% if merchantOrAssociation == 'merchant' %}Commerce / Partenaire{% else %}Groupe / Association{% endif %} puis sur « adhérents » et validez l’adhésion en attente ou refusez la si besoin.
+    </p>
+{% endblock %}

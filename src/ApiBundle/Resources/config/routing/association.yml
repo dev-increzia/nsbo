@@ -1,0 +1,89 @@
+api_v1_add_association:
+    path:     /
+    defaults: { _controller: ApiBundle:Association:add }
+    methods:  [POST]
+
+api_v1_accueil_association:
+    path:     /home/{id}
+    defaults: { _controller: ApiBundle:Association:home}
+    methods:  [GET]
+
+api_v1_association_view:
+    path:     /view/{id}
+    defaults: { _controller: ApiBundle:Association:view}
+    methods:  [GET]
+api_v1_association_update:
+    path:     /{id}/update
+    defaults: { _controller: ApiBundle:Association:update}
+    methods:  [POST]
+api_v1_association_volunteers:
+    path:     /{id}/volunteers
+    defaults: { _controller: ApiBundle:Association:volunteers}
+    methods:  [GET]
+api_v1_association_volunteers_delete:
+    path:     /{id}/volunteers/delete
+    defaults: { _controller: ApiBundle:Association:deleteVolunteers}
+    methods:  [GET]
+api_v1_association_admin:
+    path:     /{id}/admin
+    defaults: { _controller: ApiBundle:Association:addAdmin}
+    methods:  [POST]
+api_v1_association_superadmin:
+    path:     /{id}/superadmin
+    defaults: { _controller: ApiBundle:Association:addSuperAdmin}
+    methods:  [POST]
+api_v1_association_admins:
+    path:     /{id}/admins/{page}/{limit}
+    defaults: { _controller: ApiBundle:Association:admins}
+    methods:  [GET]
+api_v1_association_remove_admin:
+    path:     /{association}/admin/remove
+    defaults: { _controller: ApiBundle:Association:removeAdmins}
+    methods:  [POST]
+
+api_v1_association_cities:
+    path:     /cities/{page}/{limit}
+    defaults: { _controller: ApiBundle:Association:getAssociationsByCities}
+    methods:  [GET]
+
+api_v1_association_community:
+    path:     /community/{id_community}/{page}/{limit}
+    defaults: { _controller: ApiBundle:Association:getAssociationsByCommunity}
+    methods:  [GET]
+
+
+api_association_change-suadmin:
+    path:     /{id}/change/superadmin
+    defaults: { _controller: ApiBundle:Association:changeSuAdmin}
+    methods:  [POST]
+
+api_association_remove-merchant:
+    path:     /{id}/delete
+    defaults: { _controller: ApiBundle:Association:deleteAssociation}
+    methods:  [POST]
+
+api_association_demande_membership:
+    path:     /{id}/membership
+    defaults: { _controller: ApiBundle:Association:demandeMembership}
+    methods:  [POST]
+
+api_association_accept_membership:
+    path:     /{id}/demandmembership/{id_demander}/accept
+    defaults: { _controller: ApiBundle:Association:acceptMembership}
+    methods:  [GET]
+
+api_association_refuse_membership:
+    path:     /{id}/demandmembership/{id_demander}/refuse
+    defaults: { _controller: ApiBundle:Association:refuseMembership}
+    methods:  [GET]
+
+api_association_delete_membership:
+    path:     /{id}/demandmembership/{id_demander}/delete
+    defaults: { _controller: ApiBundle:Association:deleteMembership}
+    methods:  [GET]
+
+api_association_get_demands_membership:
+    path:     /{id}/get_demands_memberships
+    defaults: { _controller: ApiBundle:Association:getDemandesMembership}
+    methods:  [GET]
+

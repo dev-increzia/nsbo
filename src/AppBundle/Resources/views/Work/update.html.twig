@@ -1,0 +1,122 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <a href="{{ path('app_work') }}">Liste des travaux</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>Modifier travaux</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Modifier travaux</h3>
+{% endblock %}
+
+
+
+{% block maincontent %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Informations générales</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_label(form.title, "Titre", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.title) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.description, "Description", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.description, {'attr': {'class': 'form-control description'}}) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.mapHeading, "Rubrique", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.mapHeading, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.mapHeading) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.enabled, "Statut", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.enabled, {'attr': {'class': 'form-control make-switch'}}) }}
+                        {{ form_errors(form.enabled) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Localisation</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="floating-panel">
+    </div>
+                    <div class="form-group">
+                        {{ form_label(form.address, "Adresse", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.address, {'attr': {'class': 'form-control-adress form-control changeForMap '}}) }}
+                        {{ form_errors(form.address) }}
+                        <input id="submitAdresse" type="button" value="Vérifier" class="btn btn-success btn-lg">
+                    </div>
+                    <div class="form-group">
+                        <div id="map" data-latitude="{{entity.latitude}}" data-longitude="{{entity.longitude}}" data-draggable="true"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6 padding-none margin-none">
+                            <div class="form-group">
+                                {{ form_label(form.latitude, "Latitude", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.latitude, {'attr': {'class': 'form-control latitude' }}) }}
+                                {{ form_errors(form.latitude) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_label(form.longitude, "Longitude", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.longitude, {'attr': {'class': 'form-control longitude' }}) }}
+                                {{ form_errors(form.longitude) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block infocreate %}            
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">Informations de création</div>
+                <div class="tools">
+                    <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+                </div>
+            </div>
+            <div class="portlet-body" style="display: block;">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <span><b>Créé le</b> {%if entity.createAt%}{{entity.createAt|date("d/m/Y H:i")}}{%endif%} <b>par</b> {%if entity.createBy%}{{entity.createBy.lastname}} {{entity.createBy.firstname}}{%endif%}</span>
+                        </div>
+                        <div class="form-group">
+                            <span><b>Dernière modification le</b> {%if entity.updateAt%}{{entity.updateAt|date("d/m/Y H:i")}}{%endif%} <b>par</b> {%if entity.updateBy%}{{entity.updateBy.lastname}} {{entity.updateBy.firstname}}{%endif%}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    <div class="form-group align-center">
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success btn-lg'}, 'label': 'Valider'}) }}
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,29 @@
+services:
+    
+    article.v3:
+        class: ApiBundle\Service\ArticleV3
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
+
+    association.v3:
+        class: ApiBundle\Service\AssociationV3
+        arguments: ['@service_container']
+    
+    event.v3:
+        class: ApiBundle\Service\EventV3
+        arguments: ['@service_container', '@doctrine.orm.entity_manager']
+
+    comment.v3:
+        class: ApiBundle\Service\CommentV3
+        arguments: ['@service_container']
+   
+    merchant.v3:
+        class: ApiBundle\Service\MerchantV3
+        arguments: ['@service_container']
+
+    goodplan.v3:
+        class: ApiBundle\Service\GoodPlanV3
+        arguments: ['@service_container']
+
+    community.v3:
+        class: ApiBundle\Service\CommunityV3
+        arguments: ['@service_container']

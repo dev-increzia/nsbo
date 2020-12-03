@@ -1,0 +1,8 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour {{ goodplan.getMerchant().getName() }},</h2>
+    <p> Vous recevez cet email suite à la publication de votre bon plan {{ goodplan.getTitle() }}.<br>
+        {{ user.getCivilityText }} {{ user.getFirstname() }} {{ user.getLastname() }} vous a envoyé le message suivant :<br>
+        {{ data.message | nl2br }}
+    </p>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <span>Liste des abus</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Liste des abus</h3>
+{% endblock %}
+{% block maincontent %}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Filtre</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ form_start(form, {'attr': {'id': 'abuses_filter'}}) }}
+                    {{ form_errors(form) }}
+                    <div class="form-group">
+                        <div class="col-sm-6 padding-none margin-none">
+                            <div class="form-group">
+                                {{ form_label(form.dateBefore, "Date (>=)", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.dateBefore, {'attr': {'class': 'form-control datepicker'}}) }}
+                                {{ form_errors(form.dateBefore) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_label(form.dateAfter, "et (<=)", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.dateAfter, {'attr': {'class': 'form-control datepicker'}}) }}
+                                {{ form_errors(form.dateAfter) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6 padding-none margin-none">
+                            <div class="form-group">
+                                {{ form_label(form.city, "Ville", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.city, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.city) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_label(form.intercommunal, "Intercommunalité", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.intercommunal, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.intercommunal) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success'}, 'label': 'Valider'}) }}
+                    </div>
+                    {{ form_rest(form) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="abusesTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Citoyen à l'origine du signalement</th>
+                        <th>Ville</th>
+                        <th>Message</th>
+                        <th>Article concerné</th>
+                        <th>Date de création</th>
+                        <th class="no-sort">Date de mise à jour</th>
+                        <th class="no-sort">Etat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

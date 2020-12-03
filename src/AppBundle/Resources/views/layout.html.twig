@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>NOUS Ensemble | Administration</title>
+        <meta content="IE=edge" http-equiv="X-UA-Compatible">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="google-signin-client_id" content="390977445413-4q6ldcj3n4kaqjm8jron17bjlqp7rlpr.apps.googleusercontent.com">
+        <meta name="google-signin-scope" content="https://www.googleapis.com/auth/analytics.readonly">
+        {% block stylesheets %}
+            <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/font-awesome.min.css') }}">
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+            <link type="text/css" rel="stylesheet" href="//unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css" />
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/simple-line-icons.min.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap.min.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/uniform.default.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap-switch.min.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/daterangepicker.min.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/select2.min.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/select2-bootstrap.min.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/morris.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/fullcalendar.min.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/jqvmap.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/components.min.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/plugins.min.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/layout.min.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/darkblue.min.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/datatables.min.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/datatables.bootstrap.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/plugins/minicolors/jquery.minicolors.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/plugins/summernote-master/dist/summernote.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/plugins/wickedpicker/dist/wickedpicker.min.css') }}">
+            <link type="text/css" rel="stylesheet"href="{{ asset('bundles/app/plugins/bootstrap-select/css/bootstrap-select.min.css') }}" rel="stylesheet" type="text/css" />
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/jquery-ui-timepicker-addon.css') }}">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/custom.min.css') }}">
+            <link href="{{ asset('bundles/app/images/favicon.ico') }}" rel="shortcut icon">
+            <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/plugins/select2/select2.min.css') }}">
+        {% endblock %}
+    </head>
+
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+        {% block bodycontent %}
+            <div class="page-header navbar navbar-fixed-top">
+                <!-- BEGIN HEADER INNER -->
+                <div class="page-header-inner ">
+                    <div class="page-logo">
+                        <img class="logo-default" alt="logo" src="{{ asset('bundles/app/images/NousEnsemble-3.png') }}">
+                        <div class="menu-toggler sidebar-toggler">
+                            <span></span>
+                        </div>
+                    </div>
+                    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                    <a data-target=".navbar-collapse" data-toggle="collapse" class="menu-toggler responsive-toggler" href="javascript:;"> </a>
+                    <!-- END RESPONSIVE MENU TOGGLER -->
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <div class="top-menu pull-left">
+                        <ul class="nav navbar-nav pull-left">
+                            {#{% if is_granted('ROLE_ADMIN') %}#}
+                                {{ render(controller("AppBundle:Default:communities")) }}
+                            {#{%else%}
+                                <li class="dropdown dropdown-quick-sidebar-toggler info-cityhall">
+
+                                    #}{# TODO#}{#
+                                    {%if (app.user.getCommunitySuAdmin and app.user.getCommunitySuAdmin().image and app.user.getCommunitySuAdmin().image.file) or (app.user.getCommunityAdmin and app.user.getCommunityAdmin().image and app.user.getCommunityAdmin().image.file)%}
+                                        <img class="img-circle info-cityhall-logo" src="{{ app.request.basePath }}{{ vich_uploader_asset(app.user.getCommunityAdmin().image, 'file')}}" />
+                                    {%else%}
+                                        <img alt="" class="img-circle info-cityhall-logo" src="{{ asset('bundles/app/images/empty-image.png') }}" />
+                                    {%endif%}
+                                    <span class="">{{app.user.getCommunityAdmin().name}}</span>
+
+                                </li>
+                            {%endif%}#}
+                        </ul>
+                    </div>
+                    <!-- END TOP NAVIGATION MENU -->
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <div class="top-menu">
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="dropdown dropdown-user">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        {%if app.user.image and app.user.image.file%}
+                                            <img alt="" class="img-circle" src="{{ app.request.basePath }}{{ vich_uploader_asset(app.user.image, 'file')}}" />
+                                        {%else%}
+                                            <img alt="" class="img-circle" src="{{ asset('bundles/app/images/empty-user.png') }}" />
+                                        {%endif%}
+                                    {%endif%}
+                                    <span class="username username-hide-on-mobile"> {{app.user.lastname}} {{app.user.firstname}} </span>
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-default">
+                                    <li>
+                                        <a href="{{ path('app_profil') }}">
+                                            <i class="icon-user"></i> Mon profile </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('app_password') }}">
+                                            <i class="fa fa-key"></i> Changer mot de passe </a>
+                                    </li>
+                                    {% if is_granted('ROLE_ADMIN') == false %}
+
+
+                                            <li>
+                                                <a href="{{ path('app_community_view', {'id' : session_community.getCommunity().id}) }}">
+                                                    <i class="fa fa-street-view"></i> Ma communauté </a>
+                                            </li>
+
+                                    {%endif%}
+                                    <li class="divider"> </li>
+                                    <li>
+                                        <a href="{{ path('app_lock') }}">
+                                            <i class="icon-lock"></i> Verrouiller (F9) </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('fos_user_security_logout') }}">
+                                            <i class="icon-key"></i> Deconnexion </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+                <!-- END HEADER INNER -->
+            </div>
+            <div class="clearfix"> </div>
+
+            <div class="page-container">
+                <div class="page-sidebar-wrapper">
+                    {{ render(controller('AppBundle:Menu:sidebar')) }}
+                </div>
+
+                <div class="page-content-wrapper">
+                    <!-- BEGIN CONTENT BODY -->
+                    <div class="page-content">
+                        {% set _flashMessages = app.session.flashbag.all() %}
+                        {% for type, messages in _flashMessages %}
+                            {% for flashMessage in messages %}
+                                <div class="alert{% if type !='message' %} alert-{{ type }}{% endif %} alert-dismissable">
+                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button"></button>
+                                    {{ flashMessage|raw }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        <div class="clearfix m-10"></div>
+                        <!-- BEGIN PAGE HEADER-->
+                        <!-- BEGIN PAGE BAR -->
+                        <div class="page-bar">
+                            <ul class="page-breadcrumb">
+                                <li>
+                                    <a href="{{ path('app_homepage') }}">Accueil</a>
+                                    <i class="fa fa-circle"></i>
+                                </li>
+                                {% block breadcrumb %}
+                                {% endblock %}
+                            </ul>
+                        </div>
+
+                        <!-- END PAGE BAR -->
+                        <!-- BEGIN PAGE TITLE-->
+                        {% block pagetitle %}
+                        {% endblock %}
+                        <div class="loader hide"/></div>
+                        {% block maincontent %}
+                        {% endblock %}
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+
+        </div>
+
+
+
+        <div class="page-footer">
+            <div class="page-footer-inner"> {{"now"|date("Y")}} &copy; nous-ensemble.com</div>
+            <div class="scroll-to-top">
+                <i class="icon-arrow-up"></i>
+            </div>
+        </div>
+    {% endblock %}
+    {% block js %}
+        <!--[if lt IE 9]>
+            <script src="{{ asset('bundles/app/js/respond.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/excanvas.min.js') }}"></script>
+        <![endif]-->
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaI1l44bcKaie_yP-28PTCDqM-W_AKQ-M">
+        </script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery-ui-1.9.2.custom.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/js.cookie.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/plugins/select2/select2.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/bootstrap-hover-dropdown.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.slimscroll.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.blockui.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.uniform.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/bootstrap-switch.min.js') }}"></script>
+        {#<script type="text/javascript" src="{{ asset('bundles/app/js/components-bootstrap-switch.js') }}"></script>#}
+        <script type="text/javascript" src="{{ asset('bundles/app/js/moment.min.js') }}"></script>
+        <script src="//unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/daterangepicker.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/morris.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/raphael-min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.waypoints.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.counterup.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/amcharts.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/serial.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/pie.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/radar.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/light.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/patterns.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/chalk.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/ammap.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/worldLow.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/amstock.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/fullcalendar.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.flot.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.flot.resize.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.flot.categories.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.easypiechart.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.sparkline.min.js') }}"></script>
+        {#<script type="text/javascript" src="{{ asset('bundles/app/js/jquery.vmap.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.vmap.russia.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.vmap.world.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.vmap.europe.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.vmap.germany.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.vmap.usa.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.vmap.sampledata.js') }}"></script>#}
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.validate.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/additional-methods.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/select2.full.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.backstretch.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/datatable.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/datatables.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/datatables.bootstrap.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/plugins/minicolors/jquery.minicolors.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/plugins/summernote-master/dist/summernote.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/jquery-ui-timepicker-addon.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/plugins/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/plugins/wickedpicker/dist/wickedpicker.min.js') }}"></script>
+        <script type="text/javascript" src = "{{ asset('bundles/app/js/app.min.js') }}" ></script>
+        {#<script type="text/javascript" src="{{ asset('bundles/app/js/dashboard.min.js') }}"></script>#}
+        <script type="text/javascript" src="{{ asset('bundles/app/js/layout.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/demo.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/quick-sidebar.min.js') }}"></script>
+        {#<script type="text/javascript" src="{{ asset('bundles/app/js/table-datatables-managed.min.js') }}"></script>#}
+        <script type="text/javascript" src="{{ asset('bundles/app/plugins/amcharts/amcharts/amcharts.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/custom.js') }}"></script>
+        {#<script type="text/javascript" src="{{ asset('bundles/app/js/gapi.js') }}"></script>#}
+        {#<script async defer src="https://apis.google.com/js/api.js"onload="this.onload=function(){};loadClient()"onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>#}
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+        {%if googleanalytics_backoffice_UA != ''%}
+            <script async src="https://www.googletagmanager.com/gtag/js?id={{googleanalytics_backoffice_UA}}"></script>
+            <style>
+                li.ui-menu-item {
+                    height: 30px;
+                    border-bottom: solid 1px #03a99d;
+                }
+                li.ui-menu-item:hover {
+                    background: #03a99d;
+                }
+
+                li.ui-menu-item:hover a {
+                    background: #03a99d;
+                    text-decoration: unset;
+                }
+                .ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all{
+                    max-height: 150px;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                }
+            </style>
+            <script>
+                var app_city_selectElementsRoute = "{{ path('app_city_selectElements') }}";
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag() {
+                        dataLayer.push(arguments);
+                    }
+                    gtag('js', new Date());
+                    gtag('config', '{{googleanalytics_backoffice_UA}}');
+            </script>
+        {%endif%}
+        {{ render(controller("AppBundle:Default:cityhallGA")) }}
+    {% endblock %}
+</body>
+</html>

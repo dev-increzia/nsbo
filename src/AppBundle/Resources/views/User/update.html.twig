@@ -1,0 +1,86 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <a href="{{ path('app_user_cityhall') }}">Liste des comptes - Utilisateurs</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>Modifier compte utilisateur</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Modifier compte utilisateur</h3>
+{% endblock %}
+
+
+
+{% block maincontent %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Informations générales</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_label(form.username, "Nom d'utilisateur", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.username) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.lastname, "Nom", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.lastname) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.firstname, "Prénom", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.firstname) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.email, "Email", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.email) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.enabled, "Etat", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.enabled, {'attr': {'class': 'form-control make-switch'}}) }}
+                        {{ form_errors(form.enabled) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block infocreate %}            
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">Informations de création</div>
+                <div class="tools">
+                    <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+                </div>
+            </div>
+            <div class="portlet-body" style="display: block;">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <span><b>Créé le</b> {%if entity.createAt%}{{entity.createAt|date("d/m/Y H:i")}}{%endif%} <b>par</b> {%if entity.createBy%}{{entity.createBy.lastname}} {{entity.createBy.firstname}}{%endif%}</span>
+                        </div>
+                        <div class="form-group">
+                            <span><b>Dernière modification le</b> {%if entity.updateAt%}{{entity.updateAt|date("d/m/Y H:i")}}{%endif%} <b>par</b> {%if entity.updateBy%}{{entity.updateBy.lastname}} {{entity.updateBy.firstname}}{%endif%}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    <div class="form-group align-center">
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success btn-lg'}, 'label': 'Valider'}) }}
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}

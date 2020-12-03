@@ -1,0 +1,30 @@
+api_v3_goodplan_add:
+  path:     /{type}/{id}/new
+  defaults: { _controller: ApiBundle:GoodPlan:new }
+  methods:  [POST]
+
+api_v1_goodplan_page_bis:
+    path:     /good_plans/{page}/{limit}
+    defaults: { _controller: ApiBundle:GoodPlan:GoodPlans }
+    methods:  [GET]
+
+api_v1_goodplan_details:
+    path:     /{id}/details
+    defaults: { _controller: ApiBundle:GoodPlan:detailsGoodPlan }
+    methods:  [GET]
+
+api_v1_goodplan_takepart:
+    path:     /{id}/takepart
+    defaults: { _controller: ApiBundle:GoodPlan:takepart }
+    methods:  [GET]
+
+api_v1_goodplan_canceltakepart:
+    path:     /{id}/canceltakepart
+    defaults: { _controller: ApiBundle:GoodPlan:canceltakepart }
+    methods:  [GET]
+
+
+api_v1_goodplan_contactmerchant:
+    path:     /{id}/contactmerchant
+    defaults: { _controller: ApiBundle:GoodPlan:contactMerchant }
+    methods:  [POST]

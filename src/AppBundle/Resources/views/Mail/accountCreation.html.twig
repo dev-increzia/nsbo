@@ -1,0 +1,8 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour {{ user.lastname}} {{ user.firstname}},</h2>
+    <p>Merci d'avoir créé votre compte {{type}} sur Nous-Ensemble.<br>
+        Vous serez notifié dès qu'un administrateur de votre communauté validera votre compte.
+    </p>
+{% endblock %}
+

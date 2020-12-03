@@ -1,0 +1,338 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <a href="{{ path('app_interest') }}">Liste des centres d'intérêts</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>Modifier centre d'intérêt</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Modifier centre d'intérêt</h3>
+{% endblock %}
+
+
+
+{% block maincontent %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Informations générales</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_label(form.title, "Titre", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.title) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.description, "Description", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.description, {'attr': {'class': 'form-control description'}}) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.mapHeading, "Rubrique", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.mapHeading, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.mapHeading) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.category, "Catégorie", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.category) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.enabled, "Statut", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.enabled, {'attr': {'class': 'form-control make-switch'}}) }}
+                        {{ form_errors(form.enabled) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.email, "Email", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.email) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.phone, "Téléphone", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.phone) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.image, "Photo") }}
+                        {{ form_widget(form.image, {'attr': {'class': ''}}) }}
+                        {{ form_errors(form.image) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Les horaires d'ouverture</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <div class="col-sm-2 padding-none margin-none padding-top-40">
+                            <div class="form-group">
+                                {{ form_widget(form.monday, {'attr': {'class': 'form-control'}}) }} Lundi
+                                {{ form_errors(form.monday) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                {{ form_label(form.mondayHour, "De", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.mondayHour, {'attr': {'class': 'form-control timepicker'}}) }}
+                                {{ form_errors(form.mondayHour) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-5 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_label(form.mondayHourEnd, "à", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.mondayHourEnd, {'attr': {'class': 'form-control timepicker'}}) }}
+                                {{ form_errors(form.mondayHourEnd) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="col-sm-2 padding-none margin-none padding-top-10">
+                            <div class="form-group">
+                                {{ form_widget(form.tuesday, {'attr': {'class': 'form-control'}}) }} Mardi
+                                {{ form_errors(form.tuesday) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                {{ form_widget(form.tuesdayHour, {'attr': {'class': 'form-control timepicker'}}) }}
+                                {{ form_errors(form.tuesdayHour) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-5 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_widget(form.tuesdayHourEnd, {'attr': {'class': 'form-control timepicker'}}) }}
+                                {{ form_errors(form.tuesdayHourEnd) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="col-sm-2 padding-none margin-none padding-top-10">
+                            <div class="form-group">
+                                {{ form_widget(form.wednesday, {'attr': {'class': 'form-control'}}) }} Mercredi
+                                {{ form_errors(form.wednesday) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                {{ form_widget(form.wednesdayHour, {'attr': {'class': 'form-control timepicker'}}) }}
+                                {{ form_errors(form.wednesdayHour) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-5 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_widget(form.wednesdayHourEnd, {'attr': {'class': 'form-control timepicker'}}) }}
+                                {{ form_errors(form.wednesdayHourEnd) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="col-sm-2 padding-none margin-none padding-top-10">
+                            <div class="form-group">
+                                {{ form_widget(form.thursday, {'attr': {'class': 'form-control'}}) }} Jeudi
+                                {{ form_errors(form.thursday) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                {{ form_widget(form.thursdayHour, {'attr': {'class': 'form-control timepicker'}}) }}
+                                {{ form_errors(form.thursdayHour) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-5 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_widget(form.thursdayHourEnd, {'attr': {'class': 'form-control timepicker'}}) }}
+                                {{ form_errors(form.thursdayHourEnd) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="col-sm-2 padding-none margin-none padding-top-10">
+                            <div class="form-group">
+                                {{ form_widget(form.friday, {'attr': {'class': 'form-control'}}) }} Vendredi
+                                {{ form_errors(form.friday) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                {{ form_widget(form.fridayHour, {'attr': {'class': 'form-control timepicker'}}) }}
+                                {{ form_errors(form.fridayHour) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-5 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_widget(form.fridayHourEnd, {'attr': {'class': 'form-control timepicker'}}) }}
+                                {{ form_errors(form.fridayHourEnd) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="col-sm-2 padding-none margin-none padding-top-10">
+                            <div class="form-group">
+                                {{ form_widget(form.saturday, {'attr': {'class': 'form-control'}}) }} Samedi
+                                {{ form_errors(form.saturday) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                {{ form_widget(form.saturdayHour, {'attr': {'class': 'form-control timepicker'}}) }}
+                                {{ form_errors(form.saturdayHour) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-5 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_widget(form.saturdayHourEnd, {'attr': {'class': 'form-control timepicker'}}) }}
+                                {{ form_errors(form.saturdayHourEnd) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="col-sm-2 padding-none margin-none padding-top-10">
+                            <div class="form-group">
+                                {{ form_widget(form.sunday, {'attr': {'class': 'form-control'}}) }} Dimanche
+                                {{ form_errors(form.sunday) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                {{ form_widget(form.sundayHour, {'attr': {'class': 'form-control timepicker'}}) }}
+                                {{ form_errors(form.sundayHour) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-5 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_widget(form.sundayHourEnd, {'attr': {'class': 'form-control timepicker'}}) }}
+                                {{ form_errors(form.sundayHourEnd) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Localisation</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_label(form.address, "Adresse", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.address, {'attr': {'class': 'form-control changeForMap'}}) }}
+                        {{ form_errors(form.address) }}
+                        <input id="submitAdresse" type="button" value="Vérifier" class="btn btn-success btn-lg">
+                    </div>
+                    <div class="form-group">
+                        <div id="map" data-latitude="{{entity.latitude}}" data-longitude="{{entity.longitude}}" data-draggable="true"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6 padding-none margin-none">
+                            <div class="form-group">
+                                {{ form_label(form.latitude, "Latitude", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.latitude, {'attr': {'class': 'form-control latitude','readonly': 'true' }}) }}
+                                {{ form_errors(form.latitude) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_label(form.longitude, "Longitude", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.longitude, {'attr': {'class': 'form-control longitude','readonly': 'true' }}) }}
+                                {{ form_errors(form.longitude) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block infocreate %}            
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">Informations de création</div>
+                <div class="tools">
+                    <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+                </div>
+            </div>
+            <div class="portlet-body" style="display: block;">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <span><b>Créé le</b> {%if entity.createAt%}{{entity.createAt|date("d/m/Y H:i")}}{%endif%} <b>par</b> {%if entity.createBy%}{{entity.createBy.lastname}} {{entity.createBy.firstname}}{%endif%}</span>
+                        </div>
+                        <div class="form-group">
+                            <span><b>Dernière modification le</b> {%if entity.updateAt%}{{entity.updateAt|date("d/m/Y H:i")}}{%endif%} <b>par</b> {%if entity.updateBy%}{{entity.updateBy.lastname}} {{entity.updateBy.firstname}}{%endif%}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    <div class="form-group align-center">
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success btn-lg'}, 'label': 'Valider'}) }}
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script>
+        $('#interest_mapHeading').change(function () {
+            var citySelector = $(this);
+
+            // Request the neighborhoods of the selected city.
+            $.ajax({
+                url: "{{ path('app_interest_categories') }}",
+                type: "GET",
+                dataType: "JSON",
+                data: {
+                    mapHeadingid: citySelector.val()
+                },
+                success: function (categories) {
+                    var categoriesSelect = $("#interest_category");
+
+                    // Remove current options
+                    categoriesSelect.html('');
+
+                    // Empty value ...
+                    categoriesSelect.append('<option value> Selectioner une Categorie de  ' + citySelector.find("option:selected").text() + ' ...</option>');
+                    console.log(categories);
+
+                    $.each(categories, function (key, category) {
+                        categoriesSelect.append('<option value="' + category.id + '">' + category.name + '</option>');
+                    });
+                },
+                error: function (err) {
+                    alert("An error ocurred while loading data ...");
+                }
+            });
+        });
+    </script>
+{% endblock %}

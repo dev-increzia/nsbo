@@ -1,0 +1,260 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% form_theme form _self %}
+
+{% block breadcrumb %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a href="{{ path('app_community') }}">Liste des communautés</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>Modifier communauté</span>
+        </li>
+    {%else%}
+        <li>
+            <span>Modifier ma communauté</span>
+        </li>
+    {%endif%}
+{% endblock %}
+{% block pagetitle %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <h3 class="page-title"> Modifier communauté</h3>
+    {%else%}
+        <h3 class="page-title"> Modifier ma communauté</h3>
+    {%endif%}
+{% endblock %}
+
+
+
+{% block maincontent %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Information sur la Communauté</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_label(form.name, "Nom de la communauté", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.name) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.city, "Ville", {'label_attr': {'class': 'control-label'}}) }}
+                        {% set city = "" %}
+                        {% if form.vars.value.city != null %}
+                            {% set city = form.vars.value.city.name ~ ' ('~form.vars.value.city.zipcode~')' %}
+                        {% endif %}
+                        <input type="Text" id="CityAutoCompleteInput" class="form-control" placeholder="Choisir une ville" value="{{ city }}" required>
+                        {% set cityId = "" %}
+                        {% if form.vars.value.city != null %}
+                            {% set cityId = form.vars.value.city.id %}
+                        {% endif %}
+                        {{ form_widget(form.city, {'attr': {'class': 'form-control','value':cityId,'style':'display:none;'}}) }}
+                        {{ form_errors(form.city) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.email, "Email de contact", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.email) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.phone, "Numéro de Téléphone", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.phone) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.enabled, "Etat", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.enabled, {'attr': {'class': 'form-control make-switch'}}) }}
+                        {{ form_errors(form.enabled) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.image, "Blason") }}
+                        {{ form_widget(form.image, {'attr': {'class': ''}}) }}
+                        {{ form_errors(form.image) }}
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Thèmes de la communauté</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            {{ form_widget(form.categories, {'attr': {'class': 'categories'}}) }}
+            <div id="add-category" class="actions">
+                <button type="button" class="add-category btn btn-info"><i class="fa fa-plus"></i> Ajouter un thème</button>
+            </div>
+        </div>
+    </div>
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Information sur le super admin</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    {% block cityhalladmin %}
+                        {%if entity.suAdmin%}
+                            <div class="form-group">
+                                {{entity.suAdmin.getCivilityText()}}
+                            </div>
+                            <div class="form-group">
+                                <span><b>Nom</b> : {{entity.suAdmin.lastname}}</span>
+                            </div>
+                            <div class="form-group">
+                                <span><b>Prénom</b> : {{entity.suAdmin.firstname}}</span>
+                            </div>
+                            <div class="form-group">
+                                <span><b>Email</b> : {{entity.suAdmin.email}}</a></span>
+                            </div>
+                            <div class="form-group">
+                                <span><b>Téléphone</b> : {{entity.suAdmin.phone}}</span>
+                            </div>
+                            {% if entity.suAdmin.city %}
+                                <div class="form-group">
+                                    <span><b>Ville</b> : {{entity.suAdmin.city.name}}</span>
+                                </div>
+                            {% endif %}
+                        {%endif%}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Paramètres de la communauté</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <table class="table">
+                            {% if(entity.id) %}
+                                <tr>
+                                    <td style="border:0px">Lien a envoyer aux prospects pour les inviter :</td>
+                                    <td style="border:0px"><a href="nousensemble://app.nous-ensemble.com/community/{{ entity.id }}">nousensemble://app.nous-ensemble.com/community/{{ entity.id }}</a> </td>
+                                    <td style="border:0px"></td>
+                                </tr>
+                            {% endif %}
+                            <tr >
+                                <td style="border:0px">{{ form_label(form.isPrivate, "Communauté privée", {'label_attr': {'class': 'control-label'}}) }}</td>
+                                <td style="border:0px">{{ form_widget(form.isPrivate, {'attr': {'class': 'form-control make-switch'}}) }}</td>
+                                <td style="border:0px">{{ form_errors(form.isPrivate) }}</td>
+                            </tr>
+
+                            {% for child in form.children.settings.settings.children %}
+
+                                {% set attr = {'class': 'form-control make-switch'} %}
+                                {% for setting in entity.settings%}
+
+
+                                    {%if child.vars.value == setting.id%}
+                                    {% set attr = {'class': 'form-control make-switch','checked': 'checked'}%}
+                                    {%endif%}
+                                        {%endfor%}
+                                            <tr >
+                                                <td style="border:0px">{{ form_label(child, "", {'label_attr': {'class': 'control-label'}}) }}</td>
+                                                <td style="border:0px">{{ form_widget(child, {'attr': attr}) }}</td>
+                                                <td style="border:0px">{{ form_errors(child) }}</td>
+                                            </tr>
+                                            {%  endfor %}
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="portlet box green">
+                                <div class="portlet-title">
+                                    <div class="caption">Google Analytics</div>
+                                    <div class="tools">
+                                        <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+                                    </div>
+                                </div>
+                                <div class="portlet-body" style="display: block;">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                {{ form_label(form.gaApplication, "Code UA-XXXX pour l'application", {'label_attr': {'class': 'control-label'}}) }}
+                                                {{ form_widget(form.gaApplication, {'attr': {'class': 'form-control'}}) }}
+                                                {{ form_errors(form.gaApplication) }}
+                                            </div>
+                                            <div class="form-group">
+                                                {{ form_label(form.gaApplicationProfileIDMOBILE, "Profile ID de la vue MOBILE (application)", {'label_attr': {'class': 'control-label'}}) }}
+                                                {{ form_widget(form.gaApplicationProfileIDMOBILE, {'attr': {'class': 'form-control'}}) }}
+                                                {{ form_errors(form.gaApplicationProfileIDMOBILE) }}
+                                            </div>
+                                            <div class="form-group">
+                                                {{ form_label(form.gaApplicationProfileIDWEB, "Profile ID de la vue WEB (application)", {'label_attr': {'class': 'control-label'}}) }}
+                                                {{ form_widget(form.gaApplicationProfileIDWEB, {'attr': {'class': 'form-control'}}) }}
+                                                {{ form_errors(form.gaApplicationProfileIDWEB) }}
+                                            </div>
+                                            <div class="form-group">
+                                                {{ form_label(form.gaBackoffice, "Code UA-XXXX pour backoffice", {'label_attr': {'class': 'control-label'}}) }}
+                                                {{ form_widget(form.gaBackoffice, {'attr': {'class': 'form-control'}}) }}
+                                                {{ form_errors(form.gaBackoffice) }}
+                                            </div>
+                                            <div class="form-group">
+                                                {{ form_label(form.gaBackofficeProfileID, "Profile ID de la vue (backoffice)", {'label_attr': {'class': 'control-label'}}) }}
+                                                {{ form_widget(form.gaBackofficeProfileID, {'attr': {'class': 'form-control'}}) }}
+                                                {{ form_errors(form.gaBackofficeProfileID) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {%endif%}
+                        <div class="form-group align-center">
+                            {{ form_widget(form.save, {'attr': {'class': 'btn btn-success btn-lg'}, 'label': 'Valider'}) }}
+                        </div>
+                        {{ form_rest(form) }}
+                        {{ form_end(form) }}
+{% endblock %}
+
+{% block _appbundle_community_categories_entry_widget %}
+    <div class="row category">
+        <div class="col-lg-3 col-md-5 col-sm-5 col-xs-10">
+            <div class="form-group">
+                {{ form_label(form.name, "Nom du thème", {'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.name) }}
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-5 col-sm-5 col-xs-10">
+            <div class="form-group">
+                {{ form_label(form.type, "Type", {'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.type) }}
+            </div>
+        </div>
+        <div class="actions col-lg-1 col-md-2 col-sm-2 col-xs-2" style="margin-top: 27px">
+            <a class="delete-category btn btn-danger btn-sm"><i class="fa fa-trash"></i> Supprimer</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/app/js/community.js') }}"></script>
+{% endblock %}

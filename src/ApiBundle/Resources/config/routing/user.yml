@@ -1,0 +1,255 @@
+   # API USerController
+login:
+    path:     /api/user/login
+    methods:  [POST]
+api_user_login:
+    path:     /api/user/login
+    defaults: { _controller: ApiBundle:User:login }
+    methods:  [POST] 
+api_user_logout:
+    path:     /api/user/logout
+    defaults: { _controller: ApiBundle:User:logout }
+    methods:  [GET]
+api_user_lost_password:
+    path:     /api/user/reset_password
+    defaults: { _controller: ApiBundle:User:lostPassword }
+    methods:  [GET]
+
+gesdinet_jwt_refresh_token:
+    path:     /api/user/token/refresh
+    defaults: { _controller: gesdinet.jwtrefreshtoken:refresh }
+api_user_refresh_token:
+    path:     /api/user/token/refresh
+    defaults: { _controller: ApiBundle:User:refreshToken }
+    methods:  [POST]
+api_user_device_token:
+    path:     /api/user/deviceToken
+    defaults: { _controller: ApiBundle:User:deviceToken }
+    methods:  [POST]
+api_user_device_token_delete:
+    path:     /api/user/deviceToken/delete
+    defaults: { _controller: ApiBundle:User:deleteDeviceToken }
+    methods:  [POST]
+api_user_register:
+    path:     /api/users
+    defaults: { _controller: ApiBundle:User:register }
+    methods:  [POST]
+api_user_register_follow:
+    path:     /api/users/register/follow
+    defaults: { _controller: ApiBundle:User:registerAndFollow }
+    methods:  [POST]
+
+api_user_communities_add_follow:
+    path:     /api/community/add/follow
+    defaults: { _controller: ApiBundle:User:addAndFollowCommunities }
+    methods:  [POST]
+
+api_user_show:
+    path:     /api/user
+    defaults: { _controller: ApiBundle:User:show }
+    methods:  [GET]
+api_user_associations:
+    path:     /api/user/associations
+    defaults: { _controller: ApiBundle:User:associations }
+    methods:  [GET]
+api_user_associations_adherent:
+    path:     /api/user/adherentAsso
+    defaults: { _controller: ApiBundle:User:adherentAsso }
+    methods:  [GET]
+api_user_merchant_adherent:
+    path:     /api/user/adherentMerchant
+    defaults: { _controller: ApiBundle:User:adherentMerchant }
+    methods:  [GET]
+api_user_communities_followed:
+    path:     /api/user/communities/followed
+    defaults: { _controller: ApiBundle:User:communities }
+    methods:  [GET]
+api_user_communities:
+    path:     /api/user/communities
+    defaults: { _controller: ApiBundle:User:userCommunities }
+    methods:  [GET]
+api_user_merchants:
+    path:     /api/user/merchants
+    defaults: { _controller: ApiBundle:User:merchants }
+    methods:  [GET]
+api_user_notifications:
+    path:     /api/user/notifications
+    defaults: { _controller: ApiBundle:User:notifications }
+    methods:  [GET]
+api_user_notifications_participation:
+    path:     /api/user/notifications/participation
+    defaults: { _controller: ApiBundle:User:participationNotif }
+    methods:  [GET]
+
+api_categories:
+    path:     /api/categories
+    defaults: { _controller: ApiBundle:User:categories }
+    methods:  [GET]
+api_user_categories:
+    path:     /api/user_categories
+    defaults: { _controller: ApiBundle:User:userCategories }
+    methods:  [GET]
+
+api_public_communities:
+    path:     /api/communities/public
+    defaults: { _controller: ApiBundle:User:publicCommunities }
+    methods:  [GET]
+api_private_communities:
+    path:     /api/communities/private
+    defaults: { _controller: ApiBundle:User:privateCommunities }
+    methods:  [GET]
+api_number_categories:
+    path:     /api/number/categories
+    defaults: { _controller: ApiBundle:Default:numberCategories }
+    methods:  [GET]   
+api_local_actor:
+    path:     /api/localActor/{id}
+    defaults: { _controller: ApiBundle:Default:localActor }
+    methods:  [GET]
+api_cities:
+    path:     /api/cities
+    defaults: { _controller: ApiBundle:Default:cities }
+    methods:  [GET]
+    
+api_communities:
+    path:     /api/community/informations/{id}
+    defaults: { _controller: ApiBundle:Default:getCommunityName}
+    methods:  [GET]
+
+api_search_cities:
+    path:     /api/searchcities
+    defaults: { _controller: ApiBundle:Default:searchCities }
+    methods:  [POST]
+api_website_communities:
+    path:     /api/websiteCommunities
+    defaults: { _controller: ApiBundle:Default:CommunityWebsite }
+    methods:  [GET]
+api_intercommunal_cities:
+    path:     /api/intercommunal/{city}
+    defaults: { _controller: ApiBundle:Default:intercommunalCities }
+    methods:  [GET]
+api_user_secondary_city:
+    path:     /api/user/profile/secondarycity
+    defaults: { _controller: ApiBundle:User:addCity }
+    methods:  [POST]
+api_user_secondary_city_remove:
+    path:     /api/user/secondarycity/remove
+    defaults: { _controller: ApiBundle:User:removeCity }
+    methods:  [POST]
+api_user_days:
+    path:     /api/user/profile/days
+    defaults: { _controller: ApiBundle:User:days }
+    methods:  [POST]
+api_user_invitation:
+    path:     /api/user/invitation
+    defaults: { _controller: ApiBundle:User:invitation }
+    methods:  [POST]
+api_user_childrens:
+    path:     /api/user/profile/childrens
+    defaults: { _controller: ApiBundle:User:childrens }
+    methods:  [POST]
+api_user_interests:
+    path:     /api/user/profile/interests
+    defaults: { _controller: ApiBundle:User:interests }
+    methods:  [POST]
+api_user_password:
+    path:     /api/user/password
+    defaults: { _controller: ApiBundle:User:password }
+    methods:  [POST]
+api_user_edit:
+    path:     /api/user/edit
+    defaults: { _controller: ApiBundle:User:edit }
+    methods:  [POST]
+
+api_user_advanced_search:
+    path:     /api/user/advanced/search
+    defaults: { _controller: ApiBundle:User:advancedSearch }
+    methods:  [POST]
+api_user_public_communities_add:
+    path:     /api/community/public/add
+    defaults: { _controller: ApiBundle:User:addPublicCommunities }
+    methods:  [POST]
+api_user_private_communities_add:
+    path:     /api/community/private/add
+    defaults: { _controller: ApiBundle:User:addPrivateCommunities }
+    methods:  [POST]
+api_user_private_communities_password:
+    path:     /api/community/password
+    defaults: { _controller: ApiBundle:User:passwordRequest }
+    methods:  [POST]
+api_user_public_communities_follow:
+    path:     /api/community/follow
+    defaults: { _controller: ApiBundle:User:followCommunities }
+    methods:  [POST]
+api_user_public_communities_unfollow:
+    path:     /api/community/unfollow
+    defaults: { _controller: ApiBundle:User:unfollow }
+    methods:  [POST]
+
+
+
+
+
+api_signalement:
+    path:     /api/reporting
+    defaults: { _controller: ApiBundle:Default:reporting }
+    methods:  [POST]
+
+api_signalement_categories:
+    path:     /api/reporting/categories
+    defaults: { _controller: ApiBundle:Default:categoriesReporting }
+    methods:  [GET]
+
+api_user_change_picture:
+    path:     /api/user/profile/picture
+    defaults: { _controller: ApiBundle:User:saveUserImage }
+    methods:  [POST]
+
+api_user_contact:
+    path:     /api/user/contact
+    defaults: { _controller: ApiBundle:Default:contact }
+    methods:  [POST]
+
+api_user_number:
+    path:     /api/user/number/{category}
+    defaults: { _controller: ApiBundle:User:numbers }
+    methods:  [GET]
+    
+api_interest_category:
+    path:     /api/interest/category/{id}
+    defaults: { _controller: ApiBundle:Default:interestCategories }
+    methods:  [GET]
+
+api_map_interest:
+    path:     /api/user/map/interest
+    defaults: { _controller: ApiBundle:User:mapInterest }
+    methods:  [GET]
+api_map_work:
+    path:     /api/user/map/work/{id}
+    defaults: { _controller: ApiBundle:User:work }
+    methods:  [GET]
+
+api_user_associations_merchants:
+    path:     /api/associations/merchants
+    defaults: { _controller: ApiBundle:User:associationsMerchants }
+    methods:  [GET]
+
+api_user_save-associations-merchants-superadmin:
+    path:     /api/associations/merchants/save/superadmin
+    defaults: { _controller: ApiBundle:User:saveAssociationsMerchantsSuperAdmin }
+    methods:  [POST]
+
+api_user_delete-myAccount:
+    path:     /api/account/delete
+    defaults: { _controller: ApiBundle:User:deleteMyAccount }
+    methods:  [POST]
+
+pi_user_community_location_by_mapheading:
+    path:     /api/user/map/location/{id}
+    defaults: { _controller: ApiBundle:User:communityLocationByMapHeading }
+    methods:  [GET]
+
+api_report_objects:
+    path:     /api/reportHeading/objects/{id}
+    defaults: { _controller: ApiBundle:Default:reportingHeadingObjects }
+    methods:  [GET]

@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}NOUS Ensemble{% endblock %}</title>
+        <style type="text/css">
+            body {
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+                margin:0 !important;
+                width: 100% !important;
+                -webkit-text-size-adjust: 100% !important;
+                -ms-text-size-adjust: 100% !important;
+                -webkit-font-smoothing: antialiased !important;
+            }
+            .tableContent img {
+                border: 0 !important;
+                display: inline-block !important;
+                outline: none !important;
+            }
+
+            p, h1,h2,h3,ul,ol,li,div{
+                margin:0;
+                padding:0;
+            }
+            h1,h2{
+                font-weight: normal;
+                background:transparent !important;
+                border:none !important;
+            }
+
+            td,table{
+                vertical-align: top;
+            }
+            td.middle{
+                vertical-align: middle;
+            }
+
+            a{
+                text-decoration: none;
+            }
+
+            h1{
+                font-size: 24px;
+                font-weight: bold;
+                color: #000000;
+                line-height: 150%;
+            }
+            h2{
+                font-size: 18px;
+                font-weight: bold;
+                color: #000000;
+                line-height: 150%;
+                height:60px;
+            }
+            p{
+                font-size: 16px;
+                color: #000000;
+                line-height: 150%;
+                text-align: left;
+            }
+            .bgItem{
+                background: #ffffff;
+            }
+            .color{
+                border: 1px solid #00a99d;
+            }
+        </style>
+    </head>
+    <body class='bgBody' style="padding-top: 0; padding-bottom: 0; padding-top: 0; padding-bottom: 0; background-repeat: repeat; width: 100% !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableContent bgBody" align="center"  style='font-family:Helvetica, sans-serif;'>
+            <tr>
+                <td align='center' class='movableContentContainer'>
+                    <div class='movableContent'>
+                        <table width="600" border="0" cellspacing="0" cellpadding="0" align="center" class="color">
+                            <tr>
+                                <td>
+                                    <div class="contentEditableContainer contentImageEditable">
+                                        <div class="contentEditable">
+                                            <img src="{{ absolute_url(asset('bundles/app/images/ban_mail.jpg')) }}" alt="Nous ensemble logo" width='600' >
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr><td height='10' bgcolor="00a99d"></td></tr>
+                        </table>
+                    </div>
+                    <div class='movableContent'>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+                            <tr><td height='20'></td></tr>
+                            <tr>
+                                <td>
+                                    <table width="600" border="0" cellspacing="0" cellpadding="0" align="center" class='bgItem color' style='border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;'>
+                                        <tr><td colspan="5" height='30'></td></tr>
+                                        <tr>
+
+                                            <td width='15'></td>
+                                            <td width='395'>
+                                                <div class="contentEditableContainer contentTextEditable">
+                                                    <div class="contentEditable">
+                                                        {% block body %}
+                                                        {% endblock %}
+                                                        <br/>
+                                                        <br/>
+                                                        <br/>
+                                                        <br/>
+                                                        <br/>
+                                                        L’équipe de NOUS Ensemble<br>contact@nous-ensemble.com
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td width='20'></td>
+                                        </tr>
+                                        <tr><td colspan="5" height='30'></td></tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class='movableContent'>
+                        <table width="600" border="0" cellspacing="0" cellpadding="0"><tr><td height='20'></td></tr></table>
+                        <table width="600" border="0" cellspacing="0" cellpadding="0" align="center" class='bgItem color'>
+                            <tr><td height='10' bgcolor="00a99d"></td></tr>
+                            <tr>
+                                <td>
+                                    <table  width="600" border="0" cellspacing="0" cellpadding="0" align="center" >
+                                        <tr><td height='30'></td></tr>
+                                        <tr>
+                                            <td align='center'>
+                                                <table width="204" border="0" cellspacing="0" cellpadding="0" align="center">
+                                                    <tr>
+                                                        <td width='68' align="center">
+                                                            <div class="contentEditableContainer contentFacebookEditable">
+                                                                <div class="contentEditable">
+                                                                    <a href="https://www.facebook.com/nousensemble">
+                                                                        <img src="{{ absolute_url(asset('bundles/app/images/facebook.png')) }}" alt="Facebook" data-default="placeholder" width='50' height='50'  data-max-width="50" data-customIcon="true" >
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td width='68' align="center">
+                                                            <div class="contentEditableContainer contentImageEditable">
+                                                                <div class="contentEditable">
+                                                                    <a href="https://www.linkedin.com/company-beta/11177700/">
+                                                                        <img src="{{ absolute_url(asset('bundles/app/images/linkedin.png')) }}" alt="Linkedin" width='50' height='50'  data-max-width="50">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table  width="600" border="0" cellspacing="0" cellpadding="0" align="center" >
+                                                    <tr><td height='20'></td></tr>
+                                                    <tr>
+                                                        <td align='center'>
+                                                            <div class="contentEditableContainer contentTextEditable">
+                                                                <div class="contentEditable" >
+                                                                    <p style='color:#a5a5a5;text-align:center;font-size:11px;line-height:19px;'>
+                                                                        <a target='_blank' href="http://www.nous-ensemble.com/" style='color:#a5a5a5'>Copyright © NOUS-ensemble 2017</a>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr><td height='20'></td></tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+<div data-form-collection="item" data-form-collection-index="__name__" class="collection-item">
+    <div class="collection-box col-sm-10 col-sm-offset-2 padding-top-20">
+        <div class="row form-horizontal form-group">
+            <div class="col-sm-4">
+                {{ form_label(form.objet) }}
+                {{ form_widget(form.objet) }}
+            </div>
+            <div class="col-sm-3">
+                {{ form_label(form.recipient) }}
+                {{ form_widget(form.recipient) }}
+            </div>
+            <label class="col-sm-3 control-label text-right">
+                <button data-form-collection="delete" class="btn btn-danger">
+                    <i class="fa fa-times collection-button-remove"></i>{{ 'form.collection.delete'|trans }}
+                </button>
+            </label>
+        </div>
+    </div>
+</div>

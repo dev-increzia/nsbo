@@ -1,0 +1,724 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block  js %}
+    {{parent()}}
+    <script src="{{ asset('bundles/app/js/charts.js') }}" type="text/javascript"></script>
+{% endblock %}
+{% block breadcrumb %}
+    <li>
+        <span>Liste des indicateurs</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Liste des indicateurs</h3>
+{% endblock %}
+{% block maincontent %}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Vos critères de recherche</div>
+            <div class="tools">
+                <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: none;">
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ form_start(form, {'attr': {'id': 'stats_filter'}}) }}
+                    {{ form_errors(form) }}
+                    <div class="form-group">
+                        <div class="col-sm-6 padding-none margin-none">
+                            <div class="form-group">
+                                {{ form_label(form.dateBefore, "Date (>=)", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.dateBefore, {'attr': {'class': 'form-control datepicker'}}) }}
+                                {{ form_errors(form.dateBefore) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_label(form.dateAfter, "et (<=)", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.dateAfter, {'attr': {'class': 'form-control datepicker'}}) }}
+                                {{ form_errors(form.dateAfter) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success'}, 'label': 'Valider'}) }}
+                    </div>
+                </div>
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Les événements crées (date de création)</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="content_chart1" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="contentChart1">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Role</label>
+                                <select name="type" class="form-control type" data-func="contentChart1">
+                                    <option value="" selected="selected">Tous</option>
+                                    <option value="association">Association</option>
+                                    <option value="merchant">Commerçant</option>
+                                    <option value="cityhall">Communauté</option>
+                                </select>
+                            </div>
+                            <div class="form-group hide association">
+                                <label class="control-label">Associations</label>
+                                <select name="association" class="form-control association" data-func="contentChart1">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for association in associations %}
+                                        <option value="{{association.id}}">{{association.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group hide merchant">
+                                <label class="control-label">Commerçants</label>
+                                <select name="merchant" class="form-control merchant" data-func="contentChart1">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for merchant in merchants %}
+                                        <option value="{{merchant.id}}">{{merchant.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Bénévoles</label>
+                                <select name="volunteer" class="form-control volunteer" data-func="contentChart1">
+                                    <option value="" selected="selected">Tous</option>
+                                    <option value="on">ON</option>
+                                    <option value="off">OFF</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Les événements à venir (date de début)</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="content_chart2" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="contentChart2">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Role</label>
+                                <select name="type" class="form-control type" data-func="contentChart2">
+                                    <option value="" selected="selected">Tous</option>
+                                    <option value="association">Association</option>
+                                    <option value="merchant">Commerçant</option>
+                                    <option value="cityhall">Communauté</option>
+                                </select>
+                            </div>
+                            <div class="form-group hide association">
+                                <label class="control-label">Associations</label>
+                                <select name="association" class="form-control association" data-func="contentChart2">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for association in associations %}
+                                        <option value="{{association.id}}">{{association.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group hide merchant">
+                                <label class="control-label">Commerçants</label>
+                                <select name="merchant" class="form-control merchant" data-func="contentChart2">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for merchant in merchants %}
+                                        <option value="{{merchant.id}}">{{merchant.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Bénévoles</label>
+                                <select name="volunteer" class="form-control volunteer" data-func="contentChart2">
+                                    <option value="" selected="selected">Tous</option>
+                                    <option value="on">ON</option>
+                                    <option value="off">OFF</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Nombre de clic sur détail événements</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="content_chart3" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="contentChart3">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                            <label class="control-label">Evènements</label>
+                            <select name="event" class="form-control event" data-func="contentChart3">
+                                <option value="" selected="selected">Tous</option>
+                                {% for event in events %}
+                                    <option value="{{event.id}}">{{event.title}}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="form-group">
+                                <label class="control-label">Role</label>
+                                <select name="type" class="form-control type" data-func="contentChart3">
+                                    <option value="" selected="selected">Tous</option>
+                                    <option value="association">Association</option>
+                                    <option value="merchant">Commerçant</option>
+                                    <option value="cityhall">Communauté</option>
+                                </select>
+                            </div>
+                            <div class="form-group hide association">
+                                <label class="control-label">Associations</label>
+                                <select name="association" class="form-control association" data-func="contentChart3">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for association in associations %}
+                                        <option value="{{association.id}}">{{association.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group hide merchant">
+                                <label class="control-label">Commerçants</label>
+                                <select name="merchant" class="form-control merchant" data-func="contentChart3">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for merchant in merchants %}
+                                        <option value="{{merchant.id}}">{{merchant.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Nombre de clic sur participer aux événements</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="content_chart4" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="contentChart4">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                            <label class="control-label">Evènements</label>
+                            <select name="event" class="form-control event" data-func="contentChart4">
+                                <option value="" selected="selected">Tous</option>
+                                {% for event in events %}
+                                    <option value="{{event.id}}">{{event.title}}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="form-group">
+                                <label class="control-label">Role</label>
+                                <select name="type" class="form-control type" data-func="contentChart4">
+                                    <option value="" selected="selected">Tous</option>
+                                    <option value="association">Association</option>
+                                    <option value="merchant">Commerçant</option>
+                                    <option value="cityhall">Communauté</option>
+                                </select>
+                            </div>
+                            <div class="form-group hide association">
+                                <label class="control-label">Associations</label>
+                                <select name="association" class="form-control association" data-func="contentChart4">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for association in associations %}
+                                        <option value="{{association.id}}">{{association.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group hide merchant">
+                                <label class="control-label">Commerçants</label>
+                                <select name="merchant" class="form-control merchant" data-func="contentChart4">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for merchant in merchants %}
+                                        <option value="{{merchant.id}}">{{merchant.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Nombre de clic sur 'je viens aider': bénévoles</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="content_chart5" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="contentChart5">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                            <label class="control-label">Evènements</label>
+                            <select name="event" class="form-control event" data-func="contentChart5">
+                                <option value="" selected="selected">Tous</option>
+                                {% for event in events %}
+                                    <option value="{{event.id}}">{{event.title}}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="form-group">
+                                <label class="control-label">Role</label>
+                                <select name="type" class="form-control type" data-func="contentChart5">
+                                    <option value="" selected="selected">Tous</option>
+                                    <option value="association">Association</option>
+                                    <option value="merchant">Commerçant</option>
+                                    <option value="cityhall">Communauté</option>
+                                </select>
+                            </div>
+                            <div class="form-group hide association">
+                                <label class="control-label">Associations</label>
+                                <select name="association" class="form-control association" data-func="contentChart5">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for association in associations %}
+                                        <option value="{{association.id}}">{{association.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group hide merchant">
+                                <label class="control-label">Commerçants</label>
+                                <select name="merchant" class="form-control merchant" data-func="contentChart5">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for merchant in merchants %}
+                                        <option value="{{merchant.id}}">{{merchant.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Les articles</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="content_chart6" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="contentChart6">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Role</label>
+                                <select name="type" class="form-control type" data-func="contentChart6">
+                                    <option value="" selected="selected">Tous</option>
+                                    <option value="association">Association</option>
+                                    <option value="merchant">Commerçant</option>
+                                    <option value="cityhall">Communauté</option>
+                                    <option value="user">Citoyen</option>
+                                </select>
+                            </div>
+                            <div class="form-group hide association">
+                                <label class="control-label">Associations</label>
+                                <select name="association" class="form-control association" data-func="contentChart6">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for association in associations %}
+                                        <option value="{{association.id}}">{{association.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group hide merchant">
+                                <label class="control-label">Commerçants</label>
+                                <select name="merchant" class="form-control merchant" data-func="contentChart6">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for merchant in merchants %}
+                                        <option value="{{merchant.id}}">{{merchant.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Etat</label>
+                                <select name="granularity" class="form-control enabled" data-func="contentChart6">
+                                    <option value="" selected="selected">Tous</option>
+                                    <option value="0">Inactif</option>
+                                    <option value="1">Actif</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Les Commentaires</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="content_chart7" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="contentChart7">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Type de commentaire</label>
+                                <select name="typeComment" class="form-control typeComment" data-func="contentChart7">
+                                    <option value="" selected="selected">Tous</option>
+                                    <option value="event">Evènements</option>
+                                    <option value="article">Articles</option>
+                                </select>
+                            </div>
+                            <div class="form-group event">
+                                <label class="control-label">Evènements</label>
+                                <select name="event" class="form-control event" data-func="contentChart7">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for event in events %}
+                                        <option value="{{event.id}}">{{event.title}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group article">
+                                <label class="control-label">Articles</label>
+                                <select name="merchant" class="form-control article" data-func="contentChart7">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for article in articles %}
+                                        <option value="{{article.id}}">{{article.title}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group association">
+                                <label class="control-label">Associations</label>
+                                <select name="association" class="form-control association" data-func="contentChart7">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for association in associations %}
+                                        <option value="{{association.id}}">{{association.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group merchant">
+                                <label class="control-label">Commerçants</label>
+                                <select name="merchant" class="form-control merchant" data-func="contentChart7">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for merchant in merchants %}
+                                        <option value="{{merchant.id}}">{{merchant.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Les Commentaires supprimés</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div id="content_chart8" class="chart" style="height: 525px;"></div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">Granularité</label>
+                                    <select name="granularity" class="form-control granularity" data-func="contentChart8">
+                                        <option value="day" selected="selected">Jour</option>
+                                        <option value="month">Mois</option>
+                                        <option value="year">Année</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Type de commentaire</label>
+                                    <select name="typeComment" class="form-control typeComment" data-func="contentChart8">
+                                        <option value="" selected="selected">Tous</option>
+                                        <option value="event">Evènements</option>
+                                        <option value="article">Articles</option>
+                                    </select>
+                                </div>
+                                <div class="form-group event">
+                                    <label class="control-label">Evènements</label>
+                                    <select name="event" class="form-control event" data-func="contentChart8">
+                                        <option value="" selected="selected">Tous</option>
+                                        {% for event in events %}
+                                            <option value="{{event.id}}">{{event.title}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group article">
+                                    <label class="control-label">Articles</label>
+                                    <select name="merchant" class="form-control article" data-func="contentChart8">
+                                        <option value="" selected="selected">Tous</option>
+                                        {% for article in articles %}
+                                            <option value="{{article.id}}">{{article.title}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group association">
+                                    <label class="control-label">Associations</label>
+                                    <select name="association" class="form-control association" data-func="contentChart8">
+                                        <option value="" selected="selected">Tous</option>
+                                        {% for association in associations %}
+                                            <option value="{{association.id}}">{{association.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group merchant">
+                                    <label class="control-label">Commerçants</label>
+                                    <select name="merchant" class="form-control merchant" data-func="contentChart8">
+                                        <option value="" selected="selected">Tous</option>
+                                        {% for merchant in merchants %}
+                                            <option value="{{merchant.id}}">{{merchant.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Les PUSH</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="content_chart9" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="contentChart9">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                            <div class="form-group event">
+                                <label class="control-label">Evènements</label>
+                                <select name="event" class="form-control event" data-func="contentChart9">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for event in events %}
+                                        <option value="{{event.id}}">{{event.title}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Type d'évenement</label>
+                                <select name="typeEvent" class="form-control typeEvent" data-func="contentChart9">
+                                    <option value="" selected="selected">Tous</option>
+                                    <option value="association">Evènement "Association"</option>
+                                    <option value="merchant">Evènement "Commerçant"</option>
+                                    <option value="cityhall">Evènement "Communauté"</option>
+                                </select>
+                            </div>
+                            <div class="form-group hide categories">
+                                <label class="control-label">Catégorie association/commerçant</label>
+                                <select name="category" class="form-control category" data-func="contentChart9">
+                                    <option value="" selected="selected">Toutes</option>
+                                    {% for category in categories %}
+                                        <option value="{{category.id}}">{{category.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase"> Impact des pushs par événements</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="fullscreen"> </a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="content_chart10" class="chart" style="height: 525px;"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Granularité</label>
+                                <select name="granularity" class="form-control granularity" data-func="contentChart10">
+                                    <option value="day" selected="selected">Jour</option>
+                                    <option value="month">Mois</option>
+                                    <option value="year">Année</option>
+                                </select>
+                            </div>
+                            <div class="form-group event">
+                                <label class="control-label">Evènements</label>
+                                <select name="event" class="form-control event" data-func="contentChart10">
+                                    <option value="" selected="selected">Tous</option>
+                                    {% for event in events %}
+                                        <option value="{{event.id}}">{{event.title}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Type d'évenement</label>
+                                <select name="typeEvent" class="form-control typeEvent" data-func="contentChart10">
+                                    <option value="" selected="selected">Tous</option>
+                                    <option value="association">Evènement "Association"</option>
+                                    <option value="merchant">Evènement "Commerçant"</option>
+                                    <option value="cityhall">Evènement "Communauté"</option>
+                                </select>
+                            </div>
+                            <div class="form-group hide categories">
+                                <label class="control-label">Catégorie association/commerçant</label>
+                                <select name="category" class="form-control category" data-func="contentChart10">
+                                    <option value="" selected="selected">Toutes</option>
+                                    {% for category in categories %}
+                                        <option value="{{category.id}}">{{category.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

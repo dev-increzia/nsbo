@@ -1,0 +1,40 @@
+api_v1_article:
+    type:     rest 
+    resource: "@ApiBundle/Resources/config/routing/article.yml"
+    prefix:   /article
+api_v1_comment:
+    type:     rest
+    resource: "@ApiBundle/Resources/config/routing/comment.yml"
+    prefix:   /comment
+api_v1_event:
+    type:     rest
+    resource: "@ApiBundle/Resources/config/routing/event.yml"
+    prefix:   /event
+api_v1_merchant:
+    type:     rest
+    resource: "@ApiBundle/Resources/config/routing/merchant.yml"
+    prefix:   /merchant
+api_v1_association:
+    type:     rest
+    resource: "@ApiBundle/Resources/config/routing/association.yml"
+    prefix:   /association
+
+api_v3_goodplan:
+    type:     rest
+    resource: "@ApiBundle/Resources/config/routing/goodplan.yml"
+    prefix:   /goodplan
+
+api_v1_community:
+    type:     rest
+    resource: "@ApiBundle/Resources/config/routing/community.yml"
+    prefix:   /community
+
+api_v1_survey:
+    type:     rest
+    resource: "@ApiBundle/Resources/config/routing/survey.yml"
+    prefix:   /survey
+
+api_post_video:
+    path:     /post_video/{type}/{id}
+    defaults: { _controller: ApiBundle:Default:postVideo }
+    methods:  [POST]

@@ -1,0 +1,161 @@
+{% for goodPlan in goodPlans %}
+    <div class="col-lg-12 col-xs-12 col-sm-12">
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title" style="padding-bottom: 0px; margin-bottom: 0px; padding-top: 0px;">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase">
+                </div>
+                <div class="tools">
+                    <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+                </div>
+            </div>
+            <div class="portlet-body" style="padding: 0px;">
+                <div class="mt-widget-2 padding-bot-20" data-target="#event{{goodPlan.id}}">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <img src="{%if goodPlan.image and goodPlan.image.file%}{{ app.request.basePath }}{{ vich_uploader_asset(goodPlan.image, 'file')}}{%else%}{{ asset('bundles/app/images/empty-image.png') }}{%endif%}" class="eventImg img-responsive" style="max-height: 150px;"/>
+                            <div class="padding-left-10">
+                                {%if goodPlan.merchant%}
+                                    <a href="{{ path('app_merchant_update', {id: goodPlan.merchant.id}) }}">{{goodPlan.merchant.name}}</a>
+                                {%endif%}
+                                <br>
+                                {%if goodPlan.merchant%}
+                                        <span><b>Commerçant :</b>{{goodPlan.merchant.name}}</span><br>
+                                {%endif%}
+
+                                <span><b>Date de début :</b> {{goodPlan.startAt|date("d/m/Y H:i")}} </span><br>
+                                <span><b>Date de fin :</b> {{goodPlan.endAt|date("d/m/Y H:i")}} </span><br>
+                                {# <span><b>Lieu :</b> {{event.place}} </span><br>#}
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-4 cursor-pointer ajax" href="{{ path('app_goodplan_view', {id: goodPlan.id}) }}"  data-target="#event{{goodPlan.id}}">
+                            <h3>{{goodPlan.title}}</h3>
+                            <p style="max-height: 100px; overflow-y: hidden">{{goodPlan.description|truncate(200)}}</p>
+                        </div>
+
+                        <div class="col-sm-3 text-right pull-right">
+                            {% if not community or (community and goodPlan.community == community) %}
+                            <div class="col-sm-12 margin-top-10">
+                                <span>
+                                    <b>Modération Communauté Principale :
+
+                                        {% if goodPlan.moderate == 'accepted' %}
+                                            Accepté
+                                        {% elseif goodPlan.moderate == 'refuse' %}
+                                            Refusé
+                                        {% else %}
+                                            En attente
+
+                                    {% endif %}
+                                    </b>
+                                </span>
+                            </div>
+
+                            {% if goodPlan.moderate == 'wait' %}
+
+                                    {% if (app.user.isCommunityAdmin(community) and app.user.hasRight('good_plan_aprove',community)) or app.user.isCommunitySuAdmin(community) %}
+                                <div class="col-sm-12 margin-top-10">
+                                    <a href="{{ path('app_goodplan_moderate', {id: goodPlan.id}) }}" class="btn btn-success btn-sm updateModerateEvent" type="button" data-type="accepted">Accepter</a>
+                                    <a href="{{ path('app_goodplan_moderate', {id: goodPlan.id}) }}" class="btn btn-danger btn-sm updateModerateEvent" type="button" data-type="refuse">Refuser</a>
+                                </div>
+                                {% endif %}
+                            {% endif %}
+                            {% endif %}
+
+
+
+                                {% if not community or (community and goodPlan.getSecondaryCommunity() and goodPlan.getSecondaryCommunity() == community)  %}
+                                <div class="col-sm-12 margin-top-10">
+                                <span>
+                                    <b>Modération Communauté Secondaire :
+
+                                        {% if goodPlan.moderateSecondaryCommunity == 'accepted' %}
+                                            Accepté
+                                        {% elseif goodPlan.moderateSecondaryCommunity == 'refuse' %}
+                                            Refusé
+                                        {% else %}
+                                            En attente
+
+                                        {% endif %}
+                                    </b>
+                                </span>
+                                </div>
+
+
+                                    {% if (app.user.isCommunityAdmin(community) and app.user.hasRight('good_plan_aprove',community)) or app.user.isCommunitySuAdmin(community) %}
+                                        <div class="col-sm-12 margin-top-10">
+                                            <a href="{{ path('app_goodplan_moderate_secondary', {id: goodPlan.id}) }}" class="btn btn-success btn-sm updateModerateEvent" type="button" data-type="accepted">Accepter</a>
+                                            <a href="{{ path('app_goodplan_moderate_secondary', {id: goodPlan.id}) }}" class="btn btn-danger btn-sm updateModerateEvent" type="button" data-type="refuse">Refuser</a>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+
+
+                            <div class="clearfix"></div>
+                            <div class="col-sm-12">
+                                {% if not community or (community and goodPlan.community == community) %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <a class="btn btn-success btn-sm updateEvent margin-top-10" href="{{ path('app_goodplan_update', {id: goodPlan.id}) }}" title="Modifier l'évènement">
+                                    <i class=" fa fa-pencil-square"> Modifier</i>
+                                </a>
+                                <br />
+                                {%if goodPlan.enabled%}
+                                    <a href="{{ path('app_goodplan_activate', {id: goodPlan.id}) }}" class="btn btn-success btn-sm activateEvent margin-top-10" title="Désactiver signfie que l'événement ne sera plus publié sur l'application. Vous pourrez le réactiver si besoin"><i class=" fa fa-lock"></i> Désactiver</a>
+                                {%else%}
+                                    <a href="{{ path('app_goodplan_activate', {id: goodPlan.id}) }}" class="btn btn-success btn-sm activateEvent margin-top-10" title="Activer signifie que l'événement sera plus publié sur l'application"><i class=" fa fa-lock"></i> Activer</a>
+                                {%endif%}
+                                <br />
+                                {% endif %}
+                                {% endif %}
+                                <a href="mailto:{%if goodPlan.createBy%}{{goodPlan.createBy.email}}{%endif%}" class="btn btn-success btn-sm mailtoEvent margin-top-10" title="Contacter l'auteur">
+                                    <i class=" fa fa-envelope-o"> Contacter l'auteur</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet box green margin-bot-0">
+                    <div class="portlet-title">
+                        <div class="caption">Détails</div>
+                        <div class="tools">
+                            <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body" style="display: none;">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <span><b>Adresse</b> : {{goodPlan.place}}</span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <span><b>Notification</b> : {%if goodPlan.pushEnabled%}On{%else%}Off{%endif%}</span><br>
+                                    {%if goodPlan.pushEnabled and goodPlan.push%}
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span><b>Date</b> : {{goodPlan.push.sendAt|date("d/m/Y H:i")}}</span>
+                                            </div>
+                                        </div>
+                                    {%endif%}
+                                    {%if goodPlan.pushEnabled and goodPlan.push%}
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span><b>Message</b> : {{goodPlan.push.content}}</span>
+                                            </div>
+                                        </div>
+                                    {%endif%}
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="separator row"></div>
+{% endfor %}

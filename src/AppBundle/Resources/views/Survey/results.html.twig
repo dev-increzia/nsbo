@@ -1,0 +1,86 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <span>Résultat du sondage</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Résultat du sondage</h3>
+{% endblock %}
+{% block maincontent %}
+
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Contexte de la question</div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{entity.description}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for question in entity.questions %}
+
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">Résultats de la question</div>
+                <div class="tools">
+                    <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+                </div>
+            </div>
+            <div class="portlet-body" style="display: block;">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <span><b>Intitulé de la question</b> : {{ question.title }}</span>
+                        </div>
+
+                        <div class="form-group row">
+
+                            {% for key, choice in data[question.id] %}
+                                <div class="col-md-3">
+                                    <div class="col-md-3">
+                                        {{ choice['choice'].title }}
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="{{ choice['count'] }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ choice['count'] }}%;">
+                                                {{ choice['count'] }}%
+                                                <span class="sr-only">{{ choice['count'] }}% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+
+                        <table id="surveysResponsesTable" class="table table-striped table-bordered" cellspacing="0" width="100%" data-url="{{ path('app_survey_results_grid', {id: question.id}) }}">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Prénom</th>
+                                <th>Nom</th>
+                                <th>Question du sondage</th>
+                                <th>Réponse</th>
+                                <th class="no-sort">Date de création du sondage</th>
+                                <th class="no-sort">Date de réponse</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock %}

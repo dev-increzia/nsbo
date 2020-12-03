@@ -1,0 +1,325 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+{% endblock %}
+{% block pagetitle %}
+{% endblock %}
+{% block maincontent %}
+    {% if not is_granted('ROLE_ADMIN') and community == null %}
+    <div class="row margin-top-10">
+        <div class="alert alert-danger">Vous devez choisir une communauté</div>
+    </div>
+
+    {% else %}
+    <div class="row margin-top-10">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <a class="dashboard-stat dashboard-stat-v2 green" href="{{ path('app_user') }}">
+                <div class="visual">
+                    <i class="fa fa-user-o"></i>
+                </div>
+                <div class="details">
+                    <div class="number">
+                        <span data-counter="counterup" data-value="{{countUser}}"></span>
+                    </div>
+                    <div class="desc"> Individus </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <a class="dashboard-stat dashboard-stat-v2 purple" href="{{ path('app_article') }}">
+                <div class="visual">
+                    <i class="fa fa fa-commenting"></i>
+                </div>
+                <div class="details">
+                    <div class="number">
+                        <span data-counter="counterup" data-value="{{countArticle}}"></span></div>
+                    <div class="desc"> Articles </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <a class="dashboard-stat dashboard-stat-v2 red" href="{{ path('app_event') }}">
+                <div class="visual">
+                    <i class="fa fa fa-calendar-o"></i>
+                </div>
+                <div class="details">
+                    <div class="number">
+                        <span data-counter="counterup" data-value="{{countEvents}}"></span></div>
+                    <div class="desc"> Evénements </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-bell"></i>
+                        <span class="caption-subject bold uppercase"> Notifications push</span><br>
+                    </div>
+                    <div class="tools">
+                        <a href="{{ path('app_push') }}" title="Voir tous"><label class="btn btn-circle btn-sm btn-success">Voir tous (évènements)</label></a>
+                        <a href="{{ path('app_push_cityhall') }}" title="Voir tous"><label class="btn btn-circle btn-sm btn-success">Voir tous (communauté)</label></a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="feeds">
+                                {% for key, datas in pushs %}
+                                    <li>
+                                        <div class="col1">
+                                            <div class="cont">
+                                                <div class="cont-col1">
+                                                    <div class="label label-sm label-success">
+                                                        <i class="fa fa-bell-o"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="cont-col2">
+                                                    <div class="desc"> {{key}}</div>
+                                                    <ul class="list-unstyled margin-left-60">
+                                                        {% for push in datas %}
+                                                            <li>
+                                                                {%if push.type == 'event'%}
+                                                                    {%if push.event%}
+                                                                        {%if push.event.type == 'association' and push.event.association %}
+                                                                            <b>{{push.sendAt|date("H:i")}}</b> : {{push.event.association.name}} « {{push.content}} » 
+                                                                        {%elseif push.event.type == 'merchant' and push.event.merchant %}
+                                                                            <b>{{push.sendAt|date("H:i")}}</b> : {{push.event.merchant.name}} « {{push.content}} » 
+                                                                        {%elseif push.event.type == 'cityhall'%}
+                                                                            <b>{{push.sendAt|date("H:i")}}</b> : Evènement communauté « {{push.content}} »
+                                                                        {%endif%}
+                                                                    {%else%}
+                                                                        <b>{{push.sendAt|date("H:i")}}</b> : Evènement « {{push.content}} » 
+                                                                    {%endif%}
+                                                                    <a alt="Editer" title="Editer" class="btn btn-sm btn-success padding-none" href="{{ path('app_push_update', {id: push.id}) }}">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                    </a> 
+                                                                    <a alt="Supprimer" title="Supprimer" class="btn btn-sm btn-success padding-none" href="{{ path('app_push_delete', {id: push.id}) }}">
+                                                                        <i class="fa fa-remove"></i>
+                                                                    </a>
+                                                                {%else%}
+                                                                    <b>{{push.sendAt|date("H:i")}}</b> : Communauté « {{push.content}} »
+                                                                    <a alt="Editer" title="Editer" class="btn btn-sm btn-success padding-none" href="{{ path('app_push_cityhall_update', {id: push.id}) }}">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                    </a> 
+                                                                    <a alt="Supprimer" title="Supprimer" class="btn btn-sm btn-success padding-none" href="{{ path('app_push_cityhall_delete', {id: push.id}) }}">
+                                                                        <i class="fa fa-remove"></i>
+                                                                    </a>
+                                                                {%endif%}
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-commenting"></i>
+                        <span class="caption-subject bold uppercase"> Commentaires</span> ({{countCommentsUnread}})<br>
+                    </div>
+                    <div class="tools">
+                        <a href="{{ path('app_comment') }}" title="Voir tous"><label class="btn btn-circle btn-sm btn-success">Voir tous</label></a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="mt-comments">
+                        <div class="row">
+                            {% for comment in comments %}
+                                <div class="col-md-1">
+                                    {%if comment['type'] == 'article'%}
+                                        <div class="mt-comment-article padding-left-10 cursor-pointer ajax" href="{{ path('app_article_view', {id: comment['entity'].id}) }}" data-target="#article{{comment['entity'].id}}">
+                                            <img src="{%if comment['entity'].image and comment['entity'].image.file%}{{ app.request.basePath }}{{ vich_uploader_asset(comment['entity'].image, 'file')}}{%else%}{{ asset('bundles/app/images/empty-image.png') }}{%endif%}" style="max-height: 65px;"/>
+                                            <a href="" class="btn btn-success countComment" title="{{comment['countComment']}} nouveaux commentaires">{{comment['countComment']}}</a>
+                                        </div>
+                                    {%else%}
+                                        <div class="mt-comment-article padding-left-10 cursor-pointer ajax" href="{{ path('app_event_view', {id: comment['entity'].id}) }}" data-target="#event{{comment['entity'].id}}">
+                                            <img src="{%if comment['entity'].image and comment['entity'].image.file%}{{ app.request.basePath }}{{ vich_uploader_asset(comment['entity'].image, 'file')}}{%else%}{{ asset('bundles/app/images/empty-image.png') }}{%endif%}" style="max-height: 65px;"/>
+                                            <a href="" class="btn btn-success countComment" title="{{comment['countComment']}} nouveaux commentaires">{{comment['countComment']}}</a>
+                                        </div>
+                                    {%endif%}
+                                </div>
+                                <div class="col-md-11">
+                                    {% for c in comment.comments %}
+                                        <div class="mt-comment">
+                                            <div class="mt-comment-img">
+                                                {%if c.user and c.user.image and c.user.image.file%}
+                                                    <img alt="" class="img-circle img-responsive" src="{{ app.request.basePath }}{{ vich_uploader_asset(c.user.image, 'file')}}" style="max-height: 40px;"/>
+                                                {%else%}
+                                                    <img alt="" class="img-circle img-responsive" src="{{ asset('bundles/app/images/empty-user.png') }}" style="max-height: 40px;" />
+                                                {%endif%}
+                                            </div>
+                                            <div class="mt-comment-body">
+                                                <div class="mt-comment-info">
+                                                    <a href=""><span class="mt-comment-author">{%if c.user%}{{c.user.lastname}} {{c.user.firstname}}{%endif%}</span></a>
+                                                    <span class="mt-comment-date">{{c.createAt|date("d/m/Y H:i")}}</span>
+                                                </div>
+                                                <div class="mt-comment-text">{{c.content}}</div>
+                                                <div class="mt-comment-details">
+                                                    <ul class="mt-comment-actions">
+                                                        <li>
+                                                            <a href="{{ path('app_comment_delete', {id: c.id}) }}" class="ajax" data-target="#commentDelete{{c.id}}">Supprimer</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="clearfix separator"></div>
+                            {% endfor %}
+                        </div> 
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-calendar-o"></i>
+                        <span class="caption-subject bold uppercase"> Evénements en attente</span> ({{countEventsWait}})<br>
+                    </div>
+                    <div class="tools">
+                        <a href="{{ path('app_event') }}" title="Voir tous"><label class="btn btn-circle btn-sm btn-success">Voir tous</label></a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        {% for eventWait in eventsWait %}
+                            <div class="col-md-4 margin-bot-10">
+                                <div class="mt-widget-2 cursor-pointer ajax" href="{{ path('app_event_view', {id: eventWait.id}) }}" data-target="#event{{eventWait.id}}">
+                                    <div class="mt-head" style="background-image: url('{%if eventWait.image and eventWait.image.file%}{{ app.request.basePath }}{{ vich_uploader_asset(eventWait.image, 'file')}}{%else%}{{ asset('bundles/app/images/empty-image.png') }}{%endif%}');max-height: 150px; background-size: cover;">
+                                        <div class="mt-head-label">
+                                            <span class="btn btn-success">{{eventWait.title}}</span>
+                                        </div>
+                                        <div class="mt-head-user">
+                                            <div class="mt-head-user-img" style="margin-top: 30px;">
+                                                <img src="{%if eventWait.createBy and eventWait.createBy.image and eventWait.createBy.image.file%}{{ app.request.basePath }}{{ vich_uploader_asset(eventWait.createBy.image, 'file')}}{%else%}{{ asset('bundles/app/images/empty-user.png') }}{%endif%}">
+                                            </div>
+                                            <div class="mt-head-user-info" style="margin-top: 70px;">
+                                                <span class="mt-user-name">{%if eventWait.createBy%}{{eventWait.createBy.lastname}} {{eventWait.createBy.firstname}}{%endif%}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-body" style="padding-top: 20px;">
+                                        <h3 class="mt-body-title mt-body-title-event"></h3>
+                                        <div class="mt-body-actions">
+                                            <div class="btn-group btn-group btn-group-justified">
+                                                {%if eventWait.type == 'association'%}
+                                                    {%if eventWait.association%}
+                                                        <a href="{{ path('app_association_update', {id: eventWait.association.id}) }}" class="btn eventWaitSub">{{eventWait.association.name}}</a>
+                                                    {%else%}
+                                                        <a href="" class="btn"></a>
+                                                    {%endif%}
+                                                {%elseif eventWait.type == 'merchant'%}  
+                                                    {%if eventWait.merchant%}
+                                                        <a href="{{ path('app_merchant_update', {id: eventWait.merchant.id}) }}" class="btn eventWaitSub">{{eventWait.merchant.name}}</a>
+                                                    {%else%}
+                                                        <a href="" class="btn"></a>
+                                                    {%endif%}
+                                                {%elseif eventWait.type == 'cityhall'%}
+                                                    <a href="javascript:;" class="btn"></a>
+                                                {%endif%}
+
+                                                <a href="javascript:;" class="btn "><i class="fa fa-calendar"></i> {{eventWait.startAt|date("d/m/Y H:i")}} </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="row">
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa fa-user-circle-o"></i>
+                        <span class="caption-subject bold uppercase"> Création DES GROUPES / ASSOCIATIONS</span> ({{countAssociationsWait}})<br>
+                    </div>
+                    <div class="tools">
+                        <a href="{{ path('app_association') }}" title="Voir tous"><label class="btn btn-circle btn-sm btn-success">Voir tous</label></a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        {% for associationWait in associationsWait %}
+                            <div class="col-md-4 margin-bot-10 padding-auto">
+                                <div class="cursor-pointer ajax associationWait" href="{{ path('app_association_view', {id: associationWait.id}) }}" data-target="#associationView{{associationWait.id}}" style="background-image: url('{%if associationWait.image and associationWait.image.file%}{{ app.request.basePath }}{{ vich_uploader_asset(associationWait.image, 'file')}}{%else%}{{ asset('bundles/app/images/empty-image.png') }}{%endif%}'); background-size: cover; padding: 10px;">
+                                    <div class="text-center padding-top-10">
+                                        <button type="button" class="btn btn-circle btn-danger btn-sm">{{associationWait.name}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-6 col-xs-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa fa-shopping-cart"></i>
+                        <span class="caption-subject bold uppercase"> Création DE COMMERCES / PARTENAIRES</span> ({{countMerchantsWait}})<br>
+                    </div>
+                    <div class="tools">
+                        <a href="{{ path('app_merchant') }}" title="Voir tous"><label class="btn btn-circle btn-sm btn-success">Voir tous</label></a>
+                        <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        {% for merchantWait in merchantsWait %}
+                            <div class="col-md-4 margin-bot-10 padding-auto">
+                                <div class="cursor-pointer ajax merchantWait" href="{{ path('app_merchant_view', {id: merchantWait.id}) }}" data-target="#merchantView{{merchantWait.id}}" style="background-image: url('{%if merchantWait.image and merchantWait.image.file%}{{ app.request.basePath }}{{ vich_uploader_asset(merchantWait.image, 'file')}}{%else%}{{ asset('bundles/app/images/empty-image.png') }}{%endif%}'); background-size: cover; padding: 10px;">
+                                    <div class="text-center padding-top-10">
+                                        <button type="button" class="btn btn-circle btn-danger btn-sm">{{merchantWait.name}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

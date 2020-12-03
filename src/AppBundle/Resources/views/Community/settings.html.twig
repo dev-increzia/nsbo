@@ -1,0 +1,153 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <span> Paramètres généraux</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Paramètres généraux</h3>
+{% endblock %}
+{% block maincontent %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Informations sur la Communauté</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{ form_label(form.name, "Nom de la communauté", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.name) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.city, "Ville", {'label_attr': {'class': 'control-label'}}) }}
+                        {% set city = "" %}
+                        {% if form.vars.value.city != null %}
+                            {% set city = form.vars.value.city.name ~ ' ('~form.vars.value.city.zipcode~')' %}
+                        {% endif %}
+                        <input type="Text" id="CityAutoCompleteInput" class="form-control" placeholder="Choisir une ville" value="{{ city }}" required>
+                        {% set cityId = "" %}
+                        {% if form.vars.value.city != null %}
+                            {% set cityId = form.vars.value.city.id %}
+                        {% endif %}
+                        {{ form_widget(form.city, {'attr': {'class': 'form-control','value':cityId,'style':'display:none;'}}) }}
+                        {{ form_errors(form.city) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.email, "Email de contact", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.email) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.phone, "Numéro de Téléphone", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.phone) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.enabled, "Etat", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.enabled, {'attr': {'class': 'form-control make-switch'}}) }}
+                        {{ form_errors(form.enabled) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.image, "Photo") }}
+                        {{ form_widget(form.image, {'attr': {'class': ''}}) }}
+                        {{ form_errors(form.image) }}
+                    </div>
+                </div>   
+        </div>
+        </div>
+    </div>
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Présentation de la Communauté</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-6">
+                   
+                    <div class="form-group">
+                        {{ form_label(form.presentation_title, "Titre", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.presentation_title, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.presentation_title) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.presentation_description, "Description", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.presentation_description, {'attr': {'class': 'form-control','rows': '10'}}) }}
+                        {{ form_errors(form.presentation_description) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.images, "Photos", {'label_attr': {'class': 'control-label'}}) }}
+                        <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+                            <div class="edit-form-imgs">
+                                {% for image in form.images %}
+                                    <li>
+                                        {{ form_label(image.file, "") }}
+                                        {{ form_widget(image.file) }}
+                                        {{ form_errors(image.file) }}
+                                        <a href="#" id="remove-img">supprimer Cette image</a>
+                                    </li>
+                                {% endfor %}
+                            </div>
+
+                            {{ form_widget(form.images.vars.prototype.file)|e }}
+                            {{ form_errors(form.images.vars.prototype.file) }}
+                        </ul>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.video, "Video", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.video, {'attr': {'class': ''}}) }}
+                        {% if(form.video.vars.value) %}
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <video class="embed-responsive-item" src="/upload/{{form.video.vars.value.filename}}"controls>
+                                    Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                                    Une version est disponible en téléchargement sous <a href="URL">adresse du lien </a> .
+                                </video>
+                            </div>
+                        {% endif %}
+                        {{ form_errors(form.video) }}
+                    </div>
+                    
+                </div>   
+        </div>
+        </div>
+    </div>
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Gestion page "Aide"</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-6">
+                   
+                    <div class="form-group">
+                        {{ form_label(form.help_page_content, "Contenu Page \"Aide\" ", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.help_page_content, {'attr': {'class': 'form-control','rows': '10'}}) }}
+                        {{ form_errors(form.help_page_content) }}
+                    </div>
+                   
+                    
+                </div>   
+        </div>
+        </div>
+    </div>
+                    <div class="form-group align-center">
+                            {{ form_widget(form.save, {'attr': {'class': 'btn btn-success btn-lg'}, 'label': 'Valider'}) }}
+                        </div>
+    
+                    {{ form_rest(form) }}
+                        {{ form_end(form) }}
+{% endblock %}

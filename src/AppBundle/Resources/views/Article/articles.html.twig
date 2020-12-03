@@ -1,0 +1,120 @@
+{% for article in articles %}
+    <div class="col-lg-12 col-xs-12 col-sm-12">
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title" style="padding-bottom: 0px; margin-bottom: 0px; padding-top: 0px;">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase">
+                </div>
+                <div class="tools">
+                    <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+                </div>
+            </div>
+            <div class="portlet-body" style="padding: 0px;">
+                <div class="mt-widget-2  cursor-pointer ajax padding-bot-20" href="{{ path('app_article_view', {id: article.id}) }}" data-target="#article{{article.id}}">
+                    <div class="row">
+                        <div class="col-sm-3 text-left">
+                            <img src="{%if article.image and article.image.file%}{{ app.request.basePath }}{{ vich_uploader_asset(article.image, 'file')}}{%else%}{{ asset('bundles/app/images/empty-image.png') }}{%endif%}" class="articleImg img-responsive" style="max-height: 150px;"/> 
+                            <div class="padding-left-10">
+                                {%if article.type == 'association'%}
+                                    {%if article.association%}
+                                        <a class="parentArticle" href="{{ path('app_association_update', {id: article.association.id}) }}" >{{article.association.name}}</a>
+                                    {%endif%}
+                                {%elseif article.type == 'merchant'%}
+                                    {%if article.merchant%}
+                                        <a class="parentArticle" href="{{ path('app_merchant_update', {id: article.merchant.id}) }}">{{article.merchant.name}}</a>
+                                    {%endif%}
+                                {%endif%}
+                                <br>
+                                <span><b>Auteur :</b> {%if article.createBy%}{{article.createBy.lastname}} {{article.createBy.firstname}}{%endif%}</span><br>
+                                <span><b>Publié le :</b> {{article.createAt|date("d/m/Y H:i")}} </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 text-left">
+                            <h3>{{article.title}}</h3>
+                            <p style="max-height: 100px; overflow-y: hidden">{{article.description|truncate(200)}}</p>
+                        </div>
+                        <div class="col-sm-4 text-right">
+                            <div class="col-sm-12 margin-top-10">
+                                {% if is_granted('ROLE_ADMIN')%}
+                                <a class="btn btn-success btn-sm updateArticle margin-bot-10" href="{{ path('app_article_update', {id: article.id}) }}" title="Modifier l'article">
+                                    <i class=" fa fa-pencil-square"> Modifier</i>
+                                </a>
+                                {% endif %}
+                                <br />
+                                {%if article.enabled%}
+                                    <a href="{{ path('app_article_activate', {id: article.id}) }}" class="btn btn-success btn-sm activateArticle margin-bot-10" title="Désactiver signifie que l'article ne sera plus publié sur l'application. Vous pourrez le réactiver si besoin"><i class=" fa fa-lock"></i> Désactiver</a>
+                                {%else%}
+                                    <a href="{{ path('app_article_activate', {id: article.id}) }}" class="btn btn-success btn-sm activateArticle margin-bot-10" title="Activer signfie que l'article sera plus publié sur l'application"><i class=" fa fa-lock"></i> Activer</a>
+                                {%endif%}
+                                <br />
+                                <a href="{{ path('app_article_share_dedicated_page', {articleId: article.id}) }}" class="ajax btn btn-success btn-sm updateArticle margin-bot-10" data-target="#commentDelete{{article.id}}"><i class=" fa fa-share-square"> Partager sur page dédiée</i></a>
+                    
+                                <br />
+                                <a href="mailto:{%if article.createBy%}{{article.createBy.email}}{%endif%}" class="btn btn-success btn-sm mailtoArticle margin-bot-10" title="Contacter l'auteur">
+                                    <i class=" fa fa-envelope-o"> Contacter l'auteur</i>
+                                </a>
+                                <br />
+                                <a href="{{ path('app_article_delete', {id: article.id}) }}" onclick="alert('Êtes-vous sur de vouloir supprimer ?');" class="btn btn-success btn-sm activateArticle margin-bot-10" title="Supprimer l'article " ><i class=" fa fa-lock"></i> Supprimer</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet box green margin-bot-0">
+                    <div class="portlet-title">
+                        <div class="caption">Commentaires ({{article.comments|length}})</div>
+                        <div class="tools">
+                            <a class="expand" href="javascript:;" data-original-title="" title=""> </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body" style="display: none;">
+                        <ul class="media-list">
+                            {% for comment in article.comments %}
+                                {%if comment.parent == null%}
+                                    <li class="media separator-comment">
+                                        <a class="pull-left" href="javascript:;">
+                                            {%if comment.user and comment.user.image and comment.user.image.file%}
+                                                <img alt="" class="todo-userpic img-circle" src="{{ app.request.basePath }}{{ vich_uploader_asset(comment.user.image, 'file')}}" style="max-width: 27px; max-height: 27px;"/>
+                                            {%else%}
+                                                <img class="todo-userpic img-circle" src="{{ asset('bundles/app/images/empty-user.png') }}" style="max-width: 27px; max-height: 27px;">
+                                            {%endif%}
+                                        </a>
+                                        <div class="media-body todo-comment">
+                                            <div class="comment">
+                                                <p class="todo-comment-head">
+                                                    <span class="todo-comment-username bold">{%if comment.user%}{{comment.user.lastname}} {{comment.user.firstname}}{%endif%}</span>
+                                                    <span class="todo-comment-date">le {{comment.createAt|date("d/m/Y H:i")}}</span>
+                                                </p>
+                                                <p class="todo-text-color">{{comment.content}}</p>
+                                            </div>
+                                            {% for commentChild in comment.comments %}
+                                                <div class="media separator-comment-child">
+                                                    <a class="pull-left" href="javascript:;">
+                                                        {%if commentChild.user and commentChild.user.image and commentChild.user.image.file%}
+                                                            <img alt="" class="todo-userpic img-circle" src="{{ app.request.basePath }}{{ vich_uploader_asset(commentChild.user.image, 'file')}}" style="max-width: 27px; max-height: 27px;"/>
+                                                        {%else%}
+                                                            <img class="todo-userpic img-circle" src="{{ asset('bundles/app/images/empty-user.png') }}" style="max-width: 27px; max-height: 27px;">
+                                                        {%endif%}
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <div class="comment">
+                                                            <p class="todo-comment-head">
+                                                                <span class="todo-comment-username bold">{%if commentChild.user%}{{commentChild.user.lastname}} {{commentChild.user.firstname}}{%endif%}</span>
+                                                                <span class="todo-comment-date">le {{commentChild.createAt|date("d/m/Y H:i")}}</span>
+                                                            </p>
+                                                            <p class="todo-text-color">{{commentChild.content}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </li>
+                                {%endif%}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="separator row"></div>
+{% endfor %}

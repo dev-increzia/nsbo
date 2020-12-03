@@ -1,0 +1,68 @@
+services:
+    outputScreen:
+        class: AppBundle\Service\OutPutScreen
+    mail:
+        class: AppBundle\Service\Mail
+        arguments: ['@service_container']
+    mobile:
+        class: AppBundle\Service\Mobile
+        arguments: ['@service_container','@logger']
+    notification:
+        class: AppBundle\Service\Notification
+        arguments: ['@service_container']
+     
+    googleAnalytics:
+        class: AppBundle\Service\GoogleAnalytics
+        arguments: ['@service_container']
+        
+    session.community:
+        class: AppBundle\Service\Community
+        arguments: ['@security.token_storage', '@service_container']
+        
+    authentication.success.listener:
+        class: UserBundle\EventListener\AuthenticationEventListener
+        arguments: ['@router', '@security.token_storage', '@security.authorization_checker']
+        
+    kernel.listener.lockListener:
+        class: UserBundle\EventListener\LockListener
+        arguments: ['@request_stack', '@service_container']
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+    kernel.listener.accessDenied:
+        class: ApiBundle\EventListener\AccessDeniedListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onException }
+            
+    api.event.jwt_response_listener:
+        class: ApiBundle\EventListener\JWTResponseListener
+        arguments: [ '@doctrine.orm.entity_manager' ,'@service_container' ]
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
+    
+    api.event.jwt_created_listener:
+        class: ApiBundle\EventListener\JWTCreatedListener
+        arguments: ['@request_stack']
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
+            
+    api.event.jwt_decoded_listener:
+        class: ApiBundle\EventListener\JWTDecodedListener
+        arguments: ['@doctrine.orm.entity_manager' ,'@request_stack', '@service_container']
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onJWTDecoded }       
+            
+    api.event.authentication_failure_listener:
+        class: ApiBundle\EventListener\AuthenticationFailureListener
+        arguments: ['@request_stack']
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_failure, method: onAuthenticationFailureResponse }
+            
+    twig.extension.text:
+       class: Twig_Extensions_Extension_Text
+       tags:
+           - { name: twig.extension }
+           
+    kernel.response.json:
+        class: ApiBundle\EventListener\OnReponseJsonListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }

@@ -1,0 +1,33 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <span>Liste des categories de numéro utile</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Liste des categories de numéro utile</h3>
+{% endblock %}
+{% block maincontent %}
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="{{ path('app_numberCategory_add') }}" class="pull-right"><button class="btn btn-primary margin-bot-20 btn-success" type="button"><i class="fa fa-plus"></i> Créer une categorie</button></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="numberCategoryTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Date de création</th>
+                        <th class="no-sort">Date de mise à jour</th>
+                        <th class="no-sort">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

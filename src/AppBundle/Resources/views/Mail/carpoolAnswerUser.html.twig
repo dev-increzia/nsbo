@@ -1,0 +1,8 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour,</h2>
+    <p> Votre demande de covoiturage a bien été prise en compte et vos coordonnées ont été transmises au chauffeur.
+        <br/> Le rendez vous sera à {{ carpool.meetingTime | date('H:i') }}. L'emplacement sera : {{ carpool.relayPoint }}.<br/>
+        Voici ses informations : {{ carpool.createBy.lastname | capitalize}} {{ carpool.createBy.firstname | capitalize}}. Numéro de téléphone : {{ carpool.phoneNumber }}.
+    </p>
+{% endblock %}

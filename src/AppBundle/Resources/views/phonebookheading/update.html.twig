@@ -1,0 +1,129 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <a href="{{ path('app_phonebookheading_index') }}">Liste des rubriques Annuaire</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>Modifier rubrique annuaire</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Modifier rubrique annuaire</h3>
+{% endblock %}
+
+
+
+{% block maincontent %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Informations générales</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_label(form.title, "Nom", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.title) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.enabled, "Etat", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.enabled, {'attr': {'class': 'form-control make-switch'}}) }}
+                        {{ form_errors(form.enabled) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.havePredefinesdObjects, "Créer les deux catégories Commerces / Partenaires et Groupes / Associations à cet annuaire", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.havePredefinesdObjects, {'attr': {'class': 'form-control make-switch'}}) }}
+                        {{ form_errors(form.havePredefinesdObjects) }}
+                    </div>
+                    <div class="form-group">
+
+                        {{ form_label(form.objects, "Catégories", {'label_attr': {'class': 'control-label'}}) }}
+
+
+                        <ul class="tags" data-prototype="{{ form_widget(form.objects.vars.prototype)|e('html_attr') }}">
+
+                            {% for tag in form.objects %}
+                                <li>
+                                    <div class="form-group">
+                                        {{ form_label(tag.name, "", {'label_attr': {'class': 'control-label'}}) }}
+                                        {{ form_widget(tag.name, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(tag.name) }}
+                                    </div></li>
+                            {% endfor %}
+                        </ul>
+                        {{ form_errors(form.objects) }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group align-center">
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success btn-lg'}, 'label': 'Valider'}) }}
+
+    </div>
+    {#{{ form_rest(form) }}#}
+    {{ form_end(form) }}
+    <style>
+
+        .tags > li {
+            list-style-type: none;
+        }
+
+        .tags > li > div div {
+            margin-right:4px;
+            margin-bottom: 5px;
+            width:100%;
+        }
+        .tags > li > div {
+            display:inline-flex;
+            margin-bottom: 5px;
+            width:55%;
+        }
+
+        .tags input{
+            display: inline;
+
+            width:90%;
+
+            height: 34px;
+
+            padding: 6px 12px;
+
+            font-size: 14px;
+
+            line-height: 1.42857143;
+
+            color: #555;
+
+            background-color: #fff;
+
+            background-image: none;
+
+            border: 1px solid #ccc;
+
+            border-radius: 4px;
+
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+
+    </style>
+{% endblock %}

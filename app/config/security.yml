@@ -1,0 +1,150 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+    encoders:
+        UserBundle\Entity\User: sha512
+
+    role_hierarchy:
+        ROLE_CITIZEN: [ROLE_USER]
+        ROLE_COMMUNITY_ADMIN: [ROLE_USER, ROLE_CITIZEN, ROLE_COMMUNITY]
+        ROLE_COMMUNITY_SU_ADMIN: [ROLE_COMMUNITY_ADMIN]
+        ROLE_ADMIN: [ROLE_USER, ROLE_CITIZEN, ROLE_COMMUNITY]
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN,ROLE_COMMUNITY_SU_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        main:
+            id: fos_user.user_provider.username_email
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern: ^/api/user/login
+            provider: main
+            stateless: true
+            anonymous: true
+            form_login:
+                check_path: /api/user/login
+                require_previous_session: false
+                username_parameter: username
+                password_parameter: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        doc:
+            pattern:  ^/api/doc
+            stateless: true
+            anonymous: true
+            provider:  main
+            form_login:
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+                success_handler: authentication.success.listener
+            logout:
+                path:       fos_user_security_logout
+                target:     /
+            remember_me:
+                name:                   REMEMBER_ME
+                secret:                 "%secret%"
+                lifetime:               604800
+                always_remember_me:     false
+        refresh:
+            pattern:  ^/api/token/refresh
+            stateless: true
+            anonymous: true
+        lostpassword:
+            pattern:  ^/api/user/reset_password
+            stateless: true
+            anonymous: true
+        register_and_follow:
+            pattern:  ^/api/users/register/follow
+            stateless: true
+            anonymous: true
+        register:
+            pattern:  ^/api/users
+            stateless: true
+            anonymous: true
+        cities:
+            pattern:  ^/api/cities
+            stateless: true
+            anonymous: true
+        communities:
+            pattern:  ^/api/community/informations/
+            stateless: true
+            anonymous: true
+        searchCities:
+            pattern:  ^/api/searchcities
+            stateless: true
+            anonymous: true
+        websiteCommunities:
+            pattern:  ^/api/websiteCommunities
+            stateless: true
+            anonymous: true
+        intercommunal:
+            pattern:  ^/api/intercommunal
+            stateless: true
+            anonymous: true
+        api:
+            pattern: ^/api
+            stateless: true
+            lexik_jwt:
+                authorization_header:
+                    enabled: true
+                    prefix:  NousEnsembleToken
+                query_parameter:
+                    enabled: true
+                    name:    NousEnsembleToken
+        main:
+            pattern:   ^/
+            anonymous: true
+            provider:  main
+            form_login:
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+                success_handler: authentication.success.listener
+            logout:
+                path:       fos_user_security_logout
+                target:     /
+
+
+
+
+
+
+    access_control:
+        #api
+        - { path: ^/api/community/informations/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/user/reset_password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/searchcities, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/cities, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        
+        - { path: ^/api/websiteCommunities, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/intercommunal, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/users, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/users/register/follow, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        
+        - { path: ^/api/user/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/doc, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/api, roles: [ROLE_CITIZEN] }
+        #bo
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/resetting, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/cityhall/update, roles: ROLE_COMMUNITY}
+        - { path: ^/cityhall/view, roles: ROLE_COMMUNITY}
+        - { path: ^/cityhall, roles: ROLE_ADMIN}
+        - { path: ^/article/add, roles: ROLE_ADMIN}
+        - { path: ^/intercommunal, roles: ROLE_ADMIN}
+        - { path: ^/city, roles: ROLE_ADMIN}
+        - { path: ^/abus, roles: ROLE_ADMIN}
+        - { path: ^/stat, roles: ROLE_ADMIN}
+        - { path: ^/admin, roles: ROLE_ADMIN}
+        - { path: ^/interestCategory, roles: ROLE_ADMIN}
+        - { path: ^/category, roles: ROLE_COMMUNITY_ADMIN}
+        - { path: ^/reportingCategory, roles: ROLE_ADMIN}
+        - { path: ^/numberCategory, roles: ROLE_ADMIN}
+        - { path: ^/, roles: ROLE_COMMUNITY }
+        
+        
+        

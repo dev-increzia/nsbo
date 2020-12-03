@@ -1,0 +1,63 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <a href="{{ path('app_mapheading') }}"> Liste des rubriques Carte pratique</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>Modifier rubrique</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Modifier rubrique</h3>
+{% endblock %}
+
+
+
+{% block maincontent %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Informations générales</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_label(form.title, "Titre", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.title) }}
+                    </div>
+                    
+                </div>
+                    <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_label(form.enabled, "Active", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.enabled, {'attr': {'class': 'form-control make-switch'}}) }}
+                        {{ form_errors(form.enabled) }}
+                    </div>
+                    
+                </div>
+                    
+                    <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_label(form.interestCategories, "Categories", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.interestCategories, {'attr': {'class': 'form-control js-example-tags'}}) }}
+                        <small class="text-info"><strong>Note!</strong> Utiliser la ";" pour séparer les categories</small>
+                        {{ form_errors(form.interestCategories) }}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group align-center">
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success btn-lg'}, 'label': 'Valider'}) }}
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}

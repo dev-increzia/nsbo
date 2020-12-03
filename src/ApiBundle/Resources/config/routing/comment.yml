@@ -1,0 +1,158 @@
+api_v1_comment_article_new:
+    path:     /article/{id}/{type}/new
+    defaults: { _controller: ApiBundle:Comment:addArticleComment }
+    methods:  [POST]
+
+api_v1_comment_event_new:
+    path:     /event/{id}/{type}/new
+    defaults: { _controller: ApiBundle:Comment:addEventComment }
+    methods:  [POST]
+
+api_v1_comment_goodplan_new:
+    path:     /goodplan/{id}/{type}/new
+    defaults: { _controller: ApiBundle:Comment:addGoodPlanComment }
+    methods:  [POST]
+
+api_v1_comment_article_reply:
+    path:     /{id}/{type}/article/reply
+    defaults: { _controller: ApiBundle:Comment:articleCommentReply }
+    methods:  [POST]
+
+api_v1_comment_event_reply:
+    path:     /{id}/{type}/event/reply
+    defaults: { _controller: ApiBundle:Comment:eventCommentReply }
+    methods:  [POST]
+
+api_v1_comment_goodplan_reply:
+    path:     /{id}/{type}/goodplan/reply
+    defaults: { _controller: ApiBundle:Comment:goodplanCommentReply }
+    methods:  [POST]
+
+api_v1_comment_article_delete:
+    path:     /{id}/{type}/article/delete
+    defaults: { _controller: ApiBundle:Comment:deleteArticleComment }
+
+api_v1_comment_event_delete:
+    path:     /{id}/{type}/event/delete
+    defaults: { _controller: ApiBundle:Comment:deleteEventComment }
+
+api_v1_comment_goodplan_delete:
+    path:     /{id}/{type}/goodplan/delete
+    defaults: { _controller: ApiBundle:Comment:deleteGoodPlanComment }
+
+
+api_v1_comment_reply_article_delete:
+    path:     /{id}/{type}/article/reply/delete
+    defaults: { _controller: ApiBundle:Comment:deleteArticleCommentReply }
+
+api_v1_comment_reply_event_delete:
+    path:     /{id}/{type}/event/reply/delete
+    defaults: { _controller: ApiBundle:Comment:deleteEventCommentReply }
+
+api_v1_comment_reply_goodplan_delete:
+    path:     /{id}/{type}/goodplan/reply/delete
+    defaults: { _controller: ApiBundle:Comment:deleteGoodPlanCommentReply }
+
+api_v1_comment_article_update:
+    path:     /{id}/{type}/article/update
+    defaults: { _controller: ApiBundle:Comment:updateArticleComment }
+    methods:  [POST]
+
+api_v1_comment_event_update:
+    path:     /{id}/{type}/event/update
+    defaults: { _controller: ApiBundle:Comment:updateEventComment }
+    methods:  [POST]
+
+api_v1_comment_goodplan_update:
+    path:     /{id}/{type}/goodplan/update
+    defaults: { _controller: ApiBundle:Comment:updateGoodPlanComment }
+    methods:  [POST]
+
+api_v1_comment_reply_article_update:
+    path:     /{id}/{type}/article/reply/update
+    defaults: { _controller: ApiBundle:Comment:updateArticleCommentReply }
+    methods:  [POST]
+
+api_v1_comment_reply_event_update:
+    path:     /{id}/{type}/event/reply/update
+    defaults: { _controller: ApiBundle:Comment:updateEventCommentReply }
+    methods:  [POST]
+
+api_v1_comment_reply_goodplan_update:
+    path:     /{id}/{type}/goodplan/reply/update
+    defaults: { _controller: ApiBundle:Comment:updateGoodPlanCommentReply }
+    methods:  [POST]
+
+api_v1_comment_association_article:
+    path:     /association/{id}/article/{page}/{limit}
+    defaults: { _controller: ApiBundle:Comment:associationArticlesComments }
+    methods:  [GET]
+api_v1_comment_association_event:
+    path:     /association/{id}/event/{page}/{limit}
+    defaults: { _controller: ApiBundle:Comment:associationEventsComments }
+    methods:  [GET]
+api_v1_comment_merchant_article:
+    path:     /merchant/{id}/article/{page}/{limit}
+    defaults: { _controller: ApiBundle:Comment:merchantArticlesComments }
+    methods:  [GET]
+api_v1_comment_merchant_goodplan:
+    path:     /merchant/{id}/goodplan/{page}/{limit}
+    defaults: { _controller: ApiBundle:Comment:merchantEventsComments }
+    methods:  [GET]
+    
+api_v1_comment_read_article:
+    path:     /read/{id}/article
+    defaults: { _controller: ApiBundle:Comment:markCommentsArticleAsRead }
+    methods:  [GET]
+    
+api_v1_comment_read_event:
+    path:     /read/{id}/event
+    defaults: { _controller: ApiBundle:Comment:markCommentsEventAsRead }
+    methods:  [GET]
+
+api_v1_comment_read_goodplan:
+    path:     /read/{id}/goodplan
+    defaults: { _controller: ApiBundle:Comment:markCommentsGoodPlanAsRead }
+    methods:  [GET]
+
+api_v1_comment_article_list_delete:
+    path:     /{id}/{type}/article/list/delete
+    defaults: { _controller: ApiBundle:Comment:deleteArticleListComment }
+
+api_v1_comment_event_list_delete:
+    path:     /{id}/{type}/event/list/delete
+    defaults: { _controller: ApiBundle:Comment:deleteEventListComment }
+
+api_v1_comment_goodplan_list_delete:
+    path:     /{id}/{type}/goodplan/list/delete
+    defaults: { _controller: ApiBundle:Comment:deleteGoodPlanListComment }
+    
+api_v1_comment_list_article:
+    path:     /article/{article}
+    defaults: { _controller: ApiBundle:Comment:articleComments }
+    methods:  [GET]
+
+api_v1_comment_list_event:
+    path:     /event/{event}
+    defaults: { _controller: ApiBundle:Comment:eventComments }
+    methods:  [GET]
+
+api_v1_comment_list_goodplan:
+    path:     /goodplan/{event}
+    defaults: { _controller: ApiBundle:Comment:goodPlanComments }
+    methods:  [GET]
+
+api_comment_list_event_pagination:
+    path:     /event/{event}/pagination/{page}
+    defaults: { _controller: ApiBundle:Comment:eventCommentsPagination }
+    methods:  [GET]
+
+api_comment_list_goodplan_pagination:
+    path:     /goodplan/{goodPlan}/pagination/{page}
+    defaults: { _controller: ApiBundle:Comment:goodPlanCommentsPagination }
+    methods:  [GET]
+
+api_comment_list_article_pagination:
+    path:     /article/{article}/pagination/{page}
+    defaults: { _controller: ApiBundle:Comment:articleCommentsPagination }
+    methods:  [GET]

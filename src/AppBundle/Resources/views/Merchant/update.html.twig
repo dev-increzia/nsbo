@@ -1,0 +1,181 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <a href="{{ path('app_merchant') }}">Liste des commerces / partenaires</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>Modifier commerce</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Modifier commerce</h3>
+{% endblock %}
+
+
+
+{% block maincontent %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Informations générales</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_label(form.name, "Nom du commerce/partenaire", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.name) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.siret, "Numéro de siret", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.siret, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.siret) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.category, "Thème", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.category) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.address, "Adresse", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.address, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.address) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.city, "Ville", {'label_attr': {'class': 'control-label'}}) }}
+                        {% set city = "" %}
+                        {% if form.vars.value.city != null %}
+                            {% set city = form.vars.value.city.name ~ ' ('~form.vars.value.city.zipcode~')' %}
+                        {% endif %}
+                        <input type="Text" id="CityAutoCompleteInput" class="form-control" placeholder="Choisir une ville" value="{{ city }}" required>
+                        {% set cityId = "" %}
+                        {% if form.vars.value.city != null %}
+                            {% set cityId = form.vars.value.city.id %}
+                        {% endif %}
+                        {{ form_widget(form.city, {'attr': {'class': 'form-control','value':cityId,'style':'display:none;'}}) }}
+                        {{ form_errors(form.city) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.email, "Email", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.email) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.phone, "Téléphone", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.phone) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.description, "Description", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.description, {'attr': {'class': 'form-control description'}}) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.image, "Photo") }}
+                        {{ form_widget(form.image, {'attr': {'class': ''}}) }}
+                        {{ form_errors(form.image) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Les horaires d'ouverture</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_widget(form.timing, {'attr': {'class': 'form-control description', 'placeholder': 'Lundi : de 8h à 15h et de 16h à 18h, Mardi de ...'}}) }}
+                        {{ form_errors(form.timing) }}
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Modération</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_label(form.enabled, "Etat", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.enabled, {'attr': {'class': 'form-control make-switch'}}) }}
+                        {{ form_errors(form.enabled) }}
+                    </div>
+                    {%if entity.moderate == 'wait'%}
+                        <div class="form-group">
+                            {{ form_widget(form.moderate, {'attr': {'class': ''}}) }}
+                            {{ form_errors(form.moderate) }}
+                        </div> 
+                    {%else%}
+                        Commerçant {%if entity.moderate == 'refuse'%}refusé{%else%}accepté{%endif%} par la Communauté le {%if entity.moderateAt%}{{entity.moderateAt|date("d/m/Y H:i")}}{%endif%}
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Droit d'administration</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_label(form.suAdminEmail, "Super-admin", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.suAdminEmail, {'attr': {'class': 'form-control', 'data-cityhall' : cityhall}}) }}
+                        {{ form_errors(form.suAdminEmail) }}
+                    </div>
+                </div>
+                {#todo admins#}
+            </div>
+        </div>
+    </div>
+    {% block infocreate %}            
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">Informations de création</div>
+                <div class="tools">
+                    <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+                </div>
+            </div>
+            <div class="portlet-body" style="display: block;">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <span><b>Créé le</b> {%if entity.createAt%}{{entity.createAt|date("d/m/Y H:i")}}{%endif%} <b>par</b> {%if entity.createBy%}{{entity.createBy.lastname}} {{entity.createBy.firstname}}{%endif%}</span>
+                        </div>
+                        <div class="form-group">
+                            <span><b>Dernière modification le</b> {%if entity.updateAt%}{{entity.updateAt|date("d/m/Y H:i")}}{%endif%} <b>par</b> {%if entity.updateBy%}{{entity.updateBy.lastname}} {{entity.updateBy.firstname}}{%endif%}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    <div class="form-group align-center">
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success btn-lg'}, 'label': 'Valider'}) }}
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}

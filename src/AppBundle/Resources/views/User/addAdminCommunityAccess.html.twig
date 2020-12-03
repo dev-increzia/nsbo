@@ -1,0 +1,80 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <a href="{{ path('app_user_cityhall') }}">Liste des comptes - Communauté</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>Attribuer des droits Administrateur</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Attribuer des droits Administrateur</h3>
+{% endblock %}
+
+
+
+{% block maincontent %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Informations générales</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <div class="form-group">
+                        {{ form_label(form.user, "Utilisateur", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.user) }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Gestion des droit d'accès</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12"> 
+                    <div class="form-group">
+                            <table class="table">
+
+                        {% for child in form.children.accessAdmin.accessAdmin.children %}
+
+                            {% set attr = {'class': 'form-control make-switch'} %}
+
+                            <tr >
+                                <td style="border:0px">{{ form_label(child, "", {'label_attr': {'class': 'control-label'}}) }}</td>
+                                <td style="border:0px">{{ form_widget(child, {'attr': attr}) }}</td>
+                                <td style="border:0px">{{ form_errors(child) }}</td>
+                            </tr>
+                         {%  endfor %}
+                            </table>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group align-center">
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success btn-lg'}, 'label': 'Valider'}) }}
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}

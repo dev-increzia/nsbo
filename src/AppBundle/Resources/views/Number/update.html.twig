@@ -1,0 +1,143 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <a href="{{ path('app_number') }}">Liste des numéros utiles</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>Modifier numéro utile</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Modifier numéro utile</h3>
+{% endblock %}
+
+
+
+{% block maincontent %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Informations générales</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_label(form.title, "Titre", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.title) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.description, "Description", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.description, {'attr': {'class': 'form-control description'}}) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.phoneBookHeading, "Rubrique", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.phoneBookHeading, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.phoneBookHeading) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.categoryPhoneBookHeading, "Catégorie", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.categoryPhoneBookHeading, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.categoryPhoneBookHeading) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.address, "Adresse", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.address, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.address) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.document, "Document", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.document, {'attr': {}}) }}
+                        <p id="documentExtensionErrorPanel" class="documentErrorPanel"></p>
+                        {{ form_errors(form.document) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.phone, "Téléphone", {'label_attr': {'class': 'control-label'}}) }}
+                        <p><i> Veuillez entrer un numéro de téléphone par ligne.</i></p>
+                        {{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}
+                        <p id="phoneNumberErrorPanel" class="documentErrorPanel"></p>
+                        {{ form_errors(form.phone) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block infocreate %}            
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">Informations de création</div>
+                <div class="tools">
+                    <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+                </div>
+            </div>
+            <div class="portlet-body" style="display: block;">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <span><b>Créé le</b> {%if entity.createAt%}{{entity.createAt|date("d/m/Y H:i")}}{%endif%} <b>par</b> {%if entity.createBy%}{{entity.createBy.lastname}} {{entity.createBy.firstname}}{%endif%}</span>
+                        </div>
+                        <div class="form-group">
+                            <span><b>Dernière modification le</b> {%if entity.updateAt%}{{entity.updateAt|date("d/m/Y H:i")}}{%endif%} <b>par</b> {%if entity.updateBy%}{{entity.updateBy.lastname}} {{entity.updateBy.firstname}}{%endif%}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    <div class="form-group align-center">
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success btn-lg'}, 'label': 'Valider'}) }}
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+    <style>
+        .documentErrorPanel {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script>
+        $('#number_phoneBookHeading').change(function () {
+            var citySelector = $(this);
+
+            // Request the neighborhoods of the selected city.
+            $.ajax({
+                url: "{{ path('app_number_categories') }}",
+                type: "GET",
+                dataType: "JSON",
+                data: {
+                    phoneBookHeadingid: citySelector.val()
+                },
+                success: function (categories) {
+                    var categoriesSelect = $("#number_categoryPhoneBookHeading");
+
+                    // Remove current options
+                    categoriesSelect.html('');
+
+                    // Empty value ...
+                    categoriesSelect.append('<option value> Selectioner une Categorie de  ' + citySelector.find("option:selected").text() + ' ...</option>');
+                    console.log(categories);
+
+                    $.each(categories, function (key, category) {
+                        categoriesSelect.append('<option value="' + category.id + '">' + category.name + '</option>');
+                    });
+                },
+                error: function (err) {
+                    alert("An error ocurred while loading data ...");
+                }
+            });
+        });
+    </script>
+
+    <script src="{{ asset('bundles/app/js/numberManagement.js') }}"></script>
+{% endblock %}
+

@@ -1,0 +1,46 @@
+{% for comment in comments %}
+    <div class="mt-comment {%if app.user.isReadComment(comment.id) == false%}comment-unread{%endif%} cursor-pointer" data-id="{{comment.id}}" data-read="{{app.user.isReadComment(comment.id)}}">
+        <div class="mt-comment-article padding-left-10">
+            {%if comment.article%}
+                <a class="ajax" href="{{ path('app_article_view', {id: comment.article.id}) }}" data-target="#article{{comment.article.id}}">
+                    {%if comment.article.image and comment.article.image.file%}
+                        <img class="img-responsive" src="{{ app.request.basePath }}{{ vich_uploader_asset(comment.article.image, 'file')}}" style="max-height: 65px; max-width: 65px;"/>
+                    {%else%}
+                        <img class="img-responsive" src="{{asset('bundles/app/images/empty-image.png')}}" style="max-height: 65px; max-width: 65px;"/>
+                    {%endif%}
+                </a>
+            {%elseif comment.event%}
+                <a class="ajax" href="{{ path('app_event_view', {id: comment.event.id}) }}" data-target="#event{{comment.event.id}}">
+                    {%if comment.event.image and comment.event.image.file%}
+                        <img class="img-responsive" src="{{ app.request.basePath }}{{ vich_uploader_asset(comment.event.image, 'file')}}" style="max-height: 65px; max-width: 65px;"/>
+                    {%else%}
+                        <img class="img-responsive" src="{{asset('bundles/app/images/empty-image.png')}}" style="max-height: 65px; max-width: 65px;"/>
+                    {%endif%}
+                </a>
+            {%else%}
+                <img class="img-responsive" src="{{asset('bundles/app/images/empty-image.png')}}" style="max-height: 65px; max-width: 65px;"/>
+            {%endif%}
+        </div>
+        <div class="mt-comment-img">
+            {%if comment.user and comment.user.image and comment.user.image.file%}
+                <img alt="" class="img-circle img-responsive" src="{{ app.request.basePath }}{{ vich_uploader_asset(comment.user.image, 'file')}}" style="max-height: 40px;"/>
+            {%else%}
+                <img alt="" class="img-circle img-responsive" src="{{ asset('bundles/app/images/empty-user.png') }}" style="max-height: 40px;" />
+            {%endif%}
+        </div>
+        <div class="mt-comment-body">
+            <div class="mt-comment-info">
+                <a href="{%if comment.user%}{{ path('app_user') }}{%endif%}"><span class="mt-comment-author">{%if comment.user%}{{comment.user.lastname}} {{comment.user.firstname}}{%endif%}</span></a>
+                <span class="mt-comment-date">{{comment.createAt|date("d/m/Y H:i")}}</span>
+            </div>
+            <div class="mt-comment-text">{{comment.content}}</div>
+            <div class="mt-comment-details">
+                <ul class="mt-comment-actions">
+                    <li>
+                        <a href="{{ path('app_comment_delete', {id: comment.id}) }}" class="ajax" data-target="#commentDelete{{comment.id}}">Supprimer</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endfor %}

@@ -1,0 +1,11 @@
+{%if ga != '' and ga != null%}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ga}}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag2() {
+            dataLayer.push(arguments);
+        }
+        gtag2('js', new Date());
+        gtag2('config', '{{ga}}');
+    </script>
+{%endif%}

@@ -1,0 +1,49 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <span>Sécurité</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Sécurité</h3>
+{% endblock %}
+
+
+
+{% block maincontent %}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Gestion du mot de passe</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <br>
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    <div class="col-sm-2">
+                        <label class="security-label"> Communauté privée </label>
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success confirmSecurity'}, 'label': 'Ré-initialiser le mot de passe'}) }}
+                    </div>
+                    {{ form_rest(form) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <br>
+                    Mot de passe: {{ community.getPassword() }}
+                    <br><br>
+
+                    <span class="alert alert-warning">Attention ce mot de passe expire le  <strong>{{ community.getExpirationDate|date("d/m/Y") }}</strong></span>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

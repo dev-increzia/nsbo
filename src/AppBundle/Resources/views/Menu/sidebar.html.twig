@@ -1,0 +1,469 @@
+<!-- BEGIN SIDEBAR -->
+<div class="page-sidebar navbar-collapse collapse">
+  <!-- BEGIN SIDEBAR MENU -->
+  <ul style="" data-slide-speed="200" data-auto-scroll="true" data-keep-expanded="false" class="page-sidebar-menu page-header-fixed ">
+    <li class="nav-item">
+      <a class="nav-link nav-toggle" href="{{ path('app_homepage') }}">
+        <i class="fa fa-dashboard"></i>
+        <span class="title">Tableau de bord</span>
+        <span class="selected"></span>
+      </a>
+    </li>
+
+    {#{% if not community or community and community.hasSetting('activate_articles') %}#}
+    <li class="nav-item">
+      <a class="nav-link nav-toggle" href="javascript:;">
+        <i class="fa fa-file-text-o"></i>
+        <span class="title">Articles</span>
+        <span class="arrow"></span>
+      </a>
+      <ul class="sub-menu" style="display: none;">
+        <li class="nav-item  ">
+          <a class="nav-link " href="{{ path('app_article') }}">
+            <span class="title">Tous les articles</span>
+          </a>
+        </li>
+        <li class="nav-item  ">
+          <a class="nav-link " href="{{ path('app_article', {'type' : 'association'}) }}">
+            <span class="title">Groupes / Associations</span>
+          </a>
+        </li>
+        <li class="nav-item  ">
+          <a class="nav-link " href="{{ path('app_article', {'type' : 'user'}) }}">
+            <span class="title">Individus</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    {#{% endif %}#}
+
+    {% if not community or community and community.hasSetting('activate_survey') %}
+    {% if is_granted('ROLE_ADMIN') or  is_granted('ROLE_COMMUNITY_SU_ADMIN') or (community and app.user.isCommunityAdmin(community))%}
+    <li class="nav-item">
+      <a class="nav-link nav-toggle" href="javascript:;">
+        <i class="fa fa-file-text-o"></i>
+        <span class="title">Sondages</span>
+        <span class="arrow"></span>
+      </a>
+      <ul class="sub-menu" style="display: none;">
+        <li class="nav-item  ">
+          <a class="nav-link " href="{{ path('app_survey') }}">
+            <span class="title">Tous les sondages</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    {% endif %}
+    {% endif %}
+
+    {#{% if not community or community and community.hasSetting('activate_articles') %}#}
+    <li class="nav-item">
+      <a class="nav-link nav-toggle" href="javascript:;">
+        <i class="fa fa-calendar-o"></i>
+        <span class="title">Agenda</span>
+        <span class="arrow"></span>
+      </a>
+      <ul class="sub-menu" style="display: none;">
+        <li class="nav-item  ">
+          <a class="nav-link " href="{{ path('app_event') }}">
+            <span class="title">Tous les événements</span>
+          </a>
+        </li>
+
+        <li class="nav-item  ">
+          <a class="nav-link " href="{{ path('app_event_add') }}">
+            <span class="title">Créer un événement</span>
+          </a>
+        </li>
+
+      </ul>
+    </li>
+    {#{% endif %}#}
+
+    <li class="nav-item">
+      <a class="nav-link nav-toggle" href="javascript:;">
+        <i class="fa fa-calendar-o"></i>
+        <span class="title">Bons plans</span>
+        <span class="arrow"></span>
+      </a>
+      <ul class="sub-menu" style="display: none;">
+        <li class="nav-item  ">
+          <a class="nav-link " href="{{ path('app_goodplan_index') }}">
+            <span class="title">Tous les bons plans</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    {#{% if not community or community and community.hasSetting('activate_comments') %}#}
+    <li class="nav-item">
+      <a class="nav-link nav-toggle" href="{{ path('app_comment') }}">
+        <i class="fa fa-commenting"></i>
+        <span class="title">Les commentaires</span>
+        <span class="selected"></span>
+      </a>
+    </li>
+    {#{% endif %}#}
+
+    {% if not community or community and community.hasSetting('activate_articles') %}
+    {% if (is_granted('ROLE_ADMIN')) or
+    (is_granted('ROLE_COMMUNITY_SU_ADMIN') and community and community.hasSetting('activate_articles')) or
+    (is_granted('ROLE_COMMUNITY_ADMIN') and community and community.hasSetting('activate_articles') and (hasArticleHeading == true) and app.user.isCommunityAdmin(community)) %}
+    <li class="nav-item">
+      <a class="nav-link nav-toggle" href="javascript:;">
+        <i class="fa fa-building"></i>
+        <span class="title">Les articles de communauté</span>
+        <span class="arrow"></span>
+      </a>
+      <ul class="sub-menu" style="display: none;">
+        <li class="nav-item  ">
+          <a class="nav-link " href="{{ path('app_project') }}">
+            <span class="title">Tous les articles de communauté</span>
+          </a>
+        </li>
+        {% if is_granted('ROLE_ADMIN') %}
+        <li class="nav-item">
+          <a class="nav-link " href="{{ path('app_project_add') }}">
+            <span class="title">Ajouter un article de communauté</span>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </li>
+    {% endif %}
+    {% endif %}
+
+    {% if not community or community and community.hasSetting('activate_map') %}
+    <li class="nav-item">
+      <a class="nav-link nav-toggle" href="javascript:;">
+        <i class="fa fa-map-marker"></i>
+        <span class="title">La carte pratique</span>
+        <span class="arrow"></span>
+      </a>
+      <ul class="sub-menu" style="display: none;">
+        <li class="nav-item  ">
+          <a class="nav-link " href="{{ path('app_interest') }}">
+            <span class="title">Centres d'intérêt</span>
+          </a>
+        </li>
+        <li class="nav-item  ">
+          <a class="nav-link " href="{{ path('app_work') }}">
+            <span class="title">Travaux</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    {% endif %}
+
+    <li class="nav-item">
+      <a class="nav-link nav-toggle" href="javascript:;">
+        <i class="fa fa-bell"></i>
+        <span class="title">Les notifications push</span>
+        <span class="arrow"></span>
+      </a>
+      <ul class="sub-menu" style="display: none;">
+        <li class="nav-item  ">
+          <a class="nav-link " href="{{ path('app_push_cityhall_add') }}">
+            <span class="title">Créer un push</span>
+          </a>
+        </li>
+        <li class="nav-item  ">
+          <a class="nav-link " href="{{ path('app_push_cityhall') }}">
+            <span class="title">Les notifications push communauté</span>
+          </a>
+        </li>
+        <li class="nav-item  ">
+          <a class="nav-link " href="{{ path('app_push') }}">
+            <span class="title">Les notifications push événements</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_COMMUNITY_SU_ADMIN')) or (community and community.getIsPrivate() and app.user.isCommunityAdmin(community) and app.user.hasRight('user_aprove',community))%}
+    <li class="nav-item">
+      <a class="nav-link nav-toggle" href="javascript:;">
+        <i class="fa fa-users"></i>
+        <span class="title">Les comptes</span>
+        <span class="arrow"></span>
+      </a>
+      <ul class="sub-menu" style="display: none;">
+
+        <li class="nav-item">
+          <a class="nav-link " href="{{ path('app_user') }}">
+            <span class="title">Utilisateurs</span>
+          </a>
+        </li>
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COMMUNITY_SU_ADMIN') %}
+        <li class="nav-item  ">
+          <a class="nav-link " href="{{ path('app_user_cityhall') }}">
+            <span class="title">Administrateurs de communauté</span>
+          </a>
+        </li>
+        {%endif%}
+      </ul>
+    </li>
+    {%endif%}
+    {#
+      {% if is_granted('ROLE_ADMIN') == false %}
+      {%if app.user.isSuAdminCommunity()%}
+      <li class="nav-item">
+        <a class="nav-link nav-toggle" href="{{ path('app_reporting') }}">
+          <i class="fa fa-exclamation-triangle"></i>
+          <span class="title">Les signalements</span>
+          <span class="selected"></span>
+        </a>
+      </li>
+      {%endif%}
+      {%else%}
+      {%if app.session.get('cityhallId') == '' or app.session.get('cityhallReporting')%}
+      <li class="nav-item">
+        <a class="nav-link nav-toggle" href="{{ path('app_reporting') }}">
+          <i class="fa fa-exclamation-triangle"></i>
+          <span class="title">Les signalements</span>
+          <span class="selected"></span>
+        </a>
+      </li>
+      {%endif%}
+      {%endif%}
+      #}
+      {% if (is_granted('ROLE_ADMIN')  or is_granted('ROLE_COMMUNITY_SU_ADMIN')) or (community and app.user.isCommunityAdmin(community) and app.user.hasRight('merchant_aprove',community))%}
+      <li class="nav-item">
+        <a class="nav-link nav-toggle" href="{{ path('app_merchant') }}">
+          <i class="fa fa-shopping-cart"></i>
+          <span class="title">Les commerces/partenaires</span>
+          <span class="selected"></span>
+        </a>
+      </li>
+      {% endif %}
+      {% if (is_granted('ROLE_ADMIN')  or is_granted('ROLE_COMMUNITY_SU_ADMIN')) or (community and app.user.isCommunityAdmin(community) and app.user.hasRight('group_aprove',community))%}
+      <li class="nav-item">
+        <a class="nav-link nav-toggle" href="{{ path('app_association') }}">
+          <i class="fa fa-user-circle-o"></i>
+          <span class="title">Les groupes/associations</span>
+          <span class="selected"></span>
+        </a>
+      </li>
+      {% endif %}
+      {% if not community or community and community.hasSetting('activate_phonebook') %}
+      <li class="nav-item">
+        <a class="nav-link nav-toggle" href="{{ path('app_number') }}">
+          <i class="fa fa-phone"></i>
+          <span class="title">Annuaire</span>
+          <span class="selected"></span>
+        </a>
+      </li>
+      {% endif %}
+
+      {% if is_granted('ROLE_ADMIN') %}
+      <li class="nav-item">
+        <a class="nav-link nav-toggle" href="{{ path('app_community') }}">
+          <i class="fa fa-street-view"></i>
+          <span class="title">Les communautés</span>
+          <span class="selected"></span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link nav-toggle" href="javascript:;">
+          <i class="fa fa-bar-chart"></i>
+          <span class="title">Les indicateurs</span>
+          <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu" style="display: none;">
+          <li class="nav-item  ">
+            <a class="nav-link " href="{{ path('app_stat_general') }}">
+              <span class="title">Statistiques générales</span>
+            </a>
+          </li>
+          <li class="nav-item  ">
+            <a class="nav-link " href="{{ path('app_stat_content') }}">
+              <span class="title">Contenu</span>
+            </a>
+          </li>
+          <li class="nav-item  ">
+            <a class="nav-link " href="{{ path('app_stat_user') }}">
+              <span class="title">Utilisateurs</span>
+            </a>
+          </li>
+          <li class="nav-item  ">
+            <a class="nav-link " href="{{ path('app_stat_cityhall') }}">
+              <span class="title">Communautés</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      {#
+        <li class="nav-item">
+          <a class="nav-link nav-toggle" href="{{ path('app_abus') }}">
+            <i class="fa fa-exclamation-circle"></i>
+            <span class="title">Les abus</span>
+            <span class="selected"></span>
+          </a>
+        </li>
+        #}
+        {%endif%}
+        <li class="nav-item">
+          <a class="nav-link nav-toggle" href="javascript:;">
+            <i class="fa fa fa-gears"></i>
+            <span class="title">Réglages</span>
+            <span class="arrow"></span>
+          </a>
+          <ul class="sub-menu" style="display: none;">
+            {#
+              todo
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_admin') }}">
+                  <span class="title">Administrateurs</span>
+                  <span class="selected"></span>
+                </a>
+              </li>#}
+              {% if community and community.getIsPrivate() %}
+              {% if is_granted('ROLE_ADMIN')  or (is_granted('ROLE_COMMUNITY_SU_ADMIN')) or (community and app.user.isCommunityAdmin(community) and app.user.hasRight('password_manage',community)) %}
+
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_community_security') }}">
+                  <span class="title">Sécurité</span>
+                  <span class="selected"></span>
+                </a>
+              </li>
+              {% endif %}
+              {% endif %}
+              {#{% if (is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_COMMUNITY_SU_ADMIN')) %}#}
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_community_settings') }}">
+                  <span class="title">Paramètres généraux</span>
+                  <span class="selected"></span>
+                </a>
+              </li>
+              {#{% endif %}#}
+
+              {#{% if not community or community and community.hasSetting('activate_articles') %}#}
+              {% if (is_granted('ROLE_ADMIN')  or is_granted('ROLE_COMMUNITY_SU_ADMIN')) or (community and app.user.isCommunityAdmin(community) and app.user.hasRight('event_manage',community))%}
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_event_settings') }}">
+                  <span class="title">Gestion des événements</span>
+                  <span class="selected"></span>
+                </a>
+              </li>
+              {% endif %}
+              {#{% endif %}#}
+
+              {% if (is_granted('ROLE_ADMIN')  or is_granted('ROLE_COMMUNITY_SU_ADMIN')) or (community and app.user.isCommunityAdmin(community) and app.user.hasRight('good_plan_manage',community))%}
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_goodplan_settings') }}">
+                  <span class="title">Gestion des bons plans</span>
+                  <span class="selected"></span>
+                </a>
+              </li>
+              {% endif %}
+
+              {% if not community or community and community.hasSetting('activate_usefulllinks') %}
+              {% if (is_granted('ROLE_ADMIN')  or is_granted('ROLE_COMMUNITY_SU_ADMIN')) or (community and app.user.isCommunityAdmin(community) and app.user.hasRight('usefull_links_create',community))%}
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_usefulllinkheading') }}">
+                  <span class="title">Les rubriques des Liens utiles</span>
+                  <span class="selected"></span>
+                </a>
+              </li>
+              {% endif %}
+              {% endif %}
+
+              {% if not community or community and community.hasSetting('activate_map') %}
+
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_mapheading') }}">
+                  <span class="title">Les rubriques de la Carte pratique</span>
+                  <span class="selected"></span>
+                </a>
+              </li>
+
+              {% endif %}
+
+              {% if not community or community and community.hasSetting('activate_articles') %}
+              {% if (is_granted('ROLE_ADMIN')  or is_granted('ROLE_COMMUNITY_SU_ADMIN')) %}
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_articleheading') }}">
+                  <span class="title">Les rubriques des Articles importants</span>
+                  <span class="selected"></span>
+                </a>
+              </li>
+              {% endif %}
+              {% endif %}
+
+              {#{% if (is_granted('ROLE_ADMIN')  or is_granted('ROLE_COMMUNITY_SU_ADMIN')) %}#}
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_category') }}">
+                  <span class="title">Thèmes</span>
+                  <span class="selected"></span>
+                </a>
+              </li>
+              {#{% endif %}#}
+
+              {% if not community or community and community.hasSetting('activate_contact') %}
+              {% if (is_granted('ROLE_ADMIN')  or is_granted('ROLE_COMMUNITY_SU_ADMIN')) %}
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_reportingheading') }}">
+                  <span class="title">Les formulaires de prise de contact</span>
+                  <span class="selected"></span>
+                </a>
+              </li>
+              {% endif %}
+              {% endif %}
+
+              {% if not community or community and community.hasSetting('activate_phonebook') %}
+
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_phonebookheading_index') }}">
+                  <span class="title">Les rubriques Annuaires</span>
+                  <span class="selected"></span>
+                </a>
+              </li>
+
+              {% endif %}
+
+              {% if is_granted('ROLE_ADMIN')%}
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_city') }}">
+                  <span class="title">Les villes</span>
+                  <span class="selected"></span>
+                </a>
+              </li>
+              {% endif %}
+
+              {#                                        <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_city') }}">
+                  <span class="title">Les villes</span>
+                  <span class="selected"></span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_interestCategory') }}">
+                  <span class="title">Catégories centres d'intérêts</span>
+                  <span class="selected"></span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_category') }}">
+                  <span class="title">Catégories asso/commerce</span>
+                  <span class="selected"></span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_reportingCategory') }}">
+                  <span class="title">Catégories signalements</span>
+                  <span class="selected"></span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-toggle" href="{{ path('app_numberCategory') }}">
+                  <span class="title">Catégories numéro utiles</span>
+                  <span class="selected"></span>
+                </a>
+              </li>#}
+            </ul>
+          </li>
+        </ul>
+        <!-- END SIDEBAR MENU -->
+        <!-- END SIDEBAR MENU -->
+      </div>
+<!-- END SIDEBAR -->

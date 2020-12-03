@@ -1,0 +1,100 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <span>Liste des communautés</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Liste des communautés</h3>
+{% endblock %}
+{% block maincontent %}
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="{{ path('app_community_add') }}" class="pull-right"><button class="btn btn-primary margin-bot-20 btn-success" type="button"><i class="fa fa-plus"></i> Créer une communauté</button></a>
+        </div>
+
+            {{ (community?'<div class="col-sm-12">Lien pour s\'inscrire à la communauté via application mobile : <a href="nousensemble://nous-ensemble.com/community/'~community.id~'"> nousensemble://nous-ensemble.com/community/'~community.id ~'</a></div>':"")| raw }}
+
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="{{ path('app_log_export') }}" class="pull-right"><button class="btn btn-primary margin-bot-20 btn-success" type="button">   Exporter les logs de navigation</button></a>
+        </div>
+    </div>
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Filtre</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ form_start(form, {'attr': {'id': 'cityhalls_filter'}}) }}
+                    {{ form_errors(form) }}
+                    <div class="form-group">
+                        <div class="col-sm-6 padding-none margin-none">
+                            <div class="form-group">
+                                {{ form_label(form.dateBefore, "Date de création de", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.dateBefore, {'attr': {'class': 'form-control datepicker'}}) }}
+                                {{ form_errors(form.dateBefore) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_label(form.dateAfter, "à", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.dateAfter, {'attr': {'class': 'form-control datepicker'}}) }}
+                                {{ form_errors(form.dateAfter) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6 padding-none margin-none">
+                            <div class="form-group">
+                                {{ form_label(form.name, "Nom de la communauté", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.name) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{ form_label(form.city, "Ville d'appartenance", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.city, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.city) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success'}, 'label': 'Valider'}) }}
+                    </div>
+                    {{ form_rest(form) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="cityhallsTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom de la communauté</th>
+                        <th>Type</th>
+
+                        <th>Etat</th>
+                        <th>Super Administrateur</th>
+                        <th>Date de création</th>
+                        <th class="no-sort">Date de mise à jour</th>
+                        <th class="no-sort">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

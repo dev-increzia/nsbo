@@ -1,0 +1,10 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour,</h2>
+    <p>
+        Vous êtes désormais administrateur du {% if type == 'association' %}groupe / association{% else %}commerce / partenaire{% endif %} {{ entity.getName() }}. Vous pouvez publier {%if type == 'association '%}des articles et des événements{%else%}des bons plans{%endif%} au nom et pour le compte de votre groupe.<br>
+
+        Si vous avez besoin d’aide, contactez l’administrateur de votre communauté. Il saura vous guider.
+    </p>
+{% endblock %}
+

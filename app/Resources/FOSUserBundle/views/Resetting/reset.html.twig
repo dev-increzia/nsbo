@@ -1,0 +1,24 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+{% block fos_user_content %}
+    <div class="login-content">
+        <h1>REINITIALISATION DE MOT DE PASSE</h1>
+        {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset login-form' } }) }}
+        <div class="form-group">
+            {{ form_label(form.plainPassword.first, "Nouveau mot de passe ") }}
+            {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.plainPassword.first) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.plainPassword.second, "Vérification") }}
+            {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.plainPassword.second) }}
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <button type="submit" class="pull-right btn green">{{ 'resetting.reset.submit'|trans }}</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock fos_user_content %}

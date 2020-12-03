@@ -1,0 +1,88 @@
+api_v1_add_merchant:
+    path:     /
+    defaults: { _controller: ApiBundle:Merchant:add }
+    methods:  [POST]
+    
+api_v1_accueil_merchant:
+    path:     /home/{id}
+    defaults: { _controller: ApiBundle:Merchant:home}
+    methods:  [GET]
+
+api_v1_merchant_view:
+    path:     /view/{id}
+    defaults: { _controller: ApiBundle:Merchant:view}
+    methods:  [GET]
+api_v1_merchant_update:
+    path:     /{id}/update
+    defaults: { _controller: ApiBundle:Merchant:update}
+    methods:  [POST]
+api_v1_merchant_volunteers:
+    path:     /{id}/volunteers
+    defaults: { _controller: ApiBundle:Merchant:volunteers}
+    methods:  [GET]
+api_v1_merchant_admin:
+    path:     /{id}/admin
+    defaults: { _controller: ApiBundle:Merchant:addAdmin}
+    methods:  [POST]
+api_v1_merchant_superadmin:
+    path:     /{id}/superadmin
+    defaults: { _controller: ApiBundle:Merchant:addSuperAdmin}
+    methods:  [POST]
+api_v1_merchant_admins:
+    path:     /{id}/admins/{page}/{limit}
+    defaults: { _controller: ApiBundle:Merchant:admins}
+    methods:  [GET]
+api_v1_merchant_remove_admin:
+    path:     /{merchant}/admin/remove
+    defaults: { _controller: ApiBundle:Merchant:removeAdmins}
+    methods:  [POST]
+api_v1_merchant_find_serit:
+    path:     /{id}/siret/{siret}
+    defaults: { _controller: ApiBundle:Merchant:findSiret}
+    methods:  [GET]
+
+api_v1_merchant_cities:
+    path:     /cities/{page}/{limit}
+    defaults: { _controller: ApiBundle:Merchant:getMerchantsByCities}
+    methods:  [GET]
+
+api_v1_merchant_community:
+    path:     /community/{id_community}/{page}/{limit}
+    defaults: { _controller: ApiBundle:Merchant:getMerchantsByCommunity}
+    methods:  [GET]
+
+api_merchant_change-suadmin:
+    path:     /{id}/change/superadmin
+    defaults: { _controller: ApiBundle:Merchant:changeSuAdmin}
+    methods:  [POST]
+    
+api_merchant_remove-merchant:
+    path:     /{id}/delete
+    defaults: { _controller: ApiBundle:Merchant:deleteMerchant}
+    methods:  [POST]
+
+api_merchant_demande_membership:
+    path:     /{id}/membership
+    defaults: { _controller: ApiBundle:Merchant:demandeMembership}
+    methods:  [POST]
+
+api_merchant_accept_membership:
+    path:     /{id}/demandmembership/{id_demander}/accept
+    defaults: { _controller: ApiBundle:Merchant:acceptMembership}
+    methods:  [GET]
+
+api_merchant_refuse_membership:
+    path:     /{id}/demandmembership/{id_demander}/refuse
+    defaults: { _controller: ApiBundle:Merchant:refuseMembership}
+    methods:  [GET]
+
+api_merchant_delete_membership:
+    path:     /{id}/demandmembership/{id_demander}/delete
+    defaults: { _controller: ApiBundle:Merchant:deleteMembership}
+    methods:  [GET]
+
+api_merchant_get_demands_membership:
+    path:     /{id}/get_demands_memberships
+    defaults: { _controller: ApiBundle:Merchant:getDemandesMembership}
+    methods:  [GET]
+

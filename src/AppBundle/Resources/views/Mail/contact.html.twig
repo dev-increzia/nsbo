@@ -1,0 +1,32 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    {% if message is defined %}
+        <h2>Bonjour,</h2>
+        <p>{{ message.user.lastname}} {{ message.user.firstname}} ({{ message.user.getEmail() }}) vous a adressé un signalement ou une suggestion dans la catégorie {{ message.msn }} via l’application NOUS ensemble. Son message est le suivant : <br>
+
+
+            {% if message.location %} Adresse :   {{ message.location }} {% endif %} <br>
+            Texte : {{message.content}}<br>
+            {%if message.photo %}
+                <img  src="{{absolute_url( message.photo )}}" alt="Nous ensemble logo" class="img-responsive" height='500'>
+            {%endif%}
+            <br><br>
+
+            Si vous le souhaitez, vous pouvez prendre contact par email avec lui.
+        </p>
+    {% else %}
+        <h2>Bonjour {{ user.lastname}} {{ user.firstname}},</h2>
+        <p>Vous avez adressé un signalement ou une suggestion dans la catégorie {{ msn }} via l’application NOUS ensemble. Votre message est le suivant : <br>
+
+
+            {% if location %} Adresse :   {{ location }} {% endif %} <br>
+            Texte : {{content}}<br>
+            {%if photo %}
+                <img  src="{{absolute_url( photo )}}" alt="Nous ensemble logo" class="img-responsive" height='500'>
+            {%endif%}
+            <br><br>
+
+        </p>
+    {% endif %}
+
+{% endblock %}

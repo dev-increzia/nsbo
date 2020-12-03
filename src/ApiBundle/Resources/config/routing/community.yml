@@ -1,0 +1,22 @@
+api_v1_community_info_dedicated:
+    path:     /{id}/info_dedicated
+    defaults: { _controller: ApiBundle:Community:getInfosDedicated }
+    methods:  [GET]
+
+api_v1_community_headings:
+    path:     /{id}/get_headings
+    defaults: { _controller: ApiBundle:Community:getHeadingsDedicated }
+    methods:  [GET]
+
+api_v1_community_update:
+    path:     /{id}/update
+    defaults: { _controller: ApiBundle:Community:update }
+    methods:  [POST]
+api_v1_community_admins:
+    path:     /{id}/admins/{page}/{limit}
+    defaults: { _controller: ApiBundle:Community:admins}
+    methods:  [GET]
+api_v1_community_remove_admin:
+    path:     /{community}/admin/remove
+    defaults: { _controller: ApiBundle:Community:removeAdmins}
+    methods:  [POST]

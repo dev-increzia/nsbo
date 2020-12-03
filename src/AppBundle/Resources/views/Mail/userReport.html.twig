@@ -1,0 +1,9 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour,</h2>
+    <p>La communauté de {%if sender.cityhall%}{{cityhall.name}}{%endif%} souhaite vous signaler cette personne:<br>
+        {{entity.lastname}}{{entity.firstname}}<br>
+        pour la raison suivante:<br>
+        {{message}}
+    </p>
+{% endblock %}

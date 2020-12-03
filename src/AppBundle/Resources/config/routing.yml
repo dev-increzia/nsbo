@@ -1,0 +1,1126 @@
+app_homepage:
+    path:     /
+    defaults: { _controller: AppBundle:Default:index }
+app_profil:
+    path:     /profil
+    defaults: { _controller: AppBundle:Default:profil }
+fos_user_profile_show:
+    path:     /profil
+    defaults: { _controller: AppBundle:Default:profil }
+app_password:
+    path:     /password
+    defaults: { _controller: AppBundle:Default:password }
+app_lock:
+    path:     /lock
+    defaults: { _controller: AppBundle:Default:lock }
+    options:
+        expose: true
+app_current_cityhall:
+    path:     /currentCityhall
+    defaults: { _controller: AppBundle:Default:communities }
+    options:
+        expose: true
+app_latLngToAddress:
+    path:     /latLngToAddress
+    defaults: { _controller: AppBundle:Default:latLngToAddress } 
+    requirements:
+        id: \d+
+    options:
+        expose: true
+app_locateAddress:
+    path:     /locateAddress
+    defaults: { _controller: AppBundle:Default:locateAddress } 
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
+    
+    
+app_city:
+    path:     /city
+    defaults: { _controller: AppBundle:City:index }
+app_city_grid:
+    path:     /cityGrid
+    defaults: { _controller: AppBundle:City:indexGrid }
+    options:
+        expose: true
+app_city_add:
+    path:     /city/add
+    defaults: { _controller: AppBundle:City:add }
+app_city_update:
+    path:     /city/update/{id}
+    defaults: { _controller: AppBundle:City:update } 
+    requirements:
+        id: \d+
+app_city_delete:
+    path:     /city/delete/{id}
+    defaults: { _controller: AppBundle:City:delete } 
+    requirements:
+        id: \d+
+        
+        
+app_community:
+    path:     /community
+    defaults: { _controller: AppBundle:Community:index }
+app_community_grid:
+    path:     /communityGrid
+    defaults: { _controller: AppBundle:Community:indexGrid }
+    options:
+        expose: true
+app_community_add:
+    path:     /community/add
+    defaults: { _controller: AppBundle:Community:add }
+app_community_update:
+    path:     /community/update/{id}
+    defaults: { _controller: AppBundle:Community:update } 
+    requirements:
+        id: \d+
+app_community_view:
+    path:     /community/view/{id}
+    defaults: { _controller: AppBundle:Community:view } 
+    requirements:
+        id: \d+
+app_community_delete:
+    path:     /community/delete/{id}
+    defaults: { _controller: AppBundle:Community:delete } 
+    requirements:
+        id: \d+
+app_community_access:
+    path:     /community/access/{id}
+    defaults: { _controller: AppBundle:Community:access } 
+    requirements:
+        id: \d+
+app_community_security:
+    path:     /community/security
+    defaults: { _controller: AppBundle:Community:security }
+    
+app_community_settings:
+    path:     /community/settings
+    defaults: { _controller: AppBundle:Community:settings }
+
+app_ajax_community_enable_disable_comment:
+    path:     /community/commentactivation
+    defaults: { _controller: AppBundle:ArticleHeading:isCommentActive }
+    options:
+            expose: true
+
+
+
+
+
+    
+    
+
+#app_abus:
+#    path:     /abus
+#    defaults: { _controller: AppBundle:Abus:index }
+#app_abus_grid:
+#    path:     /abusGrid
+#    defaults: { _controller: AppBundle:Abus:indexGrid }
+#    options:
+#        expose: true
+#app_abus_update:
+#    path:     /abus/update/{id}
+#    defaults: { _controller: AppBundle:Abus:update }
+#    requirements:
+#        id: \d+
+        
+
+       
+       
+
+app_number:
+    path:     /number
+    defaults: { _controller: AppBundle:Number:index }
+app_number_grid:
+    path:     /numberGrid
+    defaults: { _controller: AppBundle:Number:indexGrid }
+    options:
+        expose: true
+app_number_add:
+    path:     /number/add
+    defaults: { _controller: AppBundle:Number:add }
+app_number_update:
+    path:     /number/update/{id}
+    defaults: { _controller: AppBundle:Number:update } 
+    requirements:
+        id: \d+
+app_number_delete:
+    path:     /number/delete/{id}
+    defaults: { _controller: AppBundle:Number:delete } 
+    requirements:
+        id: \d+
+
+app_number_categories:
+    path:     /getCategoriesByPhoneBookHeading
+    defaults: { _controller: AppBundle:Number:getCategoriesByPhoneBookHeading }
+    options:
+        expose: true
+
+        
+        
+
+      
+      
+      
+app_association:
+    path:     /association
+    defaults: { _controller: AppBundle:Association:index }
+app_association_grid:
+    path:     /associationGrid
+    defaults: { _controller: AppBundle:Association:indexGrid }
+    options:
+        expose: true
+app_association_add:
+    path:     /association/add
+    defaults: { _controller: AppBundle:Association:add }
+app_association_update:
+    path:     /association/update/{id}
+    defaults: { _controller: AppBundle:Association:update } 
+    requirements:
+        id: \d+
+app_association_delete:
+    path:     /association/delete/{id}
+    defaults: { _controller: AppBundle:Association:delete } 
+    requirements:
+        id: \d+
+app_association_view:
+    path:     /association/view/{id}
+    defaults: { _controller: AppBundle:Association:view } 
+    requirements:
+        id: \d+
+app_association_suAdmin_autocomplete:
+    path:     /association/suAdminAutocomplete
+    defaults: { _controller: AppBundle:Association:suAdminAutocomplete }
+    options:
+        expose: true 
+app_association_moderate:
+    path:     /association/moderate/{id}
+    defaults: { _controller: AppBundle:Association:moderate } 
+    requirements:
+        id: \d+
+app_association_activate:
+    path:     /association/activate/{id}
+    defaults: { _controller: AppBundle:Association:activate } 
+    requirements:
+        id: \d+
+app_association_add_admin:
+    path:     /association/admin/{id}
+    defaults: { _controller: AppBundle:Association:addAdmin } 
+    requirements:
+        id: \d+ 
+app_association_delete_admin:
+    path:     /association/{association}/admin/{id}/delete
+    defaults: { _controller: AppBundle:Association:deleteAdmin } 
+    requirements:
+        association: \d+ 
+        id: \d+ 
+     
+     
+     
+     
+app_merchant:
+    path:     /merchant
+    defaults: { _controller: AppBundle:Merchant:index }
+app_merchant_grid:
+    path:     /merchantGrid
+    defaults: { _controller: AppBundle:Merchant:indexGrid }
+    options:
+        expose: true
+app_merchant_add:
+    path:     /merchant/add
+    defaults: { _controller: AppBundle:Merchant:add }
+app_merchant_update:
+    path:     /merchant/update/{id}
+    defaults: { _controller: AppBundle:Merchant:update } 
+    requirements:
+        id: \d+
+app_merchant_delete:
+    path:     /merchant/delete/{id}
+    defaults: { _controller: AppBundle:Merchant:delete } 
+    requirements:
+        id: \d+
+app_merchant_view:
+    path:     /merchant/view/{id}
+    defaults: { _controller: AppBundle:Merchant:view } 
+    requirements:
+        id: \d+
+app_merchant_suAdmin_autocomplete:
+    path:     /merchant/suAdminAutocomplete
+    defaults: { _controller: AppBundle:Merchant:suAdminAutocomplete }
+    options:
+        expose: true 
+app_merchant_moderate:
+    path:     /merchant/moderate/{id}
+    defaults: { _controller: AppBundle:Merchant:moderate } 
+    requirements:
+        id: \d+
+app_merchant_activate:
+    path:     /merchant/activate/{id}
+    defaults: { _controller: AppBundle:Merchant:activate } 
+    requirements:
+        id: \d+
+app_merchant_add_admin:
+    path:     /merchant/admin/{id}
+    defaults: { _controller: AppBundle:Merchant:addAdmin } 
+    requirements:
+        id: \d+ 
+app_merchant_delete_admin:
+    path:     /merchant/{merchant}/admin/{id}/delete
+    defaults: { _controller: AppBundle:Merchant:deleteAdmin } 
+    requirements:
+        merchant: \d+ 
+        id: \d+
+        
+        
+ 
+ 
+#app_reporting:
+#    path:     /reporting
+#    defaults: { _controller: AppBundle:Reporting:index }
+#app_reporting_grid:
+#    path:     /reportingGrid
+#    defaults: { _controller: AppBundle:Reporting:indexGrid }
+#    options:
+#        expose: true
+#app_reporting_update:
+#    path:     /reporting/update/{id}
+#    defaults: { _controller: AppBundle:Reporting:update }
+#    requirements:
+#        id: \d+
+        
+        
+        
+app_work:
+    path:     /work
+    defaults: { _controller: AppBundle:Work:index }
+app_work_grid:
+    path:     /workGrid
+    defaults: { _controller: AppBundle:Work:indexGrid }
+    options:
+        expose: true
+app_work_add:
+    path:     /work/add
+    defaults: { _controller: AppBundle:Work:add }
+app_work_update:
+    path:     /work/update/{id}
+    defaults: { _controller: AppBundle:Work:update } 
+    requirements:
+        id: \d+
+app_work_delete:
+    path:     /work/delete/{id}
+    defaults: { _controller: AppBundle:Work:delete } 
+    requirements:
+        id: \d+
+
+ 
+ 
+ 
+ 
+ 
+app_interest:
+    path:     /interest
+    defaults: { _controller: AppBundle:Interest:index }
+app_interest_grid:
+    path:     /interestGrid
+    defaults: { _controller: AppBundle:Interest:indexGrid }
+    options:
+        expose: true
+app_interest_add:
+    path:     /interest/add
+    defaults: { _controller: AppBundle:Interest:add }
+app_interest_update:
+    path:     /interest/update/{id}
+    defaults: { _controller: AppBundle:Interest:update } 
+    requirements:
+        id: \d+
+app_interest_delete:
+    path:     /interest/delete/{id}
+    defaults: { _controller: AppBundle:Interest:delete } 
+    requirements:
+        id: \d+
+
+app_interest_categories:
+    path:     /interestCategories
+    defaults: { _controller: AppBundle:Interest:getCategoriesByMapHeading }
+    options:
+        expose: true
+
+        
+        
+
+
+
+app_article_share_dedicated_page:
+    path:     /article/share/dedicated/{articleId}
+    defaults: { _controller: AppBundle:Article:shareDedicatedPage } 
+    requirements:
+        articleId: \d+
+
+app_article_grid:
+    path:     /articleGrid
+    defaults: { _controller: AppBundle:Article:indexGrid }
+    options:
+        expose: true
+app_article_add:
+    path:     /article/add
+    defaults: { _controller: AppBundle:Article:add }
+app_article_update:
+    path:     /article/update/{id}
+    defaults: { _controller: AppBundle:Article:update } 
+    requirements:
+        id: \d+
+app_article_delete:
+    path:     /article/delete/{id}
+    defaults: { _controller: AppBundle:Article:delete } 
+    requirements:
+        id: \d+
+app_article_activate:
+    path:     /article/activate/{id}
+    defaults: { _controller: AppBundle:Article:activate } 
+    requirements:
+        id: \d+
+app_article:
+    path:     /article/{type}
+    defaults: { _controller: AppBundle:Article:index, type: null }
+app_article_view:
+    path:     /article/view/{id}
+    defaults: { _controller: AppBundle:Article:view } 
+    requirements:
+        id: \d+
+    
+
+   
+   
+
+app_project:
+    path:     /project
+    defaults: { _controller: AppBundle:Project:index}
+app_project_grid:
+    path:     /projectGrid
+    defaults: { _controller: AppBundle:Project:indexGrid }
+    options:
+        expose: true
+app_project_add:
+    path:     /project/add
+    defaults: { _controller: AppBundle:Project:add }
+app_project_update:
+    path:     /project/update/{id}
+    defaults: { _controller: AppBundle:Project:update } 
+    requirements:
+        id: \d+
+app_project_delete:
+    path:     /project/delete/{id}
+    defaults: { _controller: AppBundle:Project:delete } 
+app_project_activate:
+    path:     /project/activate/{id}
+    defaults: { _controller: AppBundle:Project:activate } 
+    requirements:
+        id: \d+
+app_project_view:
+    path:     /project/view/{id}
+    defaults: { _controller: AppBundle:Project:view } 
+    requirements:
+        id: \d+
+    
+
+      
+      
+      
+      
+
+
+
+
+
+
+app_city_selectElements:
+    path:     /city/selectElements
+    defaults: { _controller: AppBundle:Event:selectElements }
+
+app_event:
+    path:     /event
+    defaults: { _controller: AppBundle:Event:index }
+app_event_grid:
+    path:     /eventGrid
+    defaults: { _controller: AppBundle:Event:indexGrid }
+    options:
+        expose: true
+app_event_add:
+    path:     /event/add
+    defaults: { _controller: AppBundle:Event:add }
+app_event_update:
+    path:     /event/update/{id}
+    defaults: { _controller: AppBundle:Event:update } 
+    requirements:
+        id: \d+
+app_event_delete:
+    path:     /event/delete/{id}
+    defaults: { _controller: AppBundle:Event:delete } 
+    requirements:
+        id: \d+
+app_event_activate:
+    path:     /event/activate/{id}
+    defaults: { _controller: AppBundle:Event:activate } 
+    requirements:
+        id: \d+
+app_event_moderate:
+    path:     /event/moderate/{id}
+    defaults: { _controller: AppBundle:Event:moderate } 
+    requirements:
+        id: \d+
+
+app_event_moderate_secondary:
+    path:     /event/moderate_secondary/{id}
+    defaults: { _controller: AppBundle:Event:moderateSecondary }
+    requirements:
+        id: \d+
+
+app_event_view:
+    path:     /event/view/{id}
+    defaults: { _controller: AppBundle:Event:view } 
+    requirements:
+        id: \d+
+        
+app_event_settings:
+  path:     /event/settings
+  defaults: { _controller: AppBundle:Event:settings }
+
+
+app_push:
+    path:     /push
+    defaults: { _controller: AppBundle:Push:index}
+app_push_grid:
+    path:     /pushGrid
+    defaults: { _controller: AppBundle:Push:indexGrid }
+    options:
+        expose: true
+app_push_update:
+    path:     /push/update/{id}
+    defaults: { _controller: AppBundle:Push:update } 
+    requirements:
+        id: \d+
+app_push_delete:
+    path:     /push/delete/{id}
+    defaults: { _controller: AppBundle:Push:delete } 
+    requirements:
+        id: \d+
+app_push_cityhall:
+    path:     /push/cityhall
+    defaults: { _controller: AppBundle:Push:cityhall}
+app_push_cityhall_grid:
+    path:     /pushCityhallGrid
+    defaults: { _controller: AppBundle:Push:cityhallGrid }
+    options:
+        expose: true
+app_push_cityhall_add:
+    path:     /push/cityhall/add
+    defaults: { _controller: AppBundle:Push:addCityhall}
+app_push_cityhall_update:
+    path:     /push/cityhall/update/{id}
+    defaults: { _controller: AppBundle:Push:updateCityhall } 
+    requirements:
+        id: \d+
+app_push_cityhall_delete:
+    path:     /push/cityhall/delete/{id}
+    defaults: { _controller: AppBundle:Push:deleteCityhall } 
+    requirements:
+        id: \d+
+        
+        
+        
+
+
+
+
+
+
+
+app_user:
+    path:     /user
+    defaults: { _controller: AppBundle:User:index}
+app_user_grid:
+    path:     /userGrid
+    defaults: { _controller: AppBundle:User:indexGrid }
+    options:
+        expose: true
+app_user_cityhall:
+    path:     /user/cityhall
+    defaults: { _controller: AppBundle:User:indexCityhall}
+app_user_cityhall_grid:
+    path:     /userCityhallGrid
+    defaults: { _controller: AppBundle:User:indexCityhallGrid }
+    options:
+        expose: true
+app_user_enable:
+    path:     /user/enable/{id}
+    defaults: { _controller: AppBundle:User:enableUser}
+    requirements:
+        id: \d+
+app_user_update:
+    path:     /user/update/{id}
+    defaults: { _controller: AppBundle:User:update}
+    requirements:
+        id: \d+
+app_user_report:
+    path:     /user/report/{id}
+    defaults: { _controller: AppBundle:User:report} 
+    requirements:
+        id: \d+
+
+app_user_send_password_community:
+    path:     /user/send_community_password/{id}/{id_community}
+    defaults: { _controller: AppBundle:User:sendCommunityPassword}
+    requirements:
+        id: \d+
+        id_community: \d+
+app_user_send_refuse:
+    path:     /user/send_refuse/{id}/{id_community}
+    defaults: { _controller: AppBundle:User:sendCommunityRefuse}
+    requirements:
+        id: \d+
+        id_community: \d+        
+
+app_user_del_rel:
+    path:     /user/del_relation/{id}/{id_community}
+    defaults: { _controller: AppBundle:User:delRelation}
+    requirements:
+        id: \d+
+        id_community: \d+
+app_user_cityhall_add:
+    path:     /usercityhall/add
+    defaults: { _controller: AppBundle:User:addCityhall}
+
+app_user_suadmin_add:
+    path:     /suadmin/add
+    defaults: { _controller: AppBundle:User:addAdminCityhall}
+
+app_add_admin_community_access:
+    path:     /communityadmin/access/add
+    defaults: { _controller: AppBundle:User:addAdminCommunityAccess}
+
+app_add_suadmin_community:
+    path:     /communitysuadmin/add
+    defaults: { _controller: AppBundle:User:addSuAdminCommunity}
+
+app_user_cityhall_update:
+    path:     /user/cityhall/update/{id}
+    defaults: { _controller: AppBundle:User:updateCityhall } 
+    requirements:
+        id: \d+
+app_user_cityhall_access:
+    path:     /user/cityhall/access/{id}
+    defaults: { _controller: AppBundle:User:accessCityhallhall } 
+    requirements:
+        id: \d+
+app_user_cityhall_delete:
+    path:     /user/cityhall/delete/{id}
+    defaults: { _controller: AppBundle:User:deleteCityhall }
+    requirements:
+        id: \d+
+app_user_delete:
+    path:     /user/delete/{id}
+    defaults: { _controller: AppBundle:User:delete }
+    requirements:
+        id: \d+
+app_user_export:
+    path:     /user/export
+    defaults: { _controller: AppBundle:User:exportUsersCsv }
+app_log_export:
+    path:     /log/export
+    defaults: { _controller: AppBundle:User:exportLogsCsv }
+        
+        
+        
+        
+        
+app_comment:
+    path:     /comment
+    defaults: { _controller: AppBundle:Comment:index, personnalized: null }
+app_comment_event:
+    path:     /comment/event/{id}
+    defaults: { _controller: AppBundle:Comment:indexEvent }
+    requirements:
+        id: \d+
+app_comment_article:
+    path:     /comment/article/{id}
+    defaults: { _controller: AppBundle:Comment:indexArticle }
+    requirements:
+        id: \d+
+app_comment_grid:
+    path:     /commentGrid
+    defaults: { _controller: AppBundle:Comment:indexGrid }
+    options:
+        expose: true
+app_comment_delete:
+    path:     /comment/delete/{id}
+    defaults: { _controller: AppBundle:Comment:delete } 
+    requirements:
+        id: \d+
+app_comment_read:
+    path:     /comment/read/{id}
+    defaults: { _controller: AppBundle:Comment:read } 
+    requirements:
+        id: \d+
+    options:
+        expose: true
+        
+        
+        
+    
+app_stat_general:
+    path:     /stat/general
+    defaults: { _controller: AppBundle:Stat:general }
+app_stat_general_chart1:
+    path:     /stat/general/chart1
+    defaults: { _controller: AppBundle:Stat:generalChart1 }
+    options:
+        expose: true
+app_stat_general_chart2:
+    path:     /stat/general/chart2
+    defaults: { _controller: AppBundle:Stat:generalChart2 }
+    options:
+        expose: true
+app_stat_general_chart3:
+    path:     /stat/general/chart3
+    defaults: { _controller: AppBundle:Stat:generalChart3 }
+    options:
+        expose: true
+app_stat_general_chart4:
+    path:     /stat/general/chart4
+    defaults: { _controller: AppBundle:Stat:generalChart4 }
+    options:
+        expose: true
+app_stat_general_chart5:
+    path:     /stat/general/chart5
+    defaults: { _controller: AppBundle:Stat:generalChart5 }
+    options:
+        expose: true
+app_stat_general_chart6:
+    path:     /stat/general/chart6
+    defaults: { _controller: AppBundle:Stat:generalChart6 }
+    options:
+        expose: true
+app_stat_general_chart7:
+    path:     /stat/general/chart7
+    defaults: { _controller: AppBundle:Stat:generalChart8 }
+    options:
+        expose: true
+app_stat_general_chart8:
+    path:     /stat/general/chart8
+    defaults: { _controller: AppBundle:Stat:generalChart8 }
+    options:
+        expose: true
+app_stat_general_chart9:
+    path:     /stat/general/chart9
+    defaults: { _controller: AppBundle:Stat:generalChart9 }
+    options:
+        expose: true
+app_stat_general_chart10:
+    path:     /stat/general/chart10
+    defaults: { _controller: AppBundle:Stat:generalChart10 }
+    options:
+        expose: true
+app_stat_general_chart11:
+    path:     /stat/general/chart11
+    defaults: { _controller: AppBundle:Stat:generalChart11 }
+    options:
+        expose: true
+app_stat_general_chart12:
+    path:     /stat/general/chart12
+    defaults: { _controller: AppBundle:Stat:generalChart12 }
+    options:
+        expose: true
+app_stat_general_chart13:
+    path:     /stat/general/chart13
+    defaults: { _controller: AppBundle:Stat:generalChart13 }
+    options:
+        expose: true
+app_stat_general_chart14:
+    path:     /stat/general/chart14
+    defaults: { _controller: AppBundle:Stat:generalChart14 }
+    options:
+        expose: true
+        
+        
+    
+app_stat_content:
+    path:     /stat/content
+    defaults: { _controller: AppBundle:Stat:content }
+app_stat_content_chart1:
+    path:     /stat/content/chart1
+    defaults: { _controller: AppBundle:Stat:contentChart1 }
+    options:
+        expose: true
+app_stat_content_chart2:
+    path:     /stat/content/chart2
+    defaults: { _controller: AppBundle:Stat:contentChart2 }
+    options:
+        expose: true
+app_stat_content_chart3:
+    path:     /stat/content/chart3
+    defaults: { _controller: AppBundle:Stat:contentChart3 }
+    options:
+        expose: true
+app_stat_content_chart4:
+    path:     /stat/content/chart4
+    defaults: { _controller: AppBundle:Stat:contentChart4 }
+    options:
+        expose: true
+app_stat_content_chart5:
+    path:     /stat/content/chart5
+    defaults: { _controller: AppBundle:Stat:contentChart5 }
+    options:
+        expose: true 
+app_stat_content_chart6:
+    path:     /stat/content/chart6
+    defaults: { _controller: AppBundle:Stat:contentChart6 }
+    options:
+        expose: true
+app_stat_content_chart7:
+    path:     /stat/content/chart7
+    defaults: { _controller: AppBundle:Stat:contentChart7 }
+    options:
+        expose: true
+app_stat_content_chart8:
+    path:     /stat/content/chart8
+    defaults: { _controller: AppBundle:Stat:contentChart8 }
+    options:
+        expose: true
+app_stat_content_chart9:
+    path:     /stat/content/chart9
+    defaults: { _controller: AppBundle:Stat:contentChart9 }
+    options:
+        expose: true
+app_stat_content_chart10:
+    path:     /stat/content/chart10
+    defaults: { _controller: AppBundle:Stat:contentChart10 }
+    options:
+        expose: true
+        
+
+app_stat_user:
+    path:     /stat/user
+    defaults: { _controller: AppBundle:Stat:user }
+app_stat_user_chart1:
+    path:     /stat/user/chart1
+    defaults: { _controller: AppBundle:Stat:userChart1 }
+    options:
+        expose: true
+app_stat_user_chart2:
+    path:     /stat/user/chart2
+    defaults: { _controller: AppBundle:Stat:userChart2 }
+    options:
+        expose: true
+app_stat_user_chart3:
+    path:     /stat/user/chart3
+    defaults: { _controller: AppBundle:Stat:userChart3 }
+    options:
+        expose: true
+app_stat_user_chart4:
+    path:     /stat/user/chart4
+    defaults: { _controller: AppBundle:Stat:userChart4 }
+    options:
+        expose: true
+app_stat_user_chart5:
+    path:     /stat/user/chart5
+    defaults: { _controller: AppBundle:Stat:userChart5 }
+    options:
+        expose: true
+        
+        
+        
+app_stat_cityhall:
+    path:     /stat/cityhall
+    defaults: { _controller: AppBundle:Stat:cityhall }
+app_stat_cityhall_chart1:
+    path:     /stat/cityhall/chart1
+    defaults: { _controller: AppBundle:Stat:cityhallChart1 }
+    options:
+        expose: true
+app_stat_cityhall_chart2:
+    path:     /stat/cityhall/chart2
+    defaults: { _controller: AppBundle:Stat:cityhallChart2 }
+    options:
+        expose: true
+app_stat_cityhall_chart3:
+    path:     /stat/cityhall/chart3
+    defaults: { _controller: AppBundle:Stat:cityhallChart3 }
+    options:
+        expose: true
+app_stat_cityhall_chart4:
+    path:     /stat/cityhall/chart4
+    defaults: { _controller: AppBundle:Stat:cityhallChart4 }
+    options:
+        expose: true
+app_stat_cityhall_chart5:
+    path:     /stat/cityhall/chart5
+    defaults: { _controller: AppBundle:Stat:cityhallChart5 }
+    options:
+        expose: true       
+app_stat_cityhall_chart6:
+    path:     /stat/cityhall/chart6
+    defaults: { _controller: AppBundle:Stat:cityhallChart6 }
+    options:
+        expose: true
+app_stat_cityhall_chart7:
+    path:     /stat/cityhall/chart7
+    defaults: { _controller: AppBundle:Stat:cityhallChart7 }
+    options:
+        expose: true
+app_stat_cityhall_chart8:
+    path:     /stat/cityhall/chart8
+    defaults: { _controller: AppBundle:Stat:cityhallChart8 }
+    options:
+        expose: true
+
+
+
+        
+        
+app_admin:
+    path:     /admin
+    defaults: { _controller: AppBundle:Admin:index }
+    
+    
+    
+    
+app_interestCategory:
+    path:     /interestCategory
+    defaults: { _controller: AppBundle:InterestCategory:index }
+app_interestCategory_grid:
+    path:     /interestCategoryGrid
+    defaults: { _controller: AppBundle:InterestCategory:indexGrid }
+    options:
+        expose: true
+app_interestCategory_add:
+    path:     /interestCategory/add
+    defaults: { _controller: AppBundle:InterestCategory:add }
+app_interestCategory_update:
+    path:     /interestCategory/update/{id}
+    defaults: { _controller: AppBundle:InterestCategory:update } 
+    requirements:
+        id: \d+
+app_interestCategory_delete:
+    path:     /interestCategory/delete/{id}
+    defaults: { _controller: AppBundle:InterestCategory:delete } 
+    requirements:
+        id: \d+
+    
+app_mapheading:
+    path:     /mapHeading
+    defaults: { _controller: AppBundle:MapHeading:index }
+app_mapheading_grid:
+    path:     /mapHeadingGrid
+    defaults: { _controller: AppBundle:MapHeading:indexGrid }
+    options:
+        expose: true
+app_mapheading_add:
+    path:     /mapHeading/add
+    defaults: { _controller: AppBundle:MapHeading:add }
+app_mapheading_update:
+    path:     /mapHeading/update/{id}
+    defaults: { _controller: AppBundle:MapHeading:update } 
+    requirements:
+        id: \d+
+app_mapheading_delete:
+    path:     /mapHeading/delete/{id}
+    defaults: { _controller: AppBundle:MapHeading:delete } 
+    requirements:
+        id: \d+
+
+app_usefulllinkheading:
+    path:     /usefulllinkheading
+    defaults: { _controller: AppBundle:UsefullLinkHeading:index }
+app_usefulllinkheading_grid:
+    path:     /usefulllinkheadingGrid
+    defaults: { _controller: AppBundle:UsefullLinkHeading:indexGrid }
+    options:
+        expose: true
+app_usefulllinkheading_add:
+    path:     /usefulllinkheading/add
+    defaults: { _controller: AppBundle:UsefullLinkHeading:add }
+app_usefulllinkheading_update:
+    path:     /usefulllinkheading/update/{id}
+    defaults: { _controller: AppBundle:UsefullLinkHeading:update }
+    requirements:
+        id: \d+
+app_usefulllinkheading_delete:
+    path:     /usefulllinkheading/delete/{id}
+    defaults: { _controller: AppBundle:UsefullLinkHeading:delete }
+    requirements:
+        id: \d+
+
+
+
+app_reportingheading:
+    path:     /reportingHeading
+    defaults: { _controller: AppBundle:ReportingHeading:index }
+app_reportingheading_grid:
+    path:     /reportingHeadingGrid
+    defaults: { _controller: AppBundle:ReportingHeading:indexGrid }
+    options:
+        expose: true
+app_reportingheading_add:
+    path:     /reportingHeading/add
+    defaults: { _controller: AppBundle:ReportingHeading:add }
+app_reportingheading_update:
+    path:     /reportingHeading/update/{id}
+    defaults: { _controller: AppBundle:ReportingHeading:update }
+    requirements:
+        id: \d+
+app_reportingheading_delete:
+    path:     /reportingHeading/delete/{id}
+    defaults: { _controller: AppBundle:ReportingHeading:delete }
+    requirements:
+        id: \d+
+
+app_ajax_post_category:
+    path:     /mapHeading/addAjax
+    defaults: { _controller: AppBundle:MapHeading:addAjax }
+    options:
+        expose: true
+
+
+app_articleheading:
+    path:     /articleHeading
+    defaults: { _controller: AppBundle:ArticleHeading:index }
+app_articleheading_grid:
+    path:     /articleHeadingGrid
+    defaults: { _controller: AppBundle:ArticleHeading:indexGrid }
+    options:
+        expose: true
+app_articleheading_add:
+    path:     /articleHeading/add
+    defaults: { _controller: AppBundle:ArticleHeading:add }
+app_articleheading_update:
+    path:     /articleHeading/update/{id}
+    defaults: { _controller: AppBundle:ArticleHeading:update }
+    requirements:
+        id: \d+
+app_articleheading_delete:
+    path:     /articleHeading/delete/{id}
+    defaults: { _controller: AppBundle:ArticleHeading:delete }
+    requirements:
+        id: \d+
+app_article_heading_admins_autocomplete:
+    path:     /articleHeading/getAdmins
+    defaults: { _controller: AppBundle:ArticleHeading:getAdminsCommunity }
+    options:
+        expose: true
+
+app_category:
+    path:     /category
+    defaults: { _controller: AppBundle:Category:index }
+app_category_grid:
+    path:     /categoryGrid
+    defaults: { _controller: AppBundle:Category:indexGrid }
+    options:
+        expose: true
+app_category_add:
+    path:     /category/add
+    defaults: { _controller: AppBundle:Category:add }
+app_category_update:
+    path:     /category/update/{id}
+    defaults: { _controller: AppBundle:Category:update } 
+    requirements:
+        id: \d+
+app_category_delete:
+    path:     /category/delete/{id}
+    defaults: { _controller: AppBundle:Category:delete } 
+    requirements:
+        id: \d+
+    
+    
+    
+    
+    
+    
+app_reportingCategory:
+    path:     /reportingCategory
+    defaults: { _controller: AppBundle:ReportingCategory:index }
+app_reportingCategory_grid:
+    path:     /reportingCategoryGrid
+    defaults: { _controller: AppBundle:ReportingCategory:indexGrid }
+    options:
+        expose: true
+app_reportingCategory_add:
+    path:     /reportingCategory/add
+    defaults: { _controller: AppBundle:ReportingCategory:add }
+app_reportingCategory_update:
+    path:     /reportingCategory/update/{id}
+    defaults: { _controller: AppBundle:ReportingCategory:update } 
+    requirements:
+        id: \d+
+app_reportingCategory_delete:
+    path:     /reportingCategory/delete/{id}
+    defaults: { _controller: AppBundle:ReportingCategory:delete } 
+    requirements:
+        id: \d+
+        
+        
+        
+app_numberCategory:
+    path:     /numberCategory
+    defaults: { _controller: AppBundle:NumberCategory:index }
+app_numberCategory_grid:
+    path:     /numberCategoryGrid
+    defaults: { _controller: AppBundle:NumberCategory:indexGrid }
+    options:
+        expose: true
+app_numberCategory_add:
+    path:     /numberCategory/add
+    defaults: { _controller: AppBundle:NumberCategory:add }
+app_numberCategory_update:
+    path:     /numberCategory/update/{id}
+    defaults: { _controller: AppBundle:NumberCategory:update } 
+    requirements:
+        id: \d+
+app_numberCategory_delete:
+    path:     /numberCategory/delete/{id}
+    defaults: { _controller: AppBundle:NumberCategory:delete } 
+    requirements:
+        id: \d+
+
+
+app_survey:
+    path: /survey
+    defaults: { _controller: AppBundle:Survey:index }
+app_survey_grid:
+    path:     /surveyGrid
+    defaults: { _controller: AppBundle:Survey:indexGrid }
+    options:
+        expose: true
+app_survey_add:
+    path: /survey/add
+    defaults: { _controller: AppBundle:Survey:update }
+app_survey_update:
+    path:     /survey/update/{id}
+    defaults: { _controller: AppBundle:Survey:update }
+    requirements:
+        id: \d+
+app_survey_delete:
+    path:     /survey/delete/{id}
+    defaults: { _controller: AppBundle:Survey:delete }
+    requirements:
+        id: \d+
+app_survey_results:
+    path:   /survey/results/{id}
+    defaults: { _controller: AppBundle:Survey:results }
+    requirements:
+        id: \d+
+app_survey_results_grid:
+    path:   /survey/resultsGrid/{id}
+    defaults: { _controller: AppBundle:Survey:resultsGrid }
+    requirements:
+        id: \d+
+
+app_phonebookheading:
+    resource: "@AppBundle/Resources/config/routing/phonebookheading.yml"
+    prefix:   /phonebookheading
+
+app_goodplan:
+    resource: "@AppBundle/Resources/config/routing/goodplan.yml"
+    prefix:   /goodPlan
+

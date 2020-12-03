@@ -1,0 +1,200 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: "@ApiBundle/Resources/config/services.yml" }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: fr
+
+framework:
+    #esi: ~
+    translator: { fallbacks: ['%locale%'] }
+    secret: '%secret%'
+    router:
+        resource: '%kernel.root_dir%/config/routing.yml'
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    #serializer: { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale: '%locale%'
+    trusted_hosts: ~
+    trusted_proxies: ~
+    session:
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+    fragments: ~
+    http_method_override: true
+    assets: ~
+    php_errors:
+        log: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form_themes:
+            - 'AppBundle:Elements:vichUploader.html.twig'
+    globals:
+        googleanalytics_backoffice_UA: "%googleanalytics_backoffice_UA%"
+        event_base_url: "%event_base_url%"
+        session_community: "@session.community"
+    date:
+        timezone: Europe/Paris
+# Doctrine Configuration
+doctrine:
+    dbal:
+        charset: utf8mb4
+        default_table_options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+        driver: pdo_mysql
+        host: '%database_host%'
+        port: '%database_port%'
+        dbname: '%database_name%'
+        user: '%database_user%'
+        password: '%database_password%'
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.root_dir%/../var/data/data.sqlite"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #path: '%database_path%'
+        mapping_types:
+            enum: string
+
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: '%mailer_transport%'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    spool: { type: memory }
+    
+fos_user:
+    db_driver:     orm
+    firewall_name: main
+    user_class:    UserBundle\Entity\User
+    from_email:
+                address:        %no_reply_email%
+                sender_name:    %no_reply_name%
+    service:
+        mailer:                 fos_user.mailer.twig_swift
+    resetting:
+        email:
+            from_email:
+                address:        %no_reply_email%
+                sender_name:    %no_reply_name%
+            template:   AppBundle:Mail:resetting.html.twig
+            
+            
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true
+            
+vich_uploader:
+    db_driver: orm
+    mappings:
+        upload_files:
+            uri_prefix:         /upload
+            upload_destination: %kernel.root_dir%/../public/upload
+            namer:              vich_uploader.namer_uniqid
+            inject_on_load:     true
+            delete_on_update:   true
+            delete_on_remove:   true
+            
+            
+lexik_jwt_authentication:
+    private_key_path: %jwt_private_key_path%
+    public_key_path:  %jwt_public_key_path%
+    pass_phrase:      %jwt_key_pass_phrase%
+    token_ttl:        %jwt_token_ttl%
+
+jp_firebase_notification:
+    firebase_fcm:
+        server_key: 390977445413
+
+# FOSRestBundle
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener: true
+    view:
+        view_response_listener: 'force'
+        formats:
+            xml: true
+            json : true
+            html : true
+        templating_formats:
+            html: true
+        force_redirects:
+            html: true
+        failed_validation: HTTP_BAD_REQUEST
+        default_engine: twig
+    routing_loader:
+        default_format: json 
+    serializer:
+      serialize_null: true
+        
+nelmio_api_doc: ~
+
+jms_serializer:
+    metadata:
+        directories:
+            FOSUB:
+                namespace_prefix: "FOS\\UserBundle"
+                path: "%kernel.root_dir%/serializer/FOSUserBundle"
+                
+                
+rms_push_notifications:
+  android:
+      timeout: 5 # Seconds to wait for connection timeout, default is 5
+      gcm:
+          api_key: %android_api_key%
+          use_multi_curl: %android_multi_curl%
+          dry_run: %android_dry_run%
+  ios:
+      timeout: 60
+      sandbox: %ios_sandbox%
+      pem: %ios_pem_path%
+      passphrase: %ios_passphrase%
+      
+#todo check if used ... ?
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: 'KnpPaginatorBundle:Pagination:sliding.html.twig'     # sliding pagination controls template
+        sortable: 'KnpPaginatorBundle:Pagination:sortable_link.html.twig' # sort link template
+
+nelmio_cors:
+    paths:
+        '^/api':
+            allow_origin: ['*']
+            allow_headers: ['Authorization', 'Content-Type', 'Accept', 'api-version', 'app-version']
+            allow_methods: ['GET', 'POST', 'PUT', 'DELETE']
+            max_age: 3600
+        '^/upload':
+            allow_origin: ['*']
+            allow_headers: ['Authorization', 'Content-Type', 'Accept', 'api-version', 'app-version']
+            allow_methods: ['GET']
+            max_age: 3600
+            
+#welp_mailchimp:
+#    api_key: 693591e74d52659a54c71f98dc9e5c08-us16

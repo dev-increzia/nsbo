@@ -1,0 +1,101 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <a href="{{ path('app_event') }}">Liste des événements</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>Ajouter un événement personnalisé</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Ajouter un événement personnalisé</h3>
+{% endblock %}
+
+
+
+{% block maincontent %}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Je cherche</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul>
+                        <li>
+                            <div class="form-group">
+                                <h3>Jour de la semaine : </h3>
+                                <div class="align-center">
+                                    <button type="button" class="btn green btn-circle buttonDay" id="monday">Lundi</button>
+                                    <button type="button" class="btn green btn-circle buttonDay" id="tuesday">Mardi</button>
+                                    <button type="button" class="btn green btn-circle buttonDay" id="wednesday">Mercredi</button>
+                                    <button type="button" class="btn green btn-circle buttonDay" id="thursday">Jeudi</button>
+                                    <button type="button" class="btn green btn-circle buttonDay" id="friday">Vendredi</button>
+                                    <button type="button" class="btn green btn-circle buttonDay" id="saturday">Samedi</button>
+                                    <button type="button" class="btn green btn-circle buttonDay" id="sunday">Dimanche</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-group">
+                                <h3>Pour les habitants agés : </h3>
+                                <div class="col-sm-6 padding-none margin-none margin-top-10">
+                                    De <input id="ageFrom" class="form-control" type="number" min="0" max="110" required="required">
+                                </div>
+                                <div class="col-sm-6 padding-right-0 margin-right-0 margin-top-10">
+                                    à <input id="ageTo" class="form-control" type="number" min="0" max="110" required="required">
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li>
+                            <div class="form-group">
+                                <h3>Enfants : </h3>
+                                <div class="col-sm-6 padding-none margin-none margin-top-10">
+                                    <input id="childrens0-6" class="form-control" type="checkbox"> 0 à 6 ans<br>
+                                    <input id="childrens6-12" class="form-control" type="checkbox"> 6 à 12 ans<br>
+                                </div>
+                                <div class="col-sm-6 padding-right-0 margin-right-0 margin-top-10">
+                                    <input id="childrens12-18" class="form-control" type="checkbox"> 12 à 18 ans<br>
+                                    <input id="childrensAll" class="form-control" type="checkbox"> Peu m'importe<br>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group align-center margin-top-20">
+                <button type="submit" id="eventPersonalized" class="btn btn-success btn-lg btn-circle">Je trouve</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="portlet box green hide" id="eventPersonalizedResult">
+        <div class="portlet-title">
+            <div class="caption">Résultat de recherche</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="note note-success note-green">
+                        <h4 class="block"><b><span id="countUsers"></span></b> personnes disponible !</h4>
+                    </div>
+                </div>
+            </div>
+            {#
+            <div class="form-group align-center">
+                <a href="{{ path('app_event_add', {'personnalized' : 'personnalized'}) }}" class="btn btn-success btn-lg btn-circle">Proposer un évènement</a>
+            </div>
+            #}
+        </div>
+    </div>
+{% endblock %}

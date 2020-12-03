@@ -1,0 +1,9 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour,</h2>
+    <p>Votre compte NOUS-Ensemble a été créé.<br><br>
+        Vous disposez pour le moment d'un seul identidiant et mot de passe pour vous connecter en tant que communauté:<br><br>
+        Votre identifiant : {{user.email}}<br><br>
+        Votre mot de passe : {{password}}
+    </p>
+{% endblock %}

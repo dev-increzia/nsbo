@@ -1,0 +1,111 @@
+api_v1_home_citoyen:
+    path:     /citzen/home/{page}/{limit}
+    defaults: { _controller: ApiBundle:Article:citzenHome }
+    methods:  [GET]
+    
+api_v1_article_association_list:
+    path:     /{id}/association/{page}/{limit}
+    defaults: { _controller: ApiBundle:Article:associations }
+    methods:  [GET]
+
+api_v1_article_merchant_list:
+    path:     /{id}/merchant/{page}/{limit}
+    defaults: { _controller: ApiBundle:Article:merchants }
+    methods:  [GET]
+
+api_v1_article_activate:
+    path:     /{id}/activate
+    defaults: { _controller: ApiBundle:Article:activate }
+    methods:  [GET]
+
+api_v1_article_deactivate:
+    path:     /{id}/deactivate
+    defaults: { _controller: ApiBundle:Article:deactivate }
+    methods:  [GET]
+    
+api_v1_new_article:
+    path:     /new/{type}/{id}
+    defaults: { _controller: ApiBundle:Article:new }
+    methods:  [POST]
+
+api_v1_update_article:
+    path:     /{id}/update
+    defaults: { _controller: ApiBundle:Article:update }
+    methods:  [POST]
+
+api_v1_article_view:
+    path:     /view/{id}
+    defaults: { _controller: ApiBundle:Article:view }
+    methods:  [GET]
+
+pi_v1_article_find:
+    path:     /{event}/findEvent
+    defaults: { _controller: ApiBundle:Article:findEvent }
+    methods:  [GET]
+
+api_v1_new_entrenous:
+    path:     /entrenous
+    defaults: { _controller: ApiBundle:Article:entreNous }
+    methods:  [POST]
+    
+api_v1_delete_article:
+    path:     /delete/{id}
+    defaults: { _controller: ApiBundle:Article:delete }
+    methods:  [GET]
+
+api_v1_wall_merchants:
+    path:     /merchant/city/{city}/category/{category}/wall/{page}/{limit}
+    defaults: { _controller: ApiBundle:Article:merchantsWall }
+    methods:  [GET]
+
+api_v1_wall_associations:
+    path:     /association/city/{city}/category/{category}/wall/{page}/{limit}
+    defaults: { _controller: ApiBundle:Article:associationsWall }
+    methods:  [GET]
+
+api_v1_wall_cityhall:
+    path:     /cityhall/city/{city}/wall/{page}/{limit}
+    defaults: { _controller: ApiBundle:Article:cityhallWall }
+    methods:  [GET]
+api_v1_wall_canteen:
+    path:     /community/articleheading/{id_heading}/canteen/{page}/{limit}
+    defaults: { _controller: ApiBundle:Article:articleHeading }
+    methods:  [GET]
+api_v1_wall_citzens:
+    path:     /citzen/city/{city}/category/{category}/wall/{page}/{limit}
+    defaults: { _controller: ApiBundle:Article:citzensWall }
+    methods:  [GET]   
+    
+api_v1_report_abuse:
+    path:     /report/abuse/{id}
+    defaults: { _controller: ApiBundle:Article:reportAbuse }
+    methods:  [POST]
+
+api_v1_article_like:
+    path:     /{id}/like
+    defaults: { _controller: ApiBundle:Article:like }
+    methods:  [GET]
+
+api_v1_article_unlike:
+    path:     /{id}/unlike
+    defaults: { _controller: ApiBundle:Article:unlike }
+    methods:  [GET]
+api_v1_article_likes:
+    path:     /{id}/likes
+    defaults: { _controller: ApiBundle:Article:likes }
+    methods:  [GET]
+
+api_pastilles_news:
+    path: /j_tags
+    defaults: { _controller: ApiBundle:Article:JTags }
+    methods: [GET]
+
+api_download_doc:
+    path: /download/doc/{id}
+    defaults: { _controller: ApiBundle:Article:downloadDoc }
+    methods: [GET]
+
+api_duplicate_article:
+    path:     /{id}/duplicate
+    defaults: { _controller: ApiBundle:Article:duplicate }
+    methods:  [POST]

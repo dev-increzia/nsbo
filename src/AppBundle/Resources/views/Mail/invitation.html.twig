@@ -1,0 +1,9 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour,</h2>
+    <p> {{ user.firstname}} {{ user.lastname}} vous invite à rejoindre l'application NOUS-Ensemble.
+        Vous pourrez retrouver toutes les informations sur la vie dans votre commune:
+        Evènements, activités, jeux, le savoir-faire de vos commerçants, et les messages
+        de la commune.
+    </p>
+{% endblock %}

@@ -1,0 +1,53 @@
+app_goodplan_index:
+  path:     /
+  defaults: { _controller: AppBundle:GoodPlan:index }
+
+app_goodplan_grid:
+  path:     /grid
+  defaults: { _controller: AppBundle:GoodPlan:indexGrid }
+  options:
+    expose: true
+
+app_goodplan_add:
+  path:     /add
+  defaults: { _controller: AppBundle:GoodPlan:update }
+
+app_goodplan_update:
+  path:     /update/{id}
+  defaults: { _controller: AppBundle:GoodPlan:update }
+  requirements:
+    id: \d+
+
+app_goodplan_delete:
+  path:     /delete/{id}
+  defaults: { _controller: AppBundle:GoodPlan:delete }
+  requirements:
+    id: \d+
+
+app_goodplan_activate:
+  path:     /activate/{id}
+  defaults: { _controller: AppBundle:GoodPlan:activate }
+  requirements:
+    id: \d+
+
+app_goodplan_moderate:
+  path:     /moderate/{id}
+  defaults: { _controller: AppBundle:GoodPlan:moderate }
+  requirements:
+    id: \d+
+
+app_goodplan_moderate_secondary:
+  path:     /moderate_secondary/{id}
+  defaults: { _controller: AppBundle:GoodPlan:moderateSecondary }
+  requirements:
+    id: \d+
+
+app_goodplan_view:
+  path:     /view/{id}
+  defaults: { _controller: AppBundle:GoodPlan:view }
+  requirements:
+    id: \d+
+
+app_goodplan_settings:
+  path:     /settings
+  defaults: { _controller: AppBundle:GoodPlan:settings }

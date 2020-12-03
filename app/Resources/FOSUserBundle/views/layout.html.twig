@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>NOUS Ensemble | Administration</title>
+        <meta content="IE=edge" http-equiv="X-UA-Compatible">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/simple-line-icons.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap-switch.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/select2.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/select2-bootstrap.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/components.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/plugins.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/app/plugins/minicolors/jquery.minicolors.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/login-5.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/custom.min.css') }}">
+        <link href="{{ asset('bundles/app/images/favicon.ico') }}" rel="shortcut icon">
+    </head>
+    <body class=" login">
+        <div class="user-login-5">
+            <div class="row bs-reset">
+                <div class="col-md-6 bs-reset">
+                    <div style="background-image:url({{ asset('bundles/app/images/bg1.jpg') }})" class="login-bg" data-bg1="{{ asset('bundles/app/images/bg1.jpg') }}" data-bg2="{{ asset('bundles/app/images/bg2.jpg') }}" data-bg3="{{ asset('bundles/app/images/bg3.jpg') }}">
+                    </div>
+                </div>
+                <div class="col-md-6 login-container bs-reset">
+                    {% set _flashMessages = app.session.flashbag.all() %}
+                    {% for type, messages in _flashMessages %}
+                        {% for flashMessage in messages %}
+                            <div class="alert{% if type !='message' %} alert-{{ type }}{% endif %} alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button"></button>
+                                {{ flashMessage|trans({}, 'FOSUserBundle') }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% block fos_user_content %}
+                    {% endblock fos_user_content %}
+                </div>
+            </div>
+        </div>
+        {% block js %}
+            <!--[if lt IE 9]>
+                <script src="{{ asset('bundles/app/js/respond.min.js') }}"></script>
+                <script src="{{ asset('bundles/app/js/excanvas.min.js') }}"></script> 
+            <![endif]-->
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery-ui-1.9.2.custom.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/js.cookie.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/bootstrap-hover-dropdown.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.slimscroll.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.blockui.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.uniform.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/bootstrap-switch.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/moment.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/daterangepicker.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/morris.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/raphael-min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.waypoints.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.counterup.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/amcharts.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/serial.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/pie.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/radar.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/light.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/patterns.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/chalk.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/ammap.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/worldLow.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/amstock.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/fullcalendar.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.flot.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.flot.resize.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.flot.categories.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.easypiechart.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.sparkline.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.vmap.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.vmap.russia.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.vmap.world.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.vmap.europe.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.vmap.germany.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.vmap.usa.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.vmap.sampledata.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.validate.min.js')}}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/additional-methods.min.js')}}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/select2.full.min.js')}}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.backstretch.min.js')}}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/datatable.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/datatables.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/datatables.bootstrap.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/plugins/minicolors/jquery.minicolors.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/custom.js') }}"></script>
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+        {% endblock %}
+    </body>
+</html>

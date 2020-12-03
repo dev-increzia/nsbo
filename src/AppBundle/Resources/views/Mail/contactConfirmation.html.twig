@@ -1,0 +1,5 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour {{ user.lastname}} {{ user.firstname}},</h2>
+    <p>Nous vous confirmons l'envois de votre message à la direction de votre communauté.</p>
+{% endblock %}

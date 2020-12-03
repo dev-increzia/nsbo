@@ -1,0 +1,75 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <a href="{{ path('app_association') }}">Liste des associations</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>Liste des Administrateurs</span>
+    </li>
+    
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Liste des Administrateurs</h3>
+{% endblock %}
+{% block maincontent %}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Ajouter administrateur</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ form_start(form, {'attr': {'id': 'new_association_admin'}}) }}
+                    {{ form_errors(form) }}
+                    <div class="form-group">
+                        <div class="col-sm-12 padding-none margin-none">
+                            <div class="form-group">
+                                {{ form_label(form.adminEmail, "Administrateur", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.adminEmail, {'attr': {'class': 'form-control', 'data-cityhall' : cityhall}}) }}
+                                {{ form_errors(form.adminEmail) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success'}, 'label': 'Ajouter'}) }}
+                    </div>
+                </div>
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="associationAdminsTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        <th>Ville</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for admin in entity.admins %}
+                        <tr>
+                            <td>{{ admin.lastname|e }}</td>
+                            <td>{{ admin.firstname|e }}</td>
+                            <td>{{ admin.email|e }}</td>
+                            <td>{{ admin.city.name|e }}</td>
+                            <td>
+                                <a alt="Supprimer" title="Supprimer" class="btn btn-default" href="{{ path('app_association_delete_admin', {'association' : entity.id , 'id': admin.id }) }}" onclick="return confirm('Êtes-vous sur de vouloir supprimer ?');"><i class="fa fa-remove"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

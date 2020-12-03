@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>NOUS Ensemble | Administration</title>
+        <meta content="IE=edge" http-equiv="X-UA-Compatible">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/font-awesome.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/simple-line-icons.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap-switch.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/components.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/plugins.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/error.css') }}"/>
+    </head>
+    <body class="page-404-3">
+        <div class="page-inner">
+            <img src="{{ asset('bundles/app/images/earth.jpg') }}" class="img-responsive" alt=""> 
+        </div>
+        <div class="container error-404">
+            {% block error %}
+                <h2>Une erreur est survenue</h2>
+                <p><a href="{{ path('app_homepage') }}" class="btn green btn-outline"> Retour à l'accueil </a></p>
+            {% endblock %}
+        </div>
+        {% block js %}
+            <!--[if lt IE 9]>
+                <script src="{{ asset('bundles/app/js/respond.min.js') }}"></script>
+                <script src="{{ asset('bundles/app/js/excanvas.min.js') }}"></script> 
+            <![endif]-->
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/bootstrap-switch.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/js.cookie.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/jquery.slimscroll.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/app.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/app/js/custom.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script type="text/javascript" src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+        {% endblock %}
+    </body>
+</html>

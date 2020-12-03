@@ -1,0 +1,49 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+parameters:
+    database_host: 127.0.0.1
+    database_port: ~
+    database_name: symfony
+    database_user: root
+    database_password: ~
+    # You should uncomment this if you want to use pdo_sqlite
+    #database_path: '%kernel.root_dir%/../var/data/data.sqlite'
+
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: ~
+    mailer_password: ~
+
+    # A secret key that's used to generate certain security-related tokens
+    secret: ThisTokenIsNotSoSecretChangeIt
+
+    # JWT
+    jwt_private_key_path: %kernel.root_dir%/../var/jwt/private.pem
+    jwt_public_key_path:  %kernel.root_dir%/../var/jwt/public.pem
+    jwt_key_pass_phrase:  'nousensemble'
+    jwt_token_ttl:        604800
+
+    # rms_push
+    ios_pem_path : '%kernel.root_dir%/../var/rms/apns.dev.pem'
+    ios_passphrase : 'nousensemble'
+    ios_sandbox : true
+    android_api_key : 'AAAAWwgSXiU:APA91bEjK6OXZi50tXlW4YS6oICda9EorAbRVuRU3EBNYyBbvqrsdaX11YfGLzNmSWNU6y3LsAtddY_D4iacwsMjPH4xuZAu6GLxDazEz3bJiTK32evPrKZpF1XAGqOJCS6trBSwxRle6lZgYYCUM7wvwBBtHBkr-Q'
+    android_multi_curl : true
+    android_dry_run : false
+
+    #mailing
+    no_reply_email: contact@nous-ensemble.fr
+    no_reply_name: NOUS Ensemble
+    reporting_email: signalement@nous-ensemble.fr
+    event_email : annaelle@nous-ensemble.fr
+    admin_email: admin@nous-ensemble.fr
+    #googleanalytics
+    googleanalytics_application_profile_id_mobile: 160697142
+    googleanalytics_application_profile_id_website: 159076788
+    googleanalytics_backoffice_profile_id: 161545162
+    googleanalytics_private_key_json: "%kernel.root_dir%/../var/ganalytics/Nousensemble-5bd5eb0361c5.json"
+    googleanalytics_backoffice_UA : UA-105582305-2
+    googleanalytics_application_UA : UA-105582305-1
+    event_base_url: https://www.nous-ensemble.fr/app/#/
+    community_validity: '10'

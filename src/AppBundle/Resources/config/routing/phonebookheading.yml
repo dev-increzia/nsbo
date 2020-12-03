@@ -1,0 +1,25 @@
+app_phonebookheading_index:
+    path:     /
+    defaults: { _controller: "AppBundle:PhoneBookHeading:index" }
+    methods:  GET
+
+app_phonebookheading_add:
+    path:     /add
+    defaults: { _controller: "AppBundle:PhoneBookHeading:add" }
+    methods:  [GET, POST]
+
+app_phonebookheading_grid:
+    path:     /phoneBookHeadingGrid
+    defaults: { _controller: AppBundle:PhoneBookHeading:indexGrid }
+    options:
+        expose: true
+
+app_phonebookheading_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:PhoneBookHeading:update" }
+    methods:  [GET, POST]
+
+app_phonebookheading_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:PhoneBookHeading:delete" }
+    methods:  GET

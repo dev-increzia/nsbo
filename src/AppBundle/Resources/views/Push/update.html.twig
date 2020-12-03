@@ -1,0 +1,120 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block breadcrumb %}
+    <li>
+        <a href="{{ path('app_push') }}">Liste des notifications PUSH - Evénements</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    <li>
+        <span>Modifier PUSH événement</span>
+    </li>
+{% endblock %}
+{% block pagetitle %}
+    <h3 class="page-title"> Modifier PUSH événement</h3>
+{% endblock %}
+
+
+
+{% block maincontent %}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Informations d'événement</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <span><b>Evénement</b> : {%if entity.event%}{{entity.event.title}}{%endif%}</span>
+                    </div>
+                    <div class="form-group">
+                        <span><b>Auteur</b> : {%if entity.event.createBy%}{{entity.event.createBy.lastname}} {{entity.event.createBy.firstname}}{%endif%}</span>
+                    </div>
+                    <div class="form-group">
+                        {%if entity.event.type == 'association'%}
+                            <span><b>Association</b> : {%if entity.event.association%}{{entity.event.association.name}}{%endif%}</span>
+                        {%elseif entity.event.type == 'merchant'%}
+                            <span><b>Commerçant</b> : {%if entity.event.merchant%}{{entity.event.merchant.name}}{%endif%}</span>
+                        {%elseif entity.event.type == 'cityhall'%}
+                            <span><b>Communauté</b> : {%if entity.event.cityhall%}{{entity.event.cityhall.name}}{%endif%}</span>
+                        {%endif%}
+                    </div>
+                    <div class="form-group">
+                        {%if entity.event.type == 'association'%}
+                            <span><b>Categorie</b> : {%if entity.event.association and entity.event.association.category%}{{entity.event.association.category.name}}{%endif%}</span>
+                        {%elseif entity.event.type == 'merchant'%}
+                            <span><b>Commerçant</b> : {%if entity.event.merchant and entity.event.merchant.category%}{{entity.event.merchant.category.name}}{%endif%}</span>
+                        {%endif%}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">Informations générales</div>
+            <div class="tools">
+                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: block;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <div class="col-sm-6 padding-none margin-none">
+                            <div class="form-group">
+                                {{ form_label(form.dateAt, "Date d'envoi du push", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.dateAt, {'attr': {'class': 'form-control datepickerwithouthour'}}) }}
+                                {{ form_errors(form.dateAt) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6 padding-right-0 margin-right-0">
+                            <div class="form-group">
+                                {{ form_label(form.hourAt, "Heure d'envoi", {'label_attr': {'class': 'control-label'}}) }}
+                                {{ form_widget(form.hourAt, {'attr': {'class': 'form-control timepicker hasWickedpicker', 'data-minutesInterval' : '5'}}) }}
+                                {{ form_errors(form.hourAt) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        {{ form_label(form.content, "Message du push", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.content) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block infocreate %}            
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">Informations de création</div>
+                <div class="tools">
+                    <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+                </div>
+            </div>
+            <div class="portlet-body" style="display: block;">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <span><b>Créé le</b> {%if entity.createAt%}{{entity.createAt|date("d/m/Y H:i")}}{%endif%} <b>par</b> {%if entity.createBy%}{{entity.createBy.lastname}} {{entity.createBy.firstname}}{%endif%}</span>
+                        </div>
+                        <div class="form-group">
+                            <span><b>Dernière modification le</b> {%if entity.updateAt%}{{entity.updateAt|date("d/m/Y H:i")}}{%endif%} <b>par</b> {%if entity.updateBy%}{{entity.updateBy.lastname}} {{entity.updateBy.firstname}}{%endif%}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    <div class="form-group align-center">
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-success btn-lg'}, 'label': 'Valider'}) }}
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}

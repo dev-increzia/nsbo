@@ -1,0 +1,6 @@
+{% extends "TwigBundle:Exception:error.html.twig" %}
+{% block error %}
+    <h1>404</h1>
+    <h2>La page que vous demandée n'existe pas</h2>
+    <p><a href="{{ path('app_homepage') }}" class="btn green btn-outline"> Retour à l'accueil </a></p>
+{% endblock %}

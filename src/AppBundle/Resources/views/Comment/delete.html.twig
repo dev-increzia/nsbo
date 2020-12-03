@@ -1,0 +1,32 @@
+<div aria-hidden="true" role="dialog" tabindex="-1" id="commentDelete{{comment.id}}" class="modal fade bs-modal-lg in" style="display: block; padding-right: 16px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+                <h4 class="modal-title">Supprimer un commentaire:</h4>
+            </div>
+            {{ form_start(form, {'attr': {'class': '', 'action': path('app_comment_delete', { id: comment.id })}}) }}
+            {{ form_errors(form) }}
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            {{ form_label(form.message, "Assurez-vous que la suppression rentre dans les règles des conditions générales d'utilisation.Si vous souhaitez specifier à l'auteur la raison de votre suppression vous pouvez le faire ici:", {'label_attr': {'class': 'control-label'}}) }}
+                            {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.message) }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                {{ form_widget(form.save, {'attr': {'class': 'btn btn-success'}, 'label': 'Supprimer'}) }}
+                <button data-dismiss="modal" class="btn dark btn-outline" type="button">Annuler</button>
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

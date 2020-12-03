@@ -1,0 +1,7 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour,</h2>
+    <p> {{ user.lastname | capitalize}} {{ user.firstname | capitalize}} souhaite rejoindre votre covoiturage pour l'évènement : {{ carpool.event.title }} dont le rendez vous sera à {{ carpool.meetingTime | date('H:i') }} et l'emplacement sera : {{ carpool.relayPoint }}.<br/>
+        Voici son numéro de téléphone pour le/la joindre : {{ phoneUser }}
+    </p>
+{% endblock %}

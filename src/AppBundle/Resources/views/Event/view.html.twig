@@ -1,0 +1,109 @@
+<div aria-hidden="true" role="dialog" tabindex="-1" id="event{{entity.id}}" class="modal fade bs-modal-lg in" style="display: block; padding-right: 16px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+                <h4 class="modal-title">{{entity.title}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <span><b>Lieu</b> : {{entity.place}}</span>
+                        </div>
+                        <div class="form-group">
+                            <span><b>Date de début</b> : {{entity.startAt|date("d/m/Y H:i")}}</span>
+                        </div>
+                        <div class="form-group">
+                            <span><b>Date de fin</b> : {{entity.endAt|date("d/m/Y H:i")}}</span>
+                        </div>
+                        <div class="form-group">
+                            <span><b>Description</b> : {{entity.description}}</span>
+                        </div>
+                        {#<div class="form-group">
+                            <span><b>Photo</b> : </span>
+                        </div>#}
+                        <div class="form-group">
+                            <span><b>Prix</b> : {{entity.price}}</span>
+                        </div>
+                        <div class="form-group">
+                            <span><b>Réservation</b> : 
+                                {% for reservation in entity.reservations %}
+                                    {{reservation.name}},
+                                {% endfor %}
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <span><b>Lien de réservation</b> : {{entity.reservationUrl}}</span>
+                        </div>
+                        <div class="form-group">
+                            <span><b>Lien de l'événement</b> : <a href="{{event_base_url  ~ entity.id}}" target="_blank">{{event_base_url  ~ entity.id}}</a></span>
+                        </div>
+                        <div class="form-group">
+                            <span><b>Notification push</b> : {%if entity.pushEnabled%}Activé{%else%}Désactivé{%endif%}</span><br>
+                            {%if entity.pushEnabled and entity.push%}
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <span><b>Date</b> : {{entity.push.sendAt|date("d/m/Y H:i")}}</span>
+                                    </div>
+                                </div>
+                            {%endif%}
+                            {%if entity.pushEnabled and entity.push%}
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <span><b>Message</b> : {{entity.push.content}}</span>
+                                    </div>
+                                </div>
+                            {%endif%}
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <span><b>Article lié</b> : {%if entity.toCity%}Oui{%else%}Non{%endif%}</span><br>
+                            {%if entity.toCity and entity.article%}
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <span><b>Article</b> : {{entity.article.title}}</span>
+                                    </div>
+                                </div>
+                            {%endif%}
+                        </div>
+                        <div class="clearfix"></div>
+                        {#<div class="form-group">
+                            <span><b>Bénévoles</b> : {%if entity.needVolunteer%}Oui{%else%}Non{%endif%}</span><br>
+                        </div>#}
+                        <div class="form-group">
+                            <div class="form-group">
+                                {% if (app.user.isCommunityAdmin(community) and app.user.hasRight('event_aprove',community)) or app.user.isCommunitySuAdmin(community) or is_granted('ROLE_ADMIN') %}
+                                <span><b>Modération</b> : <br>
+                                    {%if entity.moderate == 'accepted'%}Accepté{%elseif entity.moderate == 'refuse'%}Refusé{%else%}En attente{%endif%}
+                                    <br>
+                                    {%if entity.moderate == 'wait'%}
+                                        <a href="{{ path('app_event_moderate', {id: entity.id}) }}" class="btn btn-success btn-sm updateModerateEvent" type="button" data-type="accepted">Accepter</a>
+                                        <a href="{{ path('app_event_moderate', {id: entity.id}) }}" class="btn btn-danger btn-sm updateModerateEvent" type="button" data-type="refuse">Refuser</a>
+                                    {%endif%}
+                                </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span><b>Créé le</b> {%if entity.createAt%}{{entity.createAt|date("d/m/Y H:i")}}{%endif%} <b>par</b> {%if entity.createBy%}{{entity.createBy.lastname}} {{entity.createBy.firstname}}{%endif%}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                {% if is_granted('ROLE_COMMUNITY_SU_ADMIN') %}
+                {%if entity.enabled%}
+                    <a href="{{ path('app_event_activate', {id: entity.id}) }}" class="btn btn-success btn-outline activateEvent" type="button" title="Désactiver signfie que l'événement ne sera plus publié sur l'application. Vous pourrez le réactiver si besoin"><i class=" fa fa-lock"></i> Désactiver</a>
+                {%else%}
+                    <a href="{{ path('app_event_activate', {id: entity.id}) }}" class="btn btn-success btn-outline activateEvent" type="button" title="Activer signfie que l'événement sera plus publié sur l'application"><i class=" fa fa-lock"></i> Activer</a>
+                {%endif%}
+                <a href="{{ path('app_event_update', {id: entity.id}) }}" class="btn btn-success btn-outline" type="button"> <i class=" fa fa-pencil-square"> Modifier l'évènement</i></a>
+                {% endif %}
+                <button data-dismiss="modal" class="btn dark btn-outline" type="button">Fermer</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

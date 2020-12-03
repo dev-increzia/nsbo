@@ -1,0 +1,41 @@
+{% block vich_file_widget %}
+    {% spaceless %}
+        <div class="form-group vich-file">
+            {{ form_row(form.file) }}
+            {% if form.delete is defined %}
+                {{ form_row(form.delete) }}
+            {% endif %}
+
+            {% if download_uri is defined and download_uri %}
+                {% set filename = download_uri|split('/') %}
+                <a alt="{{ 'download'|trans({}, 'VichUploaderBundle') }}" title="{{ 'download'|trans({}, 'VichUploaderBundle') }}" class="btn btn-primary" href="{{ download_uri }}" style="margin-top: 10px">
+                    {{ filename|last }}
+                </a>
+            {% endif %}
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block vich_image_widget %}
+    {% spaceless %}
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                {{ form_row(form.file) }}
+                {% if form.delete is defined %}
+                    {{ form_row(form.delete) }}
+                {% endif %}
+            </div>
+            <div class="col-md-12 col-lg-12">
+                {% if download_uri is defined and download_uri %}<a href="{{ app.request.basePath }}{{ download_uri }}">
+                        <img src="{{ app.request.basePath }}{{ download_uri }}" alt="" class="thumbnail img-responsive" style="max-height:150px;"/>
+                    </a>
+                {% endif %}
+                {% if show_download_link and download_uri is defined and download_uri%}
+                    <a alt="{{ 'download'|trans({}, 'VichUploaderBundle') }}" title="{{ 'download'|trans({}, 'VichUploaderBundle') }}" class="btn btn-default" href="{{ download_uri }}">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}

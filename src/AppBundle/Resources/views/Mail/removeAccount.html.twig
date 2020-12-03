@@ -1,0 +1,8 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour,</h2>
+    <p>
+        Le compte {{type}} {{entity.name}} a été supprimer. <br>
+        Raison : {{entity.reason}}
+    </p>
+{% endblock %}

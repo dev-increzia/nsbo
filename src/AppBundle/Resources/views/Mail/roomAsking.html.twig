@@ -1,0 +1,8 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour,</h2>
+    <p>Cet email vous est envoyé par l'application NOUS-Ensemble et à l'initiative de {{ sender.lastname |upper }} {{ sender.firstname |capitalize }} ({{ sender.email }}) au sujet de l'événement "{{event.title}}".<br>
+        Voici sa requête :<br><br/>
+        {{ content }}
+    </p>
+{% endblock %}

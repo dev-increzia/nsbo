@@ -1,0 +1,8 @@
+{% extends 'AppBundle:Mail:layout.html.twig' %}
+{% block body %}
+    <h2>Bonjour,</h2>
+    <p>Votre signalement {{entity.title}} a bien été pris en compte.<br><br>
+        Son statut a été modifié ce jour à: {{entity.moderateText()}}.<br><br>
+        Pour plus d'information, veuillez contacter votre communauté à l'adresse suivante: {{entity.cityhall.email}}
+    </p>
+{% endblock %}

@@ -1,0 +1,32 @@
+<div aria-hidden="true" role="dialog" tabindex="-1" id="articleShareDedicated{{article.id}}" class="modal fade bs-modal-lg in" style="display: block;padding-right: 16px;padding-top: 16px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button" onclick="$('#articleShareDedicated{{article.id}}').remove()"></button>
+                <h4 class="modal-title">Partager l'article sur page dédiée:</h4>
+            </div>
+            {{ form_start(form, {'attr': {'class': '', 'action': path('app_article_share_dedicated_page', { articleId: article.id })}}) }}
+            {{ form_errors(form) }}
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            {{ form_label(form.articleHeading, "choisissez l'onglet de la Page Dédiée concerné:", {'label_attr': {'class': 'control-label'}}) }}
+                            {{ form_widget(form.articleHeading, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.articleHeading) }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                {{ form_widget(form.save, {'attr': {'class': 'btn btn-success'}, 'label': 'Partager'}) }}
+                <button data-dismiss="modal" class="btn dark btn-outline" type="button" onclick="$('#articleShareDedicated{{article.id}}').remove()">Annuler</button>
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

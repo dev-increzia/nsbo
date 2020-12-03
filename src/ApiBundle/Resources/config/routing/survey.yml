@@ -1,0 +1,9 @@
+api_v1_add_survey:
+  path:     /new
+  defaults: { _controller: ApiBundle:Survey:add }
+  methods:  [POST]
+
+api_v1_add_survey_response:
+  path:     /addResponse
+  defaults: { _controller: ApiBundle:Survey:addResponse }
+  methods:  [POST]

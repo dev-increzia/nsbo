@@ -1,0 +1,157 @@
+api_v1_event_list:
+    path:     /{type}/{id}/{searchType}/{start}/{offset}
+    defaults: { _controller: ApiBundle:Event:list }
+    methods:  [GET]
+api_v1_event_volunteers:
+    path:     /{event}/volunteers
+    defaults: { _controller: ApiBundle:Event:volunteers }
+    methods:  [GET]
+api_v1_event_mails:
+    path:     /volunteers/mails
+    defaults: { _controller: ApiBundle:Event:sendMails }
+    methods:  [POST]
+api_v1_event_mails_all:
+    path:     /volunteers/mails/all
+    defaults: { _controller: ApiBundle:Event:sendAllMails }
+    methods:  [POST]
+
+api_v1_events_merchant_list:
+    path:     /{id}/merchant/{page}/{limit}
+    defaults: { _controller: ApiBundle:Event:getEventsMerchant }
+    methods:  [GET]
+
+api_v1_events_filter_merchant:
+    path:     /merchant/{id}/filter/{personalized}/{page}/{limit}
+    defaults: { _controller: ApiBundle:Event:getEventsFilterMerchant }
+    methods:  [GET]
+api_v1_events_association_list:
+    path:     /{id}/association/{page}/{limit}
+    defaults: { _controller: ApiBundle:Event:getEventsAssociation }
+    methods:  [GET]
+api_v1_events_filter_association:
+    path:     /association/{id}/filter/{personalized}/{page}/{limit}
+    defaults: { _controller: ApiBundle:Event:getEventsFilterAssociation }
+    methods:  [GET]
+api_v1_event_details:
+    path:     /{id}/details
+    defaults: { _controller: ApiBundle:Event:detailsEvent }
+    methods:  [GET]
+
+api_v1_delete_event:
+    path:     /delete/{id}
+    defaults: { _controller: ApiBundle:Event:deleteEvent }
+    methods:  [GET]
+
+api_v1_event_add:
+    path:     /{type}/{id}/new
+    defaults: { _controller: ApiBundle:Event:new }
+    methods:  [POST]
+
+api_v1_event_activate:
+    path:     /{id}/activate
+    defaults: { _controller: ApiBundle:Event:activate }
+    methods:  [GET]
+
+api_v1_event_deactivate:
+    path:     /{id}/deactivate
+    defaults: { _controller: ApiBundle:Event:deactivate }
+    methods:  [GET]
+
+api_v1_event_agenda:
+    path:     /citzen/agenda/{page}/{limit}
+    defaults: { _controller: ApiBundle:Event:citzenAgenda }
+    methods:  [GET]
+
+api_v1_event_takepart:
+    path:     /{id}/takepart
+    defaults: { _controller: ApiBundle:Event:takepart }
+    methods:  [GET]
+
+api_v1_event_canceltakepart:
+    path:     /{id}/canceltakepart
+    defaults: { _controller: ApiBundle:Event:canceltakepart }
+    methods:  [GET]
+
+api_v1_event_addcontact:
+    path:     /{id}/addcontact
+    defaults: { _controller: ApiBundle:Event:addContact }
+    methods:  [POST]
+
+api_v1_event_citzenfilter:
+    path:     /citzen/filter/{city}/{datetime}/{page}/{limit}
+    defaults: { _controller: ApiBundle:Event:citzeneventFilter }
+    methods:  [GET]
+api_v1_event_eventreservations:
+    path:     /eventreservations
+    defaults: { _controller: ApiBundle:Event:eventReservation }
+    methods:  [GET]
+api_v1_event_citzeneventallintersts:
+    path:     /citzeneventall/interests/{page}/{limit}
+    defaults: { _controller: ApiBundle:Event:citzeneventallInterests }
+    methods:  [GET]
+api_v1_event_citzeneventPersonalized:
+    path:     /citzenevent/personalized/{type}/{id}/{dayactivitymonday}/{dayactivitytuesday}/{dayactivitywednesday}/{dayactivitythursday}/{dayactivityfriday}/{dayactivitysaturday}/{dayactivitysunday}/{agefrom}/{ageto}/{lessThanSix}/{betweenSixTwelve}/{betweenTwelveEighteen}/{allChildrens}
+    defaults: { _controller: ApiBundle:Event:citzeneventPersonalized }
+    methods:  [GET]
+api_v1_event_edit:
+    path:     /{type}/{event}/edit
+    defaults: { _controller: ApiBundle:Event:edit }
+    methods:  [POST]
+api_v1_event_edit_private:
+    path:     /{type}/{event}/editPrivate
+    defaults: { _controller: ApiBundle:Event:editPrivate }
+    methods:  [GET]
+api_v1_event_agenda_page:
+    path:     /agenda/{page}/{limit}
+    defaults: { _controller: ApiBundle:Event:Events }
+    methods:  [GET]
+
+api_v1_event_participants:
+    path:     /{id}/participants
+    defaults: { _controller: ApiBundle:Event:eventParticipants }
+    methods:  [GET]
+
+api_v1_event_volonteers:
+    path:     /{id}/volonteers
+    defaults: { _controller: ApiBundle:Event:eventVolonteers }
+    methods:  [GET]
+
+api_v1_event_transported:
+    path:     /{id}/transported
+    defaults: { _controller: ApiBundle:Event:eventTransported }
+    methods:  [GET]
+
+api_v1_event_view_obj:
+    path:     /{id}
+    defaults: { _controller: ApiBundle:Event:view }
+    methods:  [GET]
+    
+api_v1_envent_progress:
+    path:     /{id}/progress
+    defaults: { _controller: ApiBundle:Event:enventProgress }
+    methods:  [GET]
+api_v1_event_participants_nbre:
+    path:     /participantsNbre
+    defaults: { _controller: ApiBundle:Event:participantsNbre }
+    methods:  [POST]
+
+api_v1_event_addCarpoolAnswer:
+    path:     /{id}/addCarpollAnswer
+    defaults: { _controller: ApiBundle:Event:addCarpollAnswer }
+    methods:  [POST]
+
+api_v1_event_addCarpool:
+    path:     /{id}/addCarpoll
+    defaults: { _controller: ApiBundle:Event:addCarpoll }
+    methods:  [POST]
+
+api_v1_envent_delete_carpool_demand:
+    path:     /{id}/deleteCarpoolDemand
+    defaults: { _controller: ApiBundle:Event:deleteCarpoolDemand }
+    methods:  [GET]
+
+
+api_duplicate_event:
+    path:     /{id}/duplicate
+    defaults: { _controller: ApiBundle:Event:duplicate }
+    methods:  [POST]
